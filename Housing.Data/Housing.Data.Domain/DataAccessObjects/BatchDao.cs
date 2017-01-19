@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Housing.Data.Domain
+namespace Housing.Data.Domain.DataAccessObjects
 {
-    public class Class1
+    public class BatchDao
     {
     }
 }
