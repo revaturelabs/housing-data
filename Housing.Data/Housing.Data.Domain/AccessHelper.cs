@@ -32,10 +32,12 @@ namespace Housing.Data.Domain
         public List<AssociateDao> GetAssociates()
         {
             var associates = db.Associates.ToList();
+            var result = new List<AssociateDao>();
             //check active
-            //map to Dao
+            //map to Dao //make sure batch,gender are strings!!!!
             //add to list
             //return list
+            return result;
 
         }
 
@@ -46,6 +48,12 @@ namespace Housing.Data.Domain
         public List<BatchDao> GetBatches()
         {
             var batches = db.Batches.ToList();
+            var result = new List<BatchDao>();
+            //check active
+            //map to Dao //make sure batch,gender are strings!!!!
+            //add to list
+            //return list
+            return result;
         }
 
         /// <summary>
@@ -55,6 +63,12 @@ namespace Housing.Data.Domain
         public List<GenderDao> GetGenders()
         {
             var genders = db.Genders.ToList();
+            var result = new List<GenderDao>();
+            //check active
+            //map to Dao //make sure batch,gender are strings!!!!
+            //add to list
+            //return list
+            return result;
         }
 
         /// <summary>
@@ -64,6 +78,12 @@ namespace Housing.Data.Domain
         public List<HousingComplexDao> GetHousingComplexes()
         {
             var complexes = db.HousingComplexes.ToList();
+            var result = new List<HousingComplexDao>();
+            //check active
+            //map to Dao //make sure batch,gender are strings!!!!
+            //add to list
+            //return list
+            return result;
         }
 
         /// <summary>
@@ -73,6 +93,12 @@ namespace Housing.Data.Domain
         public List<HousingUnitDao> GetHousingUnits()
         {
             var units = db.HousingUnits.ToList();
+            var result = new List<HousingUnitDao>();
+            //check active
+            //map to Dao //make sure batch,gender are strings!!!!
+            //add to list
+            //return list
+            return result;
         }
 
         /// <summary>
@@ -82,6 +108,12 @@ namespace Housing.Data.Domain
         public List<HousingDataDao> GetHousingData()
         {
             var data = db.HousingDatas.ToList();
+            var result = new List<HousingDataDao>();
+            //check active
+            //map to Dao //make sure batch,gender are strings!!!!
+            //add to list
+            //return list
+            return result;
         }
 
         /// <summary>
@@ -90,7 +122,8 @@ namespace Housing.Data.Domain
         /// <returns>List(HousingUnitDao)</returns>
         public List<HousingUnitDao> GetUnitsByComplex(int id)
         {
-            
+            var result = new List<HousingUnitDao>();
+            return result;
         }
 
         /// <summary>
@@ -99,7 +132,8 @@ namespace Housing.Data.Domain
         /// <returns>List(HousingDataDao)</returns>
         public List<HousingDataDao> GetDataByUnit(int id)
         {
-
+            var result = new List<HousingDataDao>();
+            return result;
         }
 
        
