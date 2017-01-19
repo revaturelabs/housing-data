@@ -1,0 +1,166 @@
+﻿using AutoMapper;
+using Housing.Data.Domain.DataAccessObjects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Housing.Data.Domain
+{
+    public class AccessMapper
+    {
+        private readonly MapperConfiguration HousingComplexMapper = new MapperConfiguration(g => g.CreateMap<HousingComplex, HousingComplexDao>().ReverseMap());
+        private readonly MapperConfiguration HousingUnitMapper = new MapperConfiguration(g => g.CreateMap<HousingUnit, HousingUnitDao>().ReverseMap());
+        private readonly MapperConfiguration HousingDataMapper = new MapperConfiguration(r => r.CreateMap<HousingData, HousingDataDao>().ReverseMap());
+        private readonly MapperConfiguration AssociateMapper = new MapperConfiguration(s => s.CreateMap<Associate, AssociateDao>().ReverseMap());
+        private readonly MapperConfiguration BatchMapper = new MapperConfiguration(s => s.CreateMap<Batch, BatchDao>().ReverseMap());
+        private readonly MapperConfiguration GenderMapper = new MapperConfiguration(s => s.CreateMap<Gender, GenderDao>().ReverseMap());
+
+
+        /// <summary>
+        /// Map HousingComplex entity object to HousingComplexDao
+        /// </summary>
+        /// <param name="com"></param>
+        /// <returns>HousingComplexDao</returns>
+        public HousingComplexDao MapToDao(HousingComplex com)
+        {
+            var mapper = HousingComplexMapper.CreateMapper();
+            HousingComplexDao comDao = mapper.Map<HousingComplexDao>(com);
+            return comDao;
+        }
+
+        /// <summary>
+        /// Map HousingComplexDao to HousingComplex entity object 
+        /// </summary>
+        /// <param name="comDao"></param>
+        /// <returns>HousingComplex</returns>
+        public HousingComplex MapToEntity(HousingComplexDao comDao)
+        {
+            var mapper = HousingComplexMapper.CreateMapper();
+            HousingComplex com = mapper.Map<HousingComplex>(comDao);
+            return com;
+        }
+
+        /// <summary>
+        /// Map HousingUnit entity object to HousingUnitDao
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <returns>HousingUnitDao</returns>
+        public HousingUnitDao MapToDao(HousingUnit unit)
+        {
+            var mapper = HousingUnitMapper.CreateMapper();
+            HousingUnitDao unitDao = mapper.Map<HousingUnitDao>(unit);
+            return unitDao;
+        }
+
+        /// <summary>
+        /// Map HousingUnitDao to HousingUnit entity object 
+        /// </summary>
+        /// <param name="unitDao"></param>
+        /// <returns>HousingUnit</returns>
+        public HousingUnit MapToEntity(HousingUnitDao unitDao)
+        {
+            var mapper = HousingUnitMapper.CreateMapper();
+            HousingUnit unit = mapper.Map<HousingUnit>(unitDao);
+            return unit;
+        }
+
+        /// <summary>
+        /// Map HousingData entity object to HousingDataDao
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>HousingDataDao</returns>
+        public HousingDataDao MapToDao(HousingData data)
+        {
+            var mapper = HousingDataMapper.CreateMapper();
+            HousingDataDao dataDao = mapper.Map<HousingDataDao>(data);
+            return dataDao;
+        }
+
+        /// <summary>
+        /// Map HousingDataDao to HousingData entity object 
+        /// </summary>
+        /// <param name="dataDao"></param>
+        /// <returns>HousingData</returns>
+        public HousingData MapToEntity(HousingDataDao dataDao)
+        {
+            var mapper = HousingDataMapper.CreateMapper();
+            HousingData data = mapper.Map<HousingData>(dataDao);
+            return data;
+        }
+
+        /// <summary>
+        /// Map Associate entity object to AssociateDao
+        /// </summary>
+        /// <param name="assoc"></param>
+        /// <returns>AssociateDao</returns>
+        public AssociateDao MapToDao(Associate assoc)
+        {
+            var mapper = AssociateMapper.CreateMapper();
+            AssociateDao assocDao = mapper.Map<AssociateDao>(assoc);
+            return assocDao;
+        }
+
+        /// <summary>
+        /// Map AssociateDao to Associate entity object
+        /// </summary>
+        /// <param name="assocDao"></param>
+        /// <returns>Associate</returns>
+        public Associate MapToEntity(AssociateDao assocDao)
+        {
+            var mapper = AssociateMapper.CreateMapper();
+            Associate assoc = mapper.Map<Associate>(assocDao);
+            return assoc;
+        }
+
+        /// <summary>
+        /// Map Batch entity object to BatchDao
+        /// </summary>
+        /// <param name="batch"></param>
+        /// <returns>BatchDao</returns>
+        public BatchDao MapToDao(Batch batch)
+        {
+            var mapper = BatchMapper.CreateMapper();
+            BatchDao batchDao = mapper.Map<BatchDao>(batch);
+            return batchDao;
+        }
+
+        /// <summary>
+        /// Map BatchDao to Batch entity object
+        /// </summary>
+        /// <param name="batchDao"></param>
+        /// <returns>Batch</returns>
+        public Batch MapToEntity(BatchDao batchDao)
+        {
+            var mapper = BatchMapper.CreateMapper();
+            Batch batch = mapper.Map<Batch>(batchDao);
+            return batch;
+        }
+
+        /// <summary>
+        /// Map Gender entity object to GenderDao
+        /// </summary>
+        /// <param name="gen"></param>
+        /// <returns>AssociateDao</returns>
+        public GenderDao MapToDao(Gender gen)
+        {
+            var mapper = GenderMapper.CreateMapper();
+            GenderDao genDao = mapper.Map<GenderDao>(gen);
+            return genDao;
+        }
+
+        /// <summary>
+        /// Map GenderDao to Gender entity object
+        /// </summary>
+        /// <param name="genDao"></param>
+        /// <returns>Gender</returns>
+        public Gender MapToEntity(GenderDao genDao)
+        {
+            var mapper = GenderMapper.CreateMapper();
+            Gender gen = mapper.Map<Gender>(genDao);
+            return gen;
+        }
+
+    }
+}

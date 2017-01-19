@@ -11,6 +11,7 @@ namespace Housing.Data.Domain
     public class AccessHelper
     {
         private readonly HousingDB_DevEntities db;
+        public AccessMapper mapper = new AccessMapper();
 
         /// <summary>
         /// constructors
