@@ -10,12 +10,12 @@ namespace Housing.Data.Domain
 {
     public class AccessMapper
     {
-        private readonly MapperConfiguration HousingComplexMapper = new MapperConfiguration(g => g.CreateMap<HousingComplex, HousingComplexDao>().ReverseMap());
-        private readonly MapperConfiguration HousingUnitMapper = new MapperConfiguration(g => g.CreateMap<HousingUnit, HousingUnitDao>().ReverseMap());
-        private readonly MapperConfiguration HousingDataMapper = new MapperConfiguration(r => r.CreateMap<HousingData, HousingDataDao>().ReverseMap());
-        private readonly MapperConfiguration AssociateMapper = new MapperConfiguration(s => s.CreateMap<Associate, AssociateDao>().ReverseMap());
-        private readonly MapperConfiguration BatchMapper = new MapperConfiguration(s => s.CreateMap<Batch, BatchDao>().ReverseMap());
-        private readonly MapperConfiguration GenderMapper = new MapperConfiguration(s => s.CreateMap<Gender, GenderDao>().ReverseMap());
+        private readonly MapperConfiguration HousingComplexMapper = new MapperConfiguration(c => c.CreateMap<HousingComplex, HousingComplexDao>().ReverseMap());
+        private readonly MapperConfiguration HousingUnitMapper = new MapperConfiguration(u => u.CreateMap<HousingUnit, HousingUnitDao>().ReverseMap());
+        private readonly MapperConfiguration HousingDataMapper = new MapperConfiguration(d => d.CreateMap<HousingData, HousingDataDao>().ReverseMap());
+        private readonly MapperConfiguration AssociateMapper = new MapperConfiguration(a => a.CreateMap<Associate, AssociateDao>().ReverseMap());
+        private readonly MapperConfiguration BatchMapper = new MapperConfiguration(b => b.CreateMap<Batch, BatchDao>().ReverseMap());
+        private readonly MapperConfiguration GenderMapper = new MapperConfiguration(g => g.CreateMap<Gender, GenderDao>().ReverseMap());
 
 
         /// <summary>
