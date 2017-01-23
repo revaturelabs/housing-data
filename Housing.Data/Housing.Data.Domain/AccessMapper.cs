@@ -19,8 +19,8 @@ namespace Housing.Data.Domain
         private readonly MapperConfiguration GenderMapper = new MapperConfiguration(g => g.CreateMap<Gender, GenderDao>().ReverseMap());
 
         private readonly HousingDB_DevEntities db;
-        private readonly List<Batch> batches;
-        private readonly List<Gender> genders;
+        public List<Batch> batches;
+        public List<Gender> genders;
         
         public AccessMapper() {
             batches = db.Batches.ToList();

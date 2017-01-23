@@ -34,10 +34,13 @@ namespace Housing.Data.Domain
         {
             var associates = db.Associates.ToList();
             var result = new List<AssociateDao>();
-            //check active
-            //map to Dao //make sure batch,gender are strings!!!!
-            //add to list
-            //return list
+            foreach (var item in associates)
+            {
+                if (item.Active)
+                {
+                    result.Add(mapper.MapToDao(item));
+                }
+            }
             return result;
 
         }
@@ -50,10 +53,13 @@ namespace Housing.Data.Domain
         {
             var batches = db.Batches.ToList();
             var result = new List<BatchDao>();
-            //check active
-            //map to Dao //make sure batch,gender are strings!!!!
-            //add to list
-            //return list
+            foreach (var item in batches)
+            {
+                if (item.Active)
+                {
+                    result.Add(mapper.MapToDao(item));
+                }
+            }
             return result;
         }
 
@@ -65,10 +71,13 @@ namespace Housing.Data.Domain
         {
             var genders = db.Genders.ToList();
             var result = new List<GenderDao>();
-            //check active
-            //map to Dao //make sure batch,gender are strings!!!!
-            //add to list
-            //return list
+            foreach (var item in genders)
+            {
+                if (item.Active)
+                {
+                    result.Add(mapper.MapToDao(item));
+                }
+            }
             return result;
         }
 
@@ -80,10 +89,13 @@ namespace Housing.Data.Domain
         {
             var complexes = db.HousingComplexes.ToList();
             var result = new List<HousingComplexDao>();
-            //check active
-            //map to Dao //make sure batch,gender are strings!!!!
-            //add to list
-            //return list
+            foreach (var item in complexes)
+            {
+                if (item.Active)
+                {
+                    result.Add(mapper.MapToDao(item));
+                }
+            }
             return result;
         }
 
@@ -95,10 +107,13 @@ namespace Housing.Data.Domain
         {
             var units = db.HousingUnits.ToList();
             var result = new List<HousingUnitDao>();
-            //check active
-            //map to Dao //make sure batch,gender are strings!!!!
-            //add to list
-            //return list
+            foreach (var item in units)
+            {
+                if (item.Active)
+                {
+                    result.Add(mapper.MapToDao(item));
+                }
+            }
             return result;
         }
 
@@ -110,10 +125,13 @@ namespace Housing.Data.Domain
         {
             var data = db.HousingDatas.ToList();
             var result = new List<HousingDataDao>();
-            //check active
-            //map to Dao //make sure batch,gender are strings!!!!
-            //add to list
-            //return list
+            foreach (var item in data)
+            {
+                if (item.Active)
+                {
+                    result.Add(mapper.MapToDao(item));
+                }
+            }
             return result;
         }
 
@@ -124,6 +142,15 @@ namespace Housing.Data.Domain
         public List<HousingUnitDao> GetUnitsByComplex(int id)
         {
             var result = new List<HousingUnitDao>();
+            var units = db.HousingUnit_By_Complex(id);
+            foreach (var item in units)
+            {
+                if (item.Active)
+                {
+                    result.Add(new HousingUnitDao(item.HousingUnitId, item.AptNumber, item.MaxCapacity,
+                         mapper.genders.Find(g => g.GenderId == item.GenderId).Name, item.HousingComplexId));
+                }
+            }
             return result;
         }
 
@@ -134,10 +161,18 @@ namespace Housing.Data.Domain
         public List<HousingDataDao> GetDataByUnit(int id)
         {
             var result = new List<HousingDataDao>();
+            var data = db.HousingData_By_Unit(id);
+            foreach (var item in data)
+            {
+                if (item.Active)
+                {
+                    result.Add(new HousingDataDao(item.HousingDataId, item.AssociateId, item.HousingUnitId, item.MoveInDate, item.MoveOutDate));
+                }
+            }
             return result;
         }
 
-       
+
         #endregion
         #region insertions
 
