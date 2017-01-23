@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Housing.Data.Domain
 {
@@ -17,6 +18,14 @@ namespace Housing.Data.Domain
         private readonly MapperConfiguration BatchMapper = new MapperConfiguration(b => b.CreateMap<Batch, BatchDao>().ReverseMap());
         private readonly MapperConfiguration GenderMapper = new MapperConfiguration(g => g.CreateMap<Gender, GenderDao>().ReverseMap());
 
+        private readonly HousingDB_DevEntities db;
+        private readonly List<Batch> batches;
+        private readonly List<Gender> genders;
+        
+        public AccessMapper() {
+            batches = db.Batches.ToList();
+            genders = db.Genders.ToList();
+        }
 
         /// <summary>
         /// Map HousingComplex entity object to HousingComplexDao
@@ -51,6 +60,7 @@ namespace Housing.Data.Domain
         {
             var mapper = HousingUnitMapper.CreateMapper();
             HousingUnitDao unitDao = mapper.Map<HousingUnitDao>(unit);
+            unitDao.Gender = unit.Gender.Name;
             return unitDao;
         }
 
@@ -63,6 +73,7 @@ namespace Housing.Data.Domain
         {
             var mapper = HousingUnitMapper.CreateMapper();
             HousingUnit unit = mapper.Map<HousingUnit>(unitDao);
+            unit.GenderId = genders.Find(g => g.Name.Equals(unitDao.Gender)).GenderId;
             return unit;
         }
 
@@ -99,6 +110,8 @@ namespace Housing.Data.Domain
         {
             var mapper = AssociateMapper.CreateMapper();
             AssociateDao assocDao = mapper.Map<AssociateDao>(assoc);
+            assocDao.Batch = assoc.Batch.Name;
+            assocDao.Gender = assoc.Gender.Name;
             return assocDao;
         }
 
@@ -111,6 +124,8 @@ namespace Housing.Data.Domain
         {
             var mapper = AssociateMapper.CreateMapper();
             Associate assoc = mapper.Map<Associate>(assocDao);
+            assoc.BatchId = batches.Find(b => b.Name.Equals(assocDao.Batch)).BatchId;
+            assoc.GenderId = genders.Find(g => g.Name.Equals(assocDao.Gender)).GenderId;
             return assoc;
         }
 
