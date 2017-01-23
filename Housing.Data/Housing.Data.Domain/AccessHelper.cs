@@ -175,7 +175,7 @@ namespace Housing.Data.Domain
 
         #endregion
         #region insertions
-
+/*
         /// <summary>
         /// Add a new HousingComplex to the database
         /// </summary>
@@ -431,7 +431,7 @@ namespace Housing.Data.Domain
             }
         }
 
-
+    */
 
         #endregion
     }

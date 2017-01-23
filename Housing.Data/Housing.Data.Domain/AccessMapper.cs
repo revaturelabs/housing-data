@@ -23,6 +23,7 @@ namespace Housing.Data.Domain
         public List<Gender> genders;
         
         public AccessMapper() {
+            db = new HousingDB_DevEntities();
             batches = db.Batches.ToList();
             genders = db.Genders.ToList();
         }

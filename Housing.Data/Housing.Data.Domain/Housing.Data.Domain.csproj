@@ -58,10 +58,10 @@
     <Compile Include="AccessHelper.cs" />
     <Compile Include="AccessMapper.cs" />
     <Compile Include="Associate.cs">
-      <DependentUpon>HousingModel.tt</DependentUpon>
+      <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Batch.cs">
-      <DependentUpon>HousingModel.tt</DependentUpon>
+      <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessObjects\AssociateDao.cs" />
     <Compile Include="DataAccessObjects\BatchDao.cs" />
@@ -70,76 +70,65 @@
     <Compile Include="DataAccessObjects\HousingDataDao.cs" />
     <Compile Include="DataAccessObjects\HousingUnitDao.cs" />
     <Compile Include="Gender.cs">
-      <DependentUpon>HousingModel.tt</DependentUpon>
+      <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="HousingComplex.cs">
-      <DependentUpon>HousingModel.tt</DependentUpon>
+      <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="HousingData.cs">
-      <DependentUpon>HousingModel.tt</DependentUpon>
+      <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="HousingData_By_Unit_Result.cs">
-      <DependentUpon>HousingModel.tt</DependentUpon>
+      <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="HousingModel.Context.cs">
+    <Compile Include="HousingDB_DevEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HousingModel.Context.tt</DependentUpon>
+      <DependentUpon>HousingDB_DevEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="HousingModel.cs">
+    <Compile Include="HousingDB_DevEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HousingModel.tt</DependentUpon>
+      <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="HousingModel.Designer.cs">
+    <Compile Include="HousingDB_DevEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HousingModel.edmx</DependentUpon>
+      <DependentUpon>HousingDB_DevEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="HousingUnit.cs">
-      <DependentUpon>HousingModel.tt</DependentUpon>
+      <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="HousingUnit_By_Complex_Result.cs">
-      <DependentUpon>HousingModel.tt</DependentUpon>
+      <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>HousingModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_helpdiagrams_Result.cs">
-      <DependentUpon>HousingModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>HousingModel.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="HousingModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>HousingModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="HousingModel.edmx.diagram">
-      <DependentUpon>HousingModel.edmx</DependentUpon>
+    <EntityDeploy Include="HousingDB_DevEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HousingDB_DevEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="HousingDB_DevEntities.edmx.diagram">
+      <DependentUpon>HousingDB_DevEntities.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HousingModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HousingModel.edmx</DependentUpon>
-      <LastGenOutput>HousingModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="HousingModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HousingModel.edmx</DependentUpon>
-      <LastGenOutput>HousingModel.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="HousingDB_DevEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HousingDB_DevEntities.edmx</DependentUpon>
+      <LastGenOutput>HousingDB_DevEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="HousingDB_DevEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HousingDB_DevEntities.edmx</DependentUpon>
+      <LastGenOutput>HousingDB_DevEntities.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
