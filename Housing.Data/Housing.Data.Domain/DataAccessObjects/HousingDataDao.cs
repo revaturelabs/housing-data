@@ -8,6 +8,7 @@ namespace Housing.Data.Domain.DataAccessObjects
 {
     public class HousingDataDao
     {
+        public HousingDataDao() { }
         public HousingDataDao(int id, int assoc, int unit, DateTime moveIn, DateTime moveOut)
         {
             HousingDataId = id;

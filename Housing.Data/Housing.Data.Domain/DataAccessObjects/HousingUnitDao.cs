@@ -8,6 +8,8 @@ namespace Housing.Data.Domain.DataAccessObjects
 {
     public class HousingUnitDao
     {
+        public HousingUnitDao() {
+        }
         public HousingUnitDao( int id, string apt, int max, string gender, int complex)
         {
             HousingUnitId = id;

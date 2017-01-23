@@ -98,6 +98,9 @@
     <Compile Include="Controllers\BatchController.cs" />
     <Compile Include="Controllers\GenderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HousingComplexController.cs" />
+    <Compile Include="Controllers\HousingDataController.cs" />
+    <Compile Include="Controllers\HousingUnitController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

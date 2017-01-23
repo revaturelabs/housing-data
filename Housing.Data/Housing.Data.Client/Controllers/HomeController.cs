@@ -19,7 +19,9 @@ namespace Housing.Data.Client.Controllers
             index.Add("api/Batch for all active Batches");
             index.Add("api/Gender for all active Genders");
             index.Add("api/HousingComplex for all active HousingComplexes");
+            index.Add("api/HousingUnit/[id] for all HousingUnits associated with the HousingComplexId [id]");
             index.Add("api/HousingUnit for all active HousingUnits");
+            index.Add("api/HousingData/[id] for all HousingData entries associated with the HousingUnitId [id]");
             index.Add("api/HousingData for all active HousingData entries");
             return index;
         }

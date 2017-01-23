@@ -11,18 +11,14 @@ namespace Housing.Data.Domain
     public class AccessHelper
     {
         private readonly HousingDB_DevEntities db;
-        public AccessMapper mapper = new AccessMapper();
+        public static AccessMapper mapper = new AccessMapper();
 
         /// <summary>
-        /// constructors
+        /// constructor
         /// </summary>
         public AccessHelper()
         {
             db = new HousingDB_DevEntities();
-        }
-        public AccessHelper(HousingDB_DevEntities db)
-        {
-            this.db = db;
         }
 
         #region data retrieval 
@@ -175,263 +171,141 @@ namespace Housing.Data.Domain
 
         #endregion
         #region insertions
-/*
         /// <summary>
-        /// Add a new HousingComplex to the database
+        /// insert Associate into the DB
         /// </summary>
-        /// <param name="complex"></param>
-        /// <returns>bool, success = true, failure = false</returns>
-        public bool InsertHousingComplex(HousingComplexDao complex)
+        /// <param name="assoc"></param>
+        /// <returns>true if insertion successful</returns>
+        public bool InsertAssociate(AssociateDao assoc)
         {
-            ///map to entity
-            //set active bit to true 
-            ActiveBit = true;
-            try
-            {
-                db.Apartment.Add(apt);
-                if (db.SaveChanges() == 0)
-                {
-                    return false;
-                }
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            //map to EF object 
+            //set Active bit to true 
+            return true;
         }
 
         /// <summary>
-        /// Add a new HousingUnit to the database
+        /// insert HousingComplex into the DB
         /// </summary>
-        /// <param name="unit"></param>
-        /// <returns>bool, success = true, failure = false</returns>
-        public bool InsertHousingUnit(HousingUnitDao unit)
+        /// <param name="hc"></param>
+        /// <returns>true if insertion successful</returns>
+        public bool InsertHousingComplex(HousingComplexDao hc)
         {
-            ///map to entity
-            //set active bit to true 
-            ActiveBit = true;
-            try
-            {
-                db.Apartment.Add(apt);
-                if (db.SaveChanges() == 0)
-                {
-                    return false;
-                }
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            //map to EF object 
+            //set Active bit to true 
+            return true;
         }
 
         /// <summary>
-        /// Add a new HousingData to the database
+        /// insert HousingUnit into the DB
         /// </summary>
-        /// <param name="data"></param>
-        /// <returns>bool, success = true, failure = false</returns>
-        public bool InsertHousingData(HousingDataDao data)
+        /// <param name="hu"></param>
+        /// <returns>true if insertion successful</returns>
+        public bool InsertHousingUnit(HousingUnitDao hu)
         {
-            ///map to entity
-            ///check gender, occupancy
-            //set active bit to true 
-            ActiveBit = true;
-            try
-            {
-                db.Apartment.Add(apt);
-                if (db.SaveChanges() == 0)
-                {
-                    return false;
-                }
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            //map to EF object 
+            //set Active bit to true 
+            return true;
+        }
+
+        /// <summary>
+        /// insert HousingData entry into the DB
+        /// </summary>
+        /// <param name="hd"></param>
+        /// <returns>true if insertion successful</returns>
+        public bool InsertHousingData(HousingDataDao hd)
+        {
+            //map to EF object 
+            //set Active bit to true 
+            //check gender match between Associate, Unit
+            //check that Unit occupancy is not exceeded using length of HousingDataByUnit result and current date
+            return true;
         }
 
         #endregion
-        #region UpdateGrace
+        #region updates
 
         /// <summary>
-        /// Will update the Apartment in the database
+        /// update Associate
         /// </summary>
-        /// <param name="apt"></param>
-        /// <returns>return true if object found</returns>
-        public bool UpdateApartment(Apartment apt)
+        /// <param name="assoc"></param>
+        /// <returns>true if update successful</returns>
+        public bool UpdateAssociate(AssociateDao assoc)
         {
-            try
-            {
-                var oldapt = db.Apartment.FirstOrDefault(a => a.RoomID == apt.RoomID);
-                if (oldapt != null)
-                {
-                    db.Entry(oldapt).CurrentValues.SetValues(apt);
-                    db.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return true;
         }
 
         /// <summary>
-        /// Will update HousingComplex in database
+        /// update HousingComplex 
         /// </summary>
-        /// <param name="housecom"></param>
-        /// <returns>return true if object found</returns>
-        public bool UpdateHousingComplex(HousingComplex housecom)
+        /// <param name="hc"></param>
+        /// <returns>true if update successful</returns>
+        public bool UpdateHousingComplex(HousingComplexDao hc)
         {
-            try
-            {
-                var oldhousecom = db.HousingComplex.FirstOrDefault(h => h.HotelID == housecom.HotelID);
-                if (oldhousecom != null)
-                {
-                    db.Entry(oldhousecom).CurrentValues.SetValues(housecom);
-                    db.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return true;
         }
 
         /// <summary>
-        /// Will update HousingData in database
+        /// update HousingUnit
         /// </summary>
-        /// <param name="housedata"></param>
-        /// <returns>return true if object found</returns>
-        public bool UpdateHousingData(HousingData housedata)
+        /// <param name="hu"></param>
+        /// <returns>true if update successful</returns>
+        public bool UpdateHousingUnit(HousingUnitDao hu)
         {
-            try
-            {
-                var oldhousedata = db.HousingData.FirstOrDefault(h => h.AssociateID == housedata.AssociateID);
-                if (oldhousedata != null)
-                {
-                    db.Entry(oldhousedata).CurrentValues.SetValues(housedata);
-                    db.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return true;
         }
 
         /// <summary>
-        /// Will update Status in the database
+        /// update HousingData entry
         /// </summary>
-        /// <param name="stat"></param>
-        /// <returns>return true if object found</returns>
-        public bool UpdateStatus(Status stat)
+        /// <param name="hd"></param>
+        /// <returns>true if update successful</returns>
+        public bool UpdateHousingData(HousingDataDao hd)
         {
-            try
-            {
-                var oldstat = db.HousingData.FirstOrDefault(s => s.StatusID == stat.StatusID);
-                if (oldstat != null)
-                {
-                    db.Entry(oldstat).CurrentValues.SetValues(stat);
-                    db.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return true;
         }
 
         #endregion
-        #region DeleteGrace
+        #region deletions 
+
         /// <summary>
-        /// Will delet the Apartment by setting Active bit
+        /// delete Associate
         /// </summary>
-        /// <param name="apt"></param>
-        /// <returns>return true if object found</returns>
-        public bool DeleteApartment(Apartment apt)
+        /// <param name="assoc"></param>
+        /// <returns>true if deletion successful</returns>
+        public bool DeleteAssociate(AssociateDao assoc)
         {
-            try
-            {
-                var oldapt = db.Apartment.FirstOrDefault(a => a.RoomID == apt.RoomID);
-                if (oldapt != null)
-                {
-                    apt = oldapt;
-                    apt.ActiveBit = false;
-                    db.Entry(oldapt).CurrentValues.SetValues(apt);
-                    db.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return true;
         }
 
         /// <summary>
-        /// Will delete HousingComplex by setting Active bit
+        /// delete HousingComplex 
         /// </summary>
-        /// <param name="housecom"></param>
-        /// <returns>return true if object found</returns>
-        public bool DeleteHousingComplex(HousingComplex housecom)
+        /// <param name="hc"></param>
+        /// <returns>true if deletion successful</returns>
+        public bool DeleteHousingComplex(HousingComplexDao hc)
         {
-            try
-            {
-                var oldhousecom = db.HousingComplex.FirstOrDefault(h => h.HotelID == housecom.HotelID);
-                if (oldhousecom != null)
-                {
-                    housecom = oldhousecom;
-                    housecom.ActiveBit = false;
-                    db.Entry(oldhousecom).CurrentValues.SetValues(housecom);
-                    db.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return true;
         }
 
         /// <summary>
-        /// Will delete HousingData by setting StatusID to Red (3)
+        /// delete HousingUnit
         /// </summary>
-        /// <param name="housedata"></param>
-        /// <returns>return true if object found</returns>
-        public bool DeleteHousingData(HousingData housedata)
+        /// <param name="hu"></param>
+        /// <returns>true if deletion successful</returns>
+        public bool DeleteHousingUnit(HousingUnitDao hu)
         {
-            try
-            {
-                var oldhousedata = db.HousingData.FirstOrDefault(h => h.AssociateID == housedata.AssociateID);
-                if (oldhousedata != null)
-                {
-                    housedata = oldhousedata;
-                    housedata.StatusID = 3;
-                    db.Entry(oldhousedata).CurrentValues.SetValues(housedata);
-                    db.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return true;
         }
 
-    */
+        /// <summary>
+        /// delete HousingData entry
+        /// </summary>
+        /// <param name="hd"></param>
+        /// <returns>true if deletion successful</returns>
+        public bool DeleteHousingData(HousingDataDao hd)
+        {
+            return true;
+        }
 
         #endregion
     }

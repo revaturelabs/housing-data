@@ -11,10 +11,10 @@ namespace Housing.Data.Client.Controllers
 {
     public class GenderController : ApiController
     {
+        public static AccessHelper helper = new AccessHelper();
         // GET: api/Gender
         public List<GenderDao> Get()
         {
-            AccessHelper helper = new AccessHelper();
             return helper.GetGenders();
         }
 

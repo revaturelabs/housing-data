@@ -1,6 +1,6 @@
-﻿using Housing.Data.Domain;
+﻿using System;
+using Housing.Data.Domain;
 using Housing.Data.Domain.DataAccessObjects;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,32 +9,33 @@ using System.Web.Http;
 
 namespace Housing.Data.Client.Controllers
 {
-    public class AssociateController : ApiController
+    public class HousingComplexController : ApiController
     {
-        public static AccessHelper helper = new AccessHelper();
-        // GET: api/Associate
-        public List<AssociateDao> Get()
+        private static AccessHelper helper = new AccessHelper();
+
+        // GET: api/HousingComplex
+        public List<HousingComplexDao> Get()
         {
-            return helper.GetAssociates();
+            return helper.GetHousingComplexes();
         }
 
-        // GET: api/Associate/5
+        // GET: api/HousingComplex/5
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST: api/Associate
+        // POST: api/HousingComplex
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT: api/Associate/5
+        // PUT: api/HousingComplex/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE: api/Associate/5
+        // DELETE: api/HousingComplex/5
         public void Delete(int id)
         {
         }

@@ -11,10 +11,10 @@ namespace Housing.Data.Client.Controllers
 {
     public class BatchController : ApiController
     {
+        public static AccessHelper helper = new AccessHelper();
         // GET: api/Batch
         public List<BatchDao> Get()
         {
-            AccessHelper helper = new AccessHelper();
             return helper.GetBatches();
         }
 
