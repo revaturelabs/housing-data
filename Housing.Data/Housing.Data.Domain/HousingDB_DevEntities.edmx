@@ -1,0 +1,548 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HousingDB_DevModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Associate">
+          <Key>
+            <PropertyRef Name="AssociateId" />
+          </Key>
+          <Property Name="AssociateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="GenderId" Type="int" Nullable="false" />
+          <Property Name="BatchId" Type="int" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="HasCar" Type="bit" Nullable="false" />
+          <Property Name="HasKeys" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Batch">
+          <Key>
+            <PropertyRef Name="BatchId" />
+          </Key>
+          <Property Name="BatchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Instructor" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Technology" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="GenderId" />
+          </Key>
+          <Property Name="GenderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HousingComplex">
+          <Key>
+            <PropertyRef Name="HousingComplexId" />
+          </Key>
+          <Property Name="HousingComplexId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HousingData">
+          <Key>
+            <PropertyRef Name="HousingDataId" />
+          </Key>
+          <Property Name="HousingDataId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssociateId" Type="int" Nullable="false" />
+          <Property Name="HousingUnitId" Type="int" Nullable="false" />
+          <Property Name="MoveInDate" Type="date" Nullable="false" />
+          <Property Name="MoveOutDate" Type="date" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HousingUnit">
+          <Key>
+            <PropertyRef Name="HousingUnitId" />
+          </Key>
+          <Property Name="HousingUnitId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AptNumber" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MaxCapacity" Type="int" Nullable="false" />
+          <Property Name="GenderId" Type="int" Nullable="false" />
+          <Property Name="HousingComplexId" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Associate_Batch">
+          <End Role="Batch" Type="Self.Batch" Multiplicity="1" />
+          <End Role="Associate" Type="Self.Associate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Batch">
+              <PropertyRef Name="BatchId" />
+            </Principal>
+            <Dependent Role="Associate">
+              <PropertyRef Name="BatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Associate_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="Associate" Type="Self.Associate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="GenderId" />
+            </Principal>
+            <Dependent Role="Associate">
+              <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HousingData_Associate">
+          <End Role="Associate" Type="Self.Associate" Multiplicity="1" />
+          <End Role="HousingData" Type="Self.HousingData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Associate">
+              <PropertyRef Name="AssociateId" />
+            </Principal>
+            <Dependent Role="HousingData">
+              <PropertyRef Name="AssociateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HousingData_HousingUnit">
+          <End Role="HousingUnit" Type="Self.HousingUnit" Multiplicity="1" />
+          <End Role="HousingData" Type="Self.HousingData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HousingUnit">
+              <PropertyRef Name="HousingUnitId" />
+            </Principal>
+            <Dependent Role="HousingData">
+              <PropertyRef Name="HousingUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HousingUnit_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="HousingUnit" Type="Self.HousingUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="GenderId" />
+            </Principal>
+            <Dependent Role="HousingUnit">
+              <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HousingUnit_HousingComplex">
+          <End Role="HousingComplex" Type="Self.HousingComplex" Multiplicity="1" />
+          <End Role="HousingUnit" Type="Self.HousingUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HousingComplex">
+              <PropertyRef Name="HousingComplexId" />
+            </Principal>
+            <Dependent Role="HousingUnit">
+              <PropertyRef Name="HousingComplexId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="HousingData_By_Unit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="unitId" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="HousingDataId" Type="int" Nullable="false" />
+                <Property Name="AssociateId" Type="int" Nullable="false" />
+                <Property Name="HousingUnitId" Type="int" Nullable="false" />
+                <Property Name="MoveInDate" Type="date" Nullable="false" />
+                <Property Name="MoveOutDate" Type="date" Nullable="false" />
+                <Property Name="Active" Type="bit" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="HousingUnit_By_Complex" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="complexId" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="HousingUnitId" Type="int" Nullable="false" />
+                <Property Name="AptNumber" Type="nvarchar" MaxLength="100" Nullable="false" />
+                <Property Name="MaxCapacity" Type="int" Nullable="false" />
+                <Property Name="GenderId" Type="int" Nullable="false" />
+                <Property Name="HousingComplexId" Type="int" Nullable="false" />
+                <Property Name="Active" Type="bit" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <EntityContainer Name="HousingDB_DevModelStoreContainer">
+          <EntitySet Name="Associate" EntityType="Self.Associate" Schema="Associate" store:Type="Tables" />
+          <EntitySet Name="Batch" EntityType="Self.Batch" Schema="Batch" store:Type="Tables" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" Schema="Gender" store:Type="Tables" />
+          <EntitySet Name="HousingComplex" EntityType="Self.HousingComplex" Schema="Housing" store:Type="Tables" />
+          <EntitySet Name="HousingData" EntityType="Self.HousingData" Schema="Housing" store:Type="Tables" />
+          <EntitySet Name="HousingUnit" EntityType="Self.HousingUnit" Schema="Housing" store:Type="Tables" />
+          <AssociationSet Name="FK_Associate_Batch" Association="Self.FK_Associate_Batch">
+            <End Role="Batch" EntitySet="Batch" />
+            <End Role="Associate" EntitySet="Associate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Associate_Gender" Association="Self.FK_Associate_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Associate" EntitySet="Associate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HousingData_Associate" Association="Self.FK_HousingData_Associate">
+            <End Role="Associate" EntitySet="Associate" />
+            <End Role="HousingData" EntitySet="HousingData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HousingData_HousingUnit" Association="Self.FK_HousingData_HousingUnit">
+            <End Role="HousingUnit" EntitySet="HousingUnit" />
+            <End Role="HousingData" EntitySet="HousingData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HousingUnit_Gender" Association="Self.FK_HousingUnit_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="HousingUnit" EntitySet="HousingUnit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HousingUnit_HousingComplex" Association="Self.FK_HousingUnit_HousingComplex">
+            <End Role="HousingComplex" EntitySet="HousingComplex" />
+            <End Role="HousingUnit" EntitySet="HousingUnit" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HousingDB_DevModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="HousingData_By_Unit_Result">
+          <Property Name="HousingDataId" Type="Int32" Nullable="false" />
+          <Property Name="AssociateId" Type="Int32" Nullable="false" />
+          <Property Name="HousingUnitId" Type="Int32" Nullable="false" />
+          <Property Name="MoveInDate" Type="DateTime" Nullable="false" />
+          <Property Name="MoveOutDate" Type="DateTime" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="HousingUnit_By_Complex_Result">
+          <Property Name="HousingUnitId" Type="Int32" Nullable="false" />
+          <Property Name="AptNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaxCapacity" Type="Int32" Nullable="false" />
+          <Property Name="GenderId" Type="Int32" Nullable="false" />
+          <Property Name="HousingComplexId" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Associate">
+          <Key>
+            <PropertyRef Name="AssociateId" />
+          </Key>
+          <Property Name="AssociateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GenderId" Type="Int32" Nullable="false" />
+          <Property Name="BatchId" Type="Int32" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="HasCar" Type="Boolean" Nullable="false" />
+          <Property Name="HasKeys" Type="Boolean" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Batch" Relationship="Self.FK_Associate_Batch" FromRole="Associate" ToRole="Batch" />
+          <NavigationProperty Name="Gender" Relationship="Self.FK_Associate_Gender" FromRole="Associate" ToRole="Gender" />
+          <NavigationProperty Name="HousingDatas" Relationship="Self.FK_HousingData_Associate" FromRole="Associate" ToRole="HousingData" />
+        </EntityType>
+        <EntityType Name="Batch">
+          <Key>
+            <PropertyRef Name="BatchId" />
+          </Key>
+          <Property Name="BatchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Instructor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Technology" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Associates" Relationship="Self.FK_Associate_Batch" FromRole="Batch" ToRole="Associate" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="GenderId" />
+          </Key>
+          <Property Name="GenderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Associates" Relationship="Self.FK_Associate_Gender" FromRole="Gender" ToRole="Associate" />
+          <NavigationProperty Name="HousingUnits" Relationship="Self.FK_HousingUnit_Gender" FromRole="Gender" ToRole="HousingUnit" />
+        </EntityType>
+        <EntityType Name="HousingComplex">
+          <Key>
+            <PropertyRef Name="HousingComplexId" />
+          </Key>
+          <Property Name="HousingComplexId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="HousingUnits" Relationship="Self.FK_HousingUnit_HousingComplex" FromRole="HousingComplex" ToRole="HousingUnit" />
+        </EntityType>
+        <EntityType Name="HousingData">
+          <Key>
+            <PropertyRef Name="HousingDataId" />
+          </Key>
+          <Property Name="HousingDataId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssociateId" Type="Int32" Nullable="false" />
+          <Property Name="HousingUnitId" Type="Int32" Nullable="false" />
+          <Property Name="MoveInDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MoveOutDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Associate" Relationship="Self.FK_HousingData_Associate" FromRole="HousingData" ToRole="Associate" />
+          <NavigationProperty Name="HousingUnit" Relationship="Self.FK_HousingData_HousingUnit" FromRole="HousingData" ToRole="HousingUnit" />
+        </EntityType>
+        <EntityType Name="HousingUnit">
+          <Key>
+            <PropertyRef Name="HousingUnitId" />
+          </Key>
+          <Property Name="HousingUnitId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AptNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaxCapacity" Type="Int32" Nullable="false" />
+          <Property Name="GenderId" Type="Int32" Nullable="false" />
+          <Property Name="HousingComplexId" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Gender" Relationship="Self.FK_HousingUnit_Gender" FromRole="HousingUnit" ToRole="Gender" />
+          <NavigationProperty Name="HousingComplex" Relationship="Self.FK_HousingUnit_HousingComplex" FromRole="HousingUnit" ToRole="HousingComplex" />
+          <NavigationProperty Name="HousingDatas" Relationship="Self.FK_HousingData_HousingUnit" FromRole="HousingUnit" ToRole="HousingData" />
+        </EntityType>
+        <Association Name="FK_Associate_Batch">
+          <End Role="Batch" Type="Self.Batch" Multiplicity="1" />
+          <End Role="Associate" Type="Self.Associate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Batch">
+              <PropertyRef Name="BatchId" />
+            </Principal>
+            <Dependent Role="Associate">
+              <PropertyRef Name="BatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Associate_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="Associate" Type="Self.Associate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="GenderId" />
+            </Principal>
+            <Dependent Role="Associate">
+              <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HousingData_Associate">
+          <End Role="Associate" Type="Self.Associate" Multiplicity="1" />
+          <End Role="HousingData" Type="Self.HousingData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Associate">
+              <PropertyRef Name="AssociateId" />
+            </Principal>
+            <Dependent Role="HousingData">
+              <PropertyRef Name="AssociateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HousingUnit_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="HousingUnit" Type="Self.HousingUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="GenderId" />
+            </Principal>
+            <Dependent Role="HousingUnit">
+              <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HousingUnit_HousingComplex">
+          <End Role="HousingComplex" Type="Self.HousingComplex" Multiplicity="1" />
+          <End Role="HousingUnit" Type="Self.HousingUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HousingComplex">
+              <PropertyRef Name="HousingComplexId" />
+            </Principal>
+            <Dependent Role="HousingUnit">
+              <PropertyRef Name="HousingComplexId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HousingData_HousingUnit">
+          <End Role="HousingUnit" Type="Self.HousingUnit" Multiplicity="1" />
+          <End Role="HousingData" Type="Self.HousingData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HousingUnit">
+              <PropertyRef Name="HousingUnitId" />
+            </Principal>
+            <Dependent Role="HousingData">
+              <PropertyRef Name="HousingUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HousingDB_DevEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Associates" EntityType="Self.Associate" />
+          <EntitySet Name="Batches" EntityType="Self.Batch" />
+          <EntitySet Name="Genders" EntityType="Self.Gender" />
+          <EntitySet Name="HousingComplexes" EntityType="Self.HousingComplex" />
+          <EntitySet Name="HousingDatas" EntityType="Self.HousingData" />
+          <EntitySet Name="HousingUnits" EntityType="Self.HousingUnit" />
+          <AssociationSet Name="FK_Associate_Batch" Association="Self.FK_Associate_Batch">
+            <End Role="Batch" EntitySet="Batches" />
+            <End Role="Associate" EntitySet="Associates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Associate_Gender" Association="Self.FK_Associate_Gender">
+            <End Role="Gender" EntitySet="Genders" />
+            <End Role="Associate" EntitySet="Associates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HousingData_Associate" Association="Self.FK_HousingData_Associate">
+            <End Role="Associate" EntitySet="Associates" />
+            <End Role="HousingData" EntitySet="HousingDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HousingUnit_Gender" Association="Self.FK_HousingUnit_Gender">
+            <End Role="Gender" EntitySet="Genders" />
+            <End Role="HousingUnit" EntitySet="HousingUnits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HousingUnit_HousingComplex" Association="Self.FK_HousingUnit_HousingComplex">
+            <End Role="HousingComplex" EntitySet="HousingComplexes" />
+            <End Role="HousingUnit" EntitySet="HousingUnits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HousingData_HousingUnit" Association="Self.FK_HousingData_HousingUnit">
+            <End Role="HousingUnit" EntitySet="HousingUnits" />
+            <End Role="HousingData" EntitySet="HousingDatas" />
+          </AssociationSet>
+          <FunctionImport Name="HousingData_By_Unit" IsComposable="true" ReturnType="Collection(HousingDB_DevModel.HousingData_By_Unit_Result)">
+            <Parameter Name="unitId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="HousingUnit_By_Complex" IsComposable="true" ReturnType="Collection(HousingDB_DevModel.HousingUnit_By_Complex_Result)">
+            <Parameter Name="complexId" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HousingDB_DevModelStoreContainer" CdmEntityContainer="HousingDB_DevEntities">
+          <EntitySetMapping Name="Associates">
+            <EntityTypeMapping TypeName="HousingDB_DevModel.Associate">
+              <MappingFragment StoreEntitySet="Associate">
+                <ScalarProperty Name="AssociateId" ColumnName="AssociateId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="HasCar" ColumnName="HasCar" />
+                <ScalarProperty Name="HasKeys" ColumnName="HasKeys" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Batches">
+            <EntityTypeMapping TypeName="HousingDB_DevModel.Batch">
+              <MappingFragment StoreEntitySet="Batch">
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Instructor" ColumnName="Instructor" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Technology" ColumnName="Technology" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genders">
+            <EntityTypeMapping TypeName="HousingDB_DevModel.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HousingComplexes">
+            <EntityTypeMapping TypeName="HousingDB_DevModel.HousingComplex">
+              <MappingFragment StoreEntitySet="HousingComplex">
+                <ScalarProperty Name="HousingComplexId" ColumnName="HousingComplexId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HousingDatas">
+            <EntityTypeMapping TypeName="HousingDB_DevModel.HousingData">
+              <MappingFragment StoreEntitySet="HousingData">
+                <ScalarProperty Name="HousingDataId" ColumnName="HousingDataId" />
+                <ScalarProperty Name="AssociateId" ColumnName="AssociateId" />
+                <ScalarProperty Name="HousingUnitId" ColumnName="HousingUnitId" />
+                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
+                <ScalarProperty Name="MoveOutDate" ColumnName="MoveOutDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HousingUnits">
+            <EntityTypeMapping TypeName="HousingDB_DevModel.HousingUnit">
+              <MappingFragment StoreEntitySet="HousingUnit">
+                <ScalarProperty Name="HousingUnitId" ColumnName="HousingUnitId" />
+                <ScalarProperty Name="AptNumber" ColumnName="AptNumber" />
+                <ScalarProperty Name="MaxCapacity" ColumnName="MaxCapacity" />
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+                <ScalarProperty Name="HousingComplexId" ColumnName="HousingComplexId" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="HousingDB_DevModel.Store.HousingData_By_Unit" FunctionImportName="HousingData_By_Unit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HousingDB_DevModel.HousingData_By_Unit_Result">
+                <ScalarProperty Name="HousingDataId" ColumnName="HousingDataId" />
+                <ScalarProperty Name="AssociateId" ColumnName="AssociateId" />
+                <ScalarProperty Name="HousingUnitId" ColumnName="HousingUnitId" />
+                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
+                <ScalarProperty Name="MoveOutDate" ColumnName="MoveOutDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="HousingDB_DevModel.Store.HousingUnit_By_Complex" FunctionImportName="HousingUnit_By_Complex">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HousingDB_DevModel.HousingUnit_By_Complex_Result">
+                <ScalarProperty Name="HousingUnitId" ColumnName="HousingUnitId" />
+                <ScalarProperty Name="AptNumber" ColumnName="AptNumber" />
+                <ScalarProperty Name="MaxCapacity" ColumnName="MaxCapacity" />
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+                <ScalarProperty Name="HousingComplexId" ColumnName="HousingComplexId" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

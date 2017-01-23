@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>7ea0a824-61f9-4d36-a9f7-1ec7dd267414</ProjectGuid>
+    <ProjectGuid>{7EA0A824-61F9-4D36-A9F7-1EC7DD267414}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Housing.Data.Domain</RootNamespace>
@@ -30,24 +30,105 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Net.Http"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="AccessHelper.cs" />
+    <Compile Include="AccessMapper.cs" />
+    <Compile Include="Associate.cs">
+      <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Batch.cs">
+      <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccessObjects\AssociateDao.cs" />
+    <Compile Include="DataAccessObjects\BatchDao.cs" />
+    <Compile Include="DataAccessObjects\GenderDao.cs" />
+    <Compile Include="DataAccessObjects\HousingComplexDao.cs" />
+    <Compile Include="DataAccessObjects\HousingDataDao.cs" />
+    <Compile Include="DataAccessObjects\HousingUnitDao.cs" />
+    <Compile Include="Gender.cs">
+      <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HousingComplex.cs">
+      <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HousingData.cs">
+      <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HousingData_By_Unit_Result.cs">
+      <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HousingDB_DevEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HousingDB_DevEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HousingDB_DevEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HousingDB_DevEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HousingDB_DevEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="HousingUnit.cs">
+      <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HousingUnit_By_Complex_Result.cs">
+      <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="HousingDB_DevEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HousingDB_DevEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="HousingDB_DevEntities.edmx.diagram">
+      <DependentUpon>HousingDB_DevEntities.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="HousingDB_DevEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HousingDB_DevEntities.edmx</DependentUpon>
+      <LastGenOutput>HousingDB_DevEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="HousingDB_DevEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HousingDB_DevEntities.edmx</DependentUpon>
+      <LastGenOutput>HousingDB_DevEntities.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -57,5 +138,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
- </Project>
+</Project>
