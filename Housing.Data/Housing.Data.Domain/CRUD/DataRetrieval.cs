@@ -1,26 +1,14 @@
-﻿using Housing.Data.Domain;
-using Housing.Data.Domain.DataAccessObjects;
+﻿using Housing.Data.Domain.DataAccessObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Housing.Data.Domain
+namespace Housing.Data.Domain.CRUD
 {
-    public class AccessHelper
+    public partial class AccessHelper
     {
-        private readonly HousingDB_DevEntities db;
-        public static AccessMapper mapper = new AccessMapper();
-
-        /// <summary>
-        /// constructor
-        /// </summary>
-        public AccessHelper()
-        {
-            db = new HousingDB_DevEntities();
-        }
-
         #region data retrieval 
         /// <summary>
         /// return active Associates as DAOs
@@ -168,144 +156,6 @@ namespace Housing.Data.Domain
             return result;
         }
 
-
-        #endregion
-        #region insertions
-        /// <summary>
-        /// insert Associate into the DB
-        /// </summary>
-        /// <param name="assoc"></param>
-        /// <returns>true if insertion successful</returns>
-        public bool InsertAssociate(AssociateDao assoc)
-        {
-            //map to EF object 
-            //set Active bit to true 
-            return true;
-        }
-
-        /// <summary>
-        /// insert HousingComplex into the DB
-        /// </summary>
-        /// <param name="hc"></param>
-        /// <returns>true if insertion successful</returns>
-        public bool InsertHousingComplex(HousingComplexDao hc)
-        {
-            //map to EF object 
-            //set Active bit to true 
-            return true;
-        }
-
-        /// <summary>
-        /// insert HousingUnit into the DB
-        /// </summary>
-        /// <param name="hu"></param>
-        /// <returns>true if insertion successful</returns>
-        public bool InsertHousingUnit(HousingUnitDao hu)
-        {
-            //map to EF object 
-            //set Active bit to true 
-            return true;
-        }
-
-        /// <summary>
-        /// insert HousingData entry into the DB
-        /// </summary>
-        /// <param name="hd"></param>
-        /// <returns>true if insertion successful</returns>
-        public bool InsertHousingData(HousingDataDao hd)
-        {
-            //map to EF object 
-            //set Active bit to true 
-            //check gender match between Associate, Unit
-            //check that Unit occupancy is not exceeded using length of HousingDataByUnit result and current date
-            return true;
-        }
-
-        #endregion
-        #region updates
-
-        /// <summary>
-        /// update Associate
-        /// </summary>
-        /// <param name="assoc"></param>
-        /// <returns>true if update successful</returns>
-        public bool UpdateAssociate(AssociateDao assoc)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// update HousingComplex 
-        /// </summary>
-        /// <param name="hc"></param>
-        /// <returns>true if update successful</returns>
-        public bool UpdateHousingComplex(HousingComplexDao hc)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// update HousingUnit
-        /// </summary>
-        /// <param name="hu"></param>
-        /// <returns>true if update successful</returns>
-        public bool UpdateHousingUnit(HousingUnitDao hu)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// update HousingData entry
-        /// </summary>
-        /// <param name="hd"></param>
-        /// <returns>true if update successful</returns>
-        public bool UpdateHousingData(HousingDataDao hd)
-        {
-            return true;
-        }
-
-        #endregion
-        #region deletions 
-
-        /// <summary>
-        /// delete Associate
-        /// </summary>
-        /// <param name="assoc"></param>
-        /// <returns>true if deletion successful</returns>
-        public bool DeleteAssociate(AssociateDao assoc)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// delete HousingComplex 
-        /// </summary>
-        /// <param name="hc"></param>
-        /// <returns>true if deletion successful</returns>
-        public bool DeleteHousingComplex(HousingComplexDao hc)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// delete HousingUnit
-        /// </summary>
-        /// <param name="hu"></param>
-        /// <returns>true if deletion successful</returns>
-        public bool DeleteHousingUnit(HousingUnitDao hu)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// delete HousingData entry
-        /// </summary>
-        /// <param name="hd"></param>
-        /// <returns>true if deletion successful</returns>
-        public bool DeleteHousingData(HousingDataDao hd)
-        {
-            return true;
-        }
 
         #endregion
     }
