@@ -1,4 +1,5 @@
 ﻿using Housing.Data.Domain;
+using Housing.Data.Domain.CRUD;
 using Housing.Data.Domain.DataAccessObjects;
 using System;
 using System.Collections.Generic;
