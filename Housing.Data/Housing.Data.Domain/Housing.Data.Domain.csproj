@@ -55,7 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessHelper.cs" />
     <Compile Include="AccessMapper.cs" />
     <Compile Include="Associate.cs">
       <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
@@ -63,6 +62,10 @@
     <Compile Include="Batch.cs">
       <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="CRUD\DataRetrieval.cs" />
+    <Compile Include="CRUD\Deletions.cs" />
+    <Compile Include="CRUD\Insertions.cs" />
+    <Compile Include="CRUD\Updates.cs" />
     <Compile Include="DataAccessObjects\AssociateDao.cs" />
     <Compile Include="DataAccessObjects\BatchDao.cs" />
     <Compile Include="DataAccessObjects\GenderDao.cs" />
@@ -130,6 +133,7 @@
       <LastGenOutput>HousingDB_DevEntities.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
