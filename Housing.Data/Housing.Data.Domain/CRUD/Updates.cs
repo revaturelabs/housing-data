@@ -7,51 +7,107 @@ using System.Threading.Tasks;
 
 namespace Housing.Data.Domain.CRUD
 {
-    public partial class AccessHelper
+  public partial class AccessHelper
+  {
+
+    #region updates
+
+    /// <summary>
+    /// update Associate
+    /// </summary>
+    /// <param name="assoc"></param>
+    /// <returns>true if update successful</returns>
+    public bool UpdateAssociate(AssociateDao assoc)
     {
-
-        #region updates
-
-        /// <summary>
-        /// update Associate
-        /// </summary>
-        /// <param name="assoc"></param>
-        /// <returns>true if update successful</returns>
-        public bool UpdateAssociate(AssociateDao assoc)
+      try
+      {
+        var a = db.Associates.FirstOrDefault(s => s.AssociateId == assoc.AssociateId);
+        if (a != null)
         {
-            return true;
+          db.Entry(a).CurrentValues.SetValues(assoc);
+          db.SaveChanges();
+          return true;
         }
-
-        /// <summary>
-        /// update HousingComplex 
-        /// </summary>
-        /// <param name="hc"></param>
-        /// <returns>true if update successful</returns>
-        public bool UpdateHousingComplex(HousingComplexDao hc)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// update HousingUnit
-        /// </summary>
-        /// <param name="hu"></param>
-        /// <returns>true if update successful</returns>
-        public bool UpdateHousingUnit(HousingUnitDao hu)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// update HousingData entry
-        /// </summary>
-        /// <param name="hd"></param>
-        /// <returns>true if update successful</returns>
-        public bool UpdateHousingData(HousingDataDao hd)
-        {
-            return true;
-        }
-
-        #endregion
+        return false;
+      }
+      catch (Exception)
+      {
+        return false;
+      }
     }
+
+    /// <summary>
+    /// update HousingComplex 
+    /// </summary>
+    /// <param name="hc"></param>
+    /// <returns>true if update successful</returns>
+    public bool UpdateHousingComplex(HousingComplexDao hc)
+    {
+      try
+      {
+        var h = db.HousingComplexes.FirstOrDefault(a => a.HousingComplexId == hc.HousingComplexId);
+        if (h != null)
+        {
+          db.Entry(h).CurrentValues.SetValues(hc);
+          db.SaveChanges();
+          return true;
+        }
+        return false;
+      }
+      catch (Exception)
+      {
+        return false;
+      }
+    }
+
+    /// <summary>
+    /// update HousingUnit
+    /// </summary>
+    /// <param name="hu"></param>
+    /// <returns>true if update successful</returns>
+    public bool UpdateHousingUnit(HousingUnitDao hu)
+    {
+      try
+      {
+        var u = db.HousingUnits.FirstOrDefault(a => a.HousingUnitId == hu.HousingUnitId);
+        if (u != null)
+        {
+          db.Entry(u).CurrentValues.SetValues(hu);
+          db.SaveChanges();
+          return true;
+        }
+        return false;
+      }
+      catch (Exception)
+      {
+        return false;
+      }
+    }
+
+    /// <summary>
+    /// update HousingData entry
+    /// </summary>
+    /// <param name="hd"></param>
+    /// <returns>true if update successful</returns>
+    public bool UpdateHousingData(HousingDataDao hd)
+    {
+      try
+      {
+        var d = db.HousingDatas.FirstOrDefault(a => a.HousingDataId == hd.HousingDataId);
+        if (d != null)
+        {
+          db.Entry(d).CurrentValues.SetValues(hd);
+          db.SaveChanges();
+          return true;
+        }
+        return false;
+      }
+      catch (Exception)
+      {
+        return false;
+      }
+    }
+
+    #endregion
+  }
 }
