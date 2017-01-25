@@ -80,6 +80,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Data.Domain.Tests\CRUD\DataRetrievalTests.cs" />
+    <Compile Include="Data.Domain.Tests\CRUD\DeletionTests.cs" />
+    <Compile Include="Data.Domain.Tests\CRUD\InsertionTests.cs" />
+    <Compile Include="Data.Domain.Tests\CRUD\UpdateTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestReferences.cs" />
   </ItemGroup>
