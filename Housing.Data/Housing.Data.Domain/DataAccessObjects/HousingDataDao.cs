@@ -9,17 +9,15 @@ namespace Housing.Data.Domain.DataAccessObjects
     public class HousingDataDao
     {
         public HousingDataDao() { }
-        public HousingDataDao(int id, int assoc, int unit, DateTime moveIn, DateTime moveOut)
+        public HousingDataDao(AssociateDao assoc, HousingUnitDao unit, DateTime moveIn, DateTime moveOut)
         {
-            HousingDataId = id;
-            AssociateId = assoc;
-            HousingUnitId = unit;
+            Associate = assoc;
+            HousingUnit = unit;
             MoveInDate = moveIn;
             MoveOutDate = moveOut;
         }
-        public int HousingDataId { get; set; }
-        public int AssociateId { get; set; }
-        public int HousingUnitId { get; set; }
+        public AssociateDao Associate { get; set; }
+        public HousingUnitDao HousingUnit { get; set; }
         public System.DateTime MoveInDate { get; set; }
         public System.DateTime MoveOutDate { get; set; }
     }

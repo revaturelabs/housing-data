@@ -131,8 +131,10 @@ namespace Housing.Data.Domain.CRUD
             {
                 if (item.Active)
                 {
-                    result.Add(new HousingUnitDao(item.HousingUnitId, item.AptNumber, item.MaxCapacity,
-                         mapper.genders.Find(g => g.GenderId == item.GenderId).Name, item.HousingComplexId));
+                    var thiscomplex = db.HousingComplexes.ToList().Where(m => m.HousingComplexId == item.HousingComplexId).FirstOrDefault();
+
+                    result.Add(new HousingUnitDao( item.AptNumber, item.MaxCapacity,
+                         mapper.genders.Find(g => g.GenderId == item.GenderId).Name,mapper.MapToDao(thiscomplex)));
                 }
             }
             return result;
@@ -150,7 +152,9 @@ namespace Housing.Data.Domain.CRUD
             {
                 if (item.Active)
                 {
-                    result.Add(new HousingDataDao(item.HousingDataId, item.AssociateId, item.HousingUnitId, item.MoveInDate, item.MoveOutDate));
+                    var thisAssoc = db.Associates.ToList().Where(m => m.AssociateId == item.AssociateId).FirstOrDefault();
+                    var thisUnit = db.HousingUnits.ToList().Where(m => m.HousingUnitId == item.HousingUnitId).FirstOrDefault();
+                    result.Add(new HousingDataDao(mapper.MapToDao(thisAssoc),mapper.MapToDao(thisUnit), item.MoveInDate, item.MoveOutDate));
                 }
             }
             return result;
