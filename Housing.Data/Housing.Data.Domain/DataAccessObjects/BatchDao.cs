@@ -8,7 +8,6 @@ namespace Housing.Data.Domain.DataAccessObjects
 {
     public class BatchDao
     {
-        public int BatchId { get; set; }
         public string Name { get; set; }
         public string Instructor { get; set; }
         public System.DateTime StartDate { get; set; }
