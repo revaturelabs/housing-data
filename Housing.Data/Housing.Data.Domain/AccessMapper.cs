@@ -111,8 +111,8 @@ namespace Housing.Data.Domain
         {
             var mapper = AssociateMapper.CreateMapper();
             AssociateDao assocDao = mapper.Map<AssociateDao>(assoc);
-            assocDao.Batch = assoc.Batch.Name;
-            assocDao.Gender = assoc.Gender.Name;
+            assocDao.Batch = mapper.Map<BatchDao>(assoc.Batch);
+            assocDao.Gender = mapper.Map<GenderDao>(assoc.Gender);
             return assocDao;
         }
 

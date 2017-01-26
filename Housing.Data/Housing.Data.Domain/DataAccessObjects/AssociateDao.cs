@@ -10,8 +10,8 @@ namespace Housing.Data.Domain.DataAccessObjects
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Gender { get; set; }
-        public string Batch { get; set; }
+        public GenderDao Gender { get; set; }
+        public BatchDao Batch { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public System.DateTime DateOfBirth { get; set; }

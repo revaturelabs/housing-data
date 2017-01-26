@@ -22,6 +22,41 @@ namespace Housing.Data.Domain.CRUD
         }
 
         #region insertions
+
+        /// <summary>
+        /// insert gender into the DB
+        /// </summary>
+        /// <param name="gender"></param>
+        /// <returns>true if insertion successful</returns>
+        public bool InsertGender(GenderDao gender)
+        {
+            //map to EF object 
+            var itm = mapper.MapToEntity(gender);
+            //set Active bit to true 
+            itm.Active = true;
+            //insert into db
+            db.Genders.Add(itm);
+            //return success or failure
+            return db.SaveChanges() > 0;
+        }
+
+        /// <summary>
+        /// insert batch into the DB
+        /// </summary>
+        /// <param name="batch"></param>
+        /// <returns>true if insertion successful</returns>
+        public bool InsertBatch(BatchDao batch)
+        {
+            //map to EF object 
+            var itm = mapper.MapToEntity(batch);
+            //set Active bit to true 
+            itm.Active = true;
+            //insert into db
+            db.Batches.Add(itm);
+            //return success or failure
+            return db.SaveChanges() > 0;
+        }
+
         /// <summary>
         /// insert Associate into the DB
         /// </summary>
