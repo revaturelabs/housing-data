@@ -8,7 +8,6 @@ namespace Housing.Data.Domain.DataAccessObjects
 {
     public class GenderDao
     {
-        public int GenderId { get; set; }
         public string Name { get; set; }
     }
 }
