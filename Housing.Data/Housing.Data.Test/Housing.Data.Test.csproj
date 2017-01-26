@@ -42,6 +42,13 @@
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Housing.Data.Domain\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\Housing.Data.Domain\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Moq, Version=4.5.30.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.5.30\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
@@ -87,6 +94,7 @@
     <Compile Include="TestReferences.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +109,9 @@
       <Project>{7ea0a824-61f9-4d36-a9f7-1ec7dd267414}</Project>
       <Name>Housing.Data.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
