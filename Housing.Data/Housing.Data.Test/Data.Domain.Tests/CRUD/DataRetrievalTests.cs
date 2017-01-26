@@ -7,15 +7,15 @@ using Xunit;
 
 namespace Housing.Data.Test.Data.Domain.Tests.CRUD
 {
-  
-  public class DataRetrievalTests
-  {
-     
-    [Fact]
-    public void GetAssociates()
+
+    public class DataRetrievalTests
     {
 
-    }
+        [Fact]
+        public void GetAssociates()
+        {
 
-  }
+        }
+
+    }
 }

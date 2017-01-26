@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Housing.Data.Test.Data.Domain.Tests.CRUD
 {
-  public class DeletionTests
-  {
-  }
+    public class DeletionTests
+    {
+    }
 }
