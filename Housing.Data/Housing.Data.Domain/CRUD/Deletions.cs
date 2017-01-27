@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Housing.Data.Domain.CRUD
 {
+
     public partial class AccessHelper
     {
         #region deletions 
@@ -18,7 +19,9 @@ namespace Housing.Data.Domain.CRUD
         /// <returns>true if deletion successful</returns>
         public bool DeleteAssociate(AssociateDao assoc)
         {
-            return true;
+            Associate t = mapper.MapToEntity(assoc);
+            db.Associates.Remove(t);
+            return db.SaveChanges() > 0;
         }
 
         /// <summary>
@@ -28,7 +31,9 @@ namespace Housing.Data.Domain.CRUD
         /// <returns>true if deletion successful</returns>
         public bool DeleteHousingComplex(HousingComplexDao hc)
         {
-            return true;
+            HousingComplex h = mapper.MapToEntity(hc);
+            db.HousingComplexes.Remove(h);
+            return db.SaveChanges() > 0;
         }
 
         /// <summary>
@@ -38,7 +43,33 @@ namespace Housing.Data.Domain.CRUD
         /// <returns>true if deletion successful</returns>
         public bool DeleteHousingUnit(HousingUnitDao hu)
         {
-            return true;
+            HousingUnit u = mapper.MapToEntity(hu);
+            db.HousingUnits.Remove(u);
+            return db.SaveChanges() > 0;
+        }
+
+        /// <summary>
+        /// Delete batch
+        /// </summary>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public bool DeleteBatch(BatchDao b)
+        {
+            Batch batch = mapper.MapToEntity(b);
+            db.Batches.Remove(batch);
+            return db.SaveChanges() > 0;
+        }
+
+        /// <summary>
+        /// Delete Gender
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        public bool DeleteGender(GenderDao g)
+        {
+            Gender gender = mapper.MapToEntity(g);
+            db.Genders.Remove(gender);
+            return db.SaveChanges() > 0;
         }
 
         /// <summary>
@@ -48,9 +79,10 @@ namespace Housing.Data.Domain.CRUD
         /// <returns>true if deletion successful</returns>
         public bool DeleteHousingData(HousingDataDao hd)
         {
-            return true;
+            HousingData d = mapper.MapToEntity(hd);
+            db.HousingDatas.Remove(d);
+            return db.SaveChanges() > 0;
         }
-
-        #endregion
-    }
+    #endregion
+  }
 }

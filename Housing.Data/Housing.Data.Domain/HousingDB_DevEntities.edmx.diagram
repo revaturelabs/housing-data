@@ -4,19 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+
       <Diagram DiagramId="05e2a71810a04d29bb1df254196354d6" Name="Diagram1">
-        <EntityTypeShape EntityType="HousingDB_DevModel.Associate" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="HousingDB_DevModel.Batch" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HousingDB_DevModel.Gender" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="HousingDB_DevModel.HousingComplex" Width="1.5" PointX="3.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="HousingDB_DevModel.HousingData" Width="1.5" PointX="8.25" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HousingDB_DevModel.HousingUnit" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
-        <AssociationConnector Association="HousingDB_DevModel.FK_Associate_Batch" ManuallyRouted="false" />
-        <AssociationConnector Association="HousingDB_DevModel.FK_Associate_Gender" ManuallyRouted="false" />
-        <AssociationConnector Association="HousingDB_DevModel.FK_HousingData_Associate" ManuallyRouted="false" />
-        <AssociationConnector Association="HousingDB_DevModel.FK_HousingUnit_Gender" ManuallyRouted="false" />
-        <AssociationConnector Association="HousingDB_DevModel.FK_HousingUnit_HousingComplex" ManuallyRouted="false" />
-        <AssociationConnector Association="HousingDB_DevModel.FK_HousingData_HousingUnit" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HousingDB_DevModel.Associate" Width="1.5" PointX="6" PointY="4.125" />
+        <EntityTypeShape EntityType="HousingDB_DevModel.Batch" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HousingDB_DevModel.Gender" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="HousingDB_DevModel.HousingComplex" Width="1.5" PointX="0.75" PointY="2" />
+        <EntityTypeShape EntityType="HousingDB_DevModel.HousingData" Width="1.5" PointX="8.25" PointY="4.625" />
+        <EntityTypeShape EntityType="HousingDB_DevModel.HousingUnit" Width="1.5" PointX="3" PointY="4.5" />
+        <AssociationConnector Association="HousingDB_DevModel.FK_Associate_Batch" />
+        <AssociationConnector Association="HousingDB_DevModel.FK_Associate_Gender" />
+        <AssociationConnector Association="HousingDB_DevModel.FK_HousingData_Associate" />
+        <AssociationConnector Association="HousingDB_DevModel.FK_HousingUnit_Gender" />
+        <AssociationConnector Association="HousingDB_DevModel.FK_HousingUnit_HousingComplex" />
+        <AssociationConnector Association="HousingDB_DevModel.FK_HousingData_HousingUnit" />
+
+
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
