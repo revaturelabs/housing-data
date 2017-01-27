@@ -70,11 +70,11 @@ namespace Housing.Data.Client.Controllers
         /// <param name="value"></param>
         /// <returns></returns>
         // PUT: api/Associate/5
-        public bool Put(int id, [FromBody]string value)
+        public bool Put(string email, [FromBody]string value)
         {
             try
             {
-                AssociateDao a = helper.GetAssociates().Where(b => b.AssociateId == id).First();
+                AssociateDao a = helper.GetAssociates().Where(b => b.Email == email).First();
                 return helper.UpdateAssociate(a);
             }
             catch (Exception)
@@ -89,11 +89,11 @@ namespace Housing.Data.Client.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // DELETE: api/Associate/5
-        public bool Delete(int id)
+        public bool Delete(string email)
         {
             try
             {
-                AssociateDao a = helper.GetAssociates().Where(b => b.AssociateId == id).First();
+                AssociateDao a = helper.GetAssociates().Where(b => b.Email == email).First();
                 return helper.DeleteAssociate(a);
             }
             catch (Exception)

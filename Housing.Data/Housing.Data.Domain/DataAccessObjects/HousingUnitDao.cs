@@ -10,15 +10,17 @@ namespace Housing.Data.Domain.DataAccessObjects
     {
         public HousingUnitDao() {
         }
-        public HousingUnitDao( int id, string apt, int max, string gender, int complex)
+        public HousingUnitDao( string name, string apt, int max, string gender, int complex)
         {
-            HousingUnitId = id;
+         //   HousingUnitId = id;
+            HousingUnitName = name;
             AptNumber = apt;
             MaxCapacity = max;
             Gender = gender;
             HousingComplexId = complex;
         }
-        public int HousingUnitId { get; set; }
+       // public int HousingUnitId { get; set; }
+        public string HousingUnitName { get; set; }
         public string AptNumber { get; set; }
         public int MaxCapacity { get; set; }
         public string Gender { get; set; }

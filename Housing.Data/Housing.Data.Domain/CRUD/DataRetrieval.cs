@@ -126,12 +126,12 @@ namespace Housing.Data.Domain.CRUD
         public List<HousingUnitDao> GetUnitsByComplex(int id)
         {
             var result = new List<HousingUnitDao>();
-            var units = db.HousingUnit_By_Complex(id);
+            var units = db.HousingUnits.ToList().Where(b => b.HousingUnitId == id);
             foreach (var item in units)
             {
                 if (item.Active)
                 {
-                    result.Add(new HousingUnitDao(item.HousingUnitId, item.AptNumber, item.MaxCapacity,
+                    result.Add(new HousingUnitDao(item.AptNumber, item.HousingUnitName, item.MaxCapacity,
                          mapper.genders.Find(g => g.GenderId == item.GenderId).Name, item.HousingComplexId));
                 }
             }
@@ -145,12 +145,12 @@ namespace Housing.Data.Domain.CRUD
         public List<HousingDataDao> GetDataByUnit(int id)
         {
             var result = new List<HousingDataDao>();
-            var data = db.HousingData_By_Unit(id);
+            var data = db.HousingDatas.ToList().Where(x => x.HousingUnitId == id );
             foreach (var item in data)
             {
                 if (item.Active)
                 {
-                    result.Add(new HousingDataDao(item.HousingDataId, item.AssociateId, item.HousingUnitId, item.MoveInDate, item.MoveOutDate));
+                    result.Add(new HousingDataDao(item.HousingDataId, item.Name, item.HousingUnitId, item.MoveInDate, item.MoveOutDate));
                 }
             }
             return result;

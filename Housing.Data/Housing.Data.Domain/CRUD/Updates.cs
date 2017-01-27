@@ -151,7 +151,7 @@ namespace Housing.Data.Domain.CRUD
             try
             {
                 HousingData hde = mapper.MapToEntity(hd);
-                HousingData old = db.HousingDatas.FirstOrDefault(a => a.HousingDataId == hd.HousingDataId);
+                HousingData old = db.HousingDatas.FirstOrDefault(a => a.HousingDataId == hde.HousingDataId);
 
                 //awaiting updated HousingDataDao merge to fix this
                 //HousingData old = db.HousingDatas.FirstOrDefault(a => a.HousingUnit.AptNumber == hd.ApartmentNumber && a.Associate.Email == hd.AssociateEmail && a.HousingUnit.HousingComplex.Name == hd.ComplexName);

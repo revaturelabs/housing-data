@@ -55,11 +55,11 @@ namespace Housing.Data.Client.Controllers
         /// <param name="id"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public bool Put(int id, [FromBody]string value)
+        public bool Put(string name, [FromBody]string value)
         {
             try
             {
-                HousingDataDao a = helper.GetHousingData().Where(b => b.HousingDataId == id).First();
+                HousingDataDao a = helper.GetHousingData().Where(b => b.Name == name).First();
                 return helper.UpdateHousingData(a);
             }
             catch (Exception)
@@ -74,12 +74,12 @@ namespace Housing.Data.Client.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public bool Delete(int id)
+        public bool Delete(string name)
         {
 
             try
             {
-                HousingDataDao a = helper.GetHousingData().Where(b => b.HousingDataId == id).First();
+                HousingDataDao a = helper.GetHousingData().Where(b => b.Name == name).First();
                 return helper.DeleteHousingData(a);
             }
             catch (Exception)
