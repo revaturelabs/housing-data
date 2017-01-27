@@ -49,6 +49,30 @@ namespace Housing.Data.Domain.CRUD
         }
 
         /// <summary>
+        /// Delete batch
+        /// </summary>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public bool DeleteBatch(BatchDao b)
+        {
+            Batch batch = mapper.MapToEntity(b);
+            db.Batches.Remove(batch);
+            return db.SaveChanges() > 0;
+        }
+
+        /// <summary>
+        /// Delete Gender
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        public bool DeleteGender(GenderDao g)
+        {
+            Gender gender = mapper.MapToEntity(g);
+            db.Genders.Remove(gender);
+            return db.SaveChanges() > 0;
+        }
+
+        /// <summary>
         /// delete HousingData entry
         /// </summary>
         /// <param name="hd"></param>
@@ -59,8 +83,6 @@ namespace Housing.Data.Domain.CRUD
             db.HousingDatas.Remove(d);
             return db.SaveChanges() > 0;
         }
-
-
     #endregion
   }
 }

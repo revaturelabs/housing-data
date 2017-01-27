@@ -90,6 +90,58 @@ namespace Housing.Data.Domain.CRUD
         }
 
         /// <summary>
+        /// update batch entry
+        /// </summary>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public bool UpdateBatch(BatchDao b)
+        {
+            try
+            {
+                Batch batch = mapper.MapToEntity(b);
+
+                Batch old = db.Batches.FirstOrDefault(a => a.BatchId == batch.BatchId);
+                if (old != null)
+                {
+                    db.Entry(old).CurrentValues.SetValues(batch);
+                    db.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Update Gender entry
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        public bool UpdateGender(GenderDao g)
+        {
+            try
+            {
+                Gender gender = mapper.MapToEntity(g);
+
+                Gender old = db.Genders.FirstOrDefault(a => a.GenderId == gender.GenderId);
+                if (old != null)
+                {
+                    db.Entry(old).CurrentValues.SetValues(gender);
+                    db.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// update HousingData entry
         /// </summary>
         /// <param name="hd"></param>
