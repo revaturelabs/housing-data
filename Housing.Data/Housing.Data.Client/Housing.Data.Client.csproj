@@ -16,7 +16,7 @@
     <RootNamespace>Housing.Data.Client</RootNamespace>
     <AssemblyName>Housing.Data.Client</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -218,7 +218,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57200</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/Housing.Data.Client</IISUrl>
+          <IISUrl>http://localhost:57200/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
