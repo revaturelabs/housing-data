@@ -18,7 +18,9 @@ namespace Housing.Data.Domain.CRUD
         /// <returns>true if deletion successful</returns>
         public bool DeleteAssociate(AssociateDao assoc)
         {
-            return true;
+            Associate t = mapper.MapToEntity(assoc);
+            db.Associates.Remove(t);
+            return db.SaveChanges() > 0;
         }
 
         /// <summary>
@@ -28,7 +30,9 @@ namespace Housing.Data.Domain.CRUD
         /// <returns>true if deletion successful</returns>
         public bool DeleteHousingComplex(HousingComplexDao hc)
         {
-            return true;
+            HousingComplex h = mapper.MapToEntity(hc);
+            db.HousingComplexes.Remove(h);
+            return db.SaveChanges() > 0;
         }
 
         /// <summary>
@@ -38,7 +42,9 @@ namespace Housing.Data.Domain.CRUD
         /// <returns>true if deletion successful</returns>
         public bool DeleteHousingUnit(HousingUnitDao hu)
         {
-            return true;
+            HousingUnit u = mapper.MapToEntity(hu);
+            db.HousingUnits.Remove(u);
+            return db.SaveChanges() > 0;
         }
 
         /// <summary>
@@ -48,7 +54,9 @@ namespace Housing.Data.Domain.CRUD
         /// <returns>true if deletion successful</returns>
         public bool DeleteHousingData(HousingDataDao hd)
         {
-            return true;
+            HousingData d = mapper.MapToEntity(hd);
+            db.HousingDatas.Remove(d);
+            return db.SaveChanges() > 0;
         }
 
         #endregion
