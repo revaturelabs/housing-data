@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Housing.Data.Domain.CRUD
 {
+
     public partial class AccessHelper
     {
         #region deletions 
@@ -59,6 +60,7 @@ namespace Housing.Data.Domain.CRUD
             return db.SaveChanges() > 0;
         }
 
-        #endregion
-    }
+
+    #endregion
+  }
 }
