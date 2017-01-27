@@ -21,7 +21,43 @@ namespace Housing.Data.Domain.CRUD
             db = new HousingDB_DevEntities();
         }
 
+
         #region insertions
+
+        /// <summary>
+        /// insert gender into the DB
+        /// </summary>
+        /// <param name="gender"></param>
+        /// <returns>true if insertion successful</returns>
+        public bool InsertGender(GenderDao gender)
+        {
+            //map to EF object 
+            var itm = mapper.MapToEntity(gender);
+            //set Active bit to true 
+            itm.Active = true;
+            //insert into db
+            db.Genders.Add(itm);
+            //return success or failure
+            return db.SaveChanges() > 0;
+        }
+
+        /// <summary>
+        /// insert batch into the DB
+        /// </summary>
+        /// <param name="batch"></param>
+        /// <returns>true if insertion successful</returns>
+        public bool InsertBatch(BatchDao batch)
+        {
+            //map to EF object 
+            var itm = mapper.MapToEntity(batch);
+            //set Active bit to true 
+            itm.Active = true;
+            //insert into db
+            db.Batches.Add(itm);
+            //return success or failure
+            return db.SaveChanges() > 0;
+        }
+
         /// <summary>
         /// insert Associate into the DB
         /// </summary>
@@ -30,8 +66,13 @@ namespace Housing.Data.Domain.CRUD
         public bool InsertAssociate(AssociateDao assoc)
         {
             //map to EF object 
+            var itm = mapper.MapToEntity(assoc);
             //set Active bit to true 
-            return true;
+            itm.Active = true;
+            //insert into db
+            db.Associates.Add(itm);
+            //return success or failure
+            return db.SaveChanges() > 0;
         }
 
         /// <summary>
@@ -42,8 +83,13 @@ namespace Housing.Data.Domain.CRUD
         public bool InsertHousingComplex(HousingComplexDao hc)
         {
             //map to EF object 
+            var itm = mapper.MapToEntity(hc);
             //set Active bit to true 
-            return true;
+            itm.Active = true;
+            //insert into db
+            db.HousingComplexes.Add(itm);
+            //return success or failure
+            return db.SaveChanges() > 0;
         }
 
         /// <summary>
@@ -54,8 +100,13 @@ namespace Housing.Data.Domain.CRUD
         public bool InsertHousingUnit(HousingUnitDao hu)
         {
             //map to EF object 
+            var itm = mapper.MapToEntity(hu);
             //set Active bit to true 
-            return true;
+            itm.Active = true;
+            //insert into db
+            db.HousingUnits.Add(itm);
+            //return success or failure
+            return db.SaveChanges() > 0;
         }
 
         /// <summary>
@@ -66,10 +117,36 @@ namespace Housing.Data.Domain.CRUD
         public bool InsertHousingData(HousingDataDao hd)
         {
             //map to EF object 
+            var itm = mapper.MapToEntity(hd);
+
             //set Active bit to true 
+            itm.Active = true;
+
+            //get associate object from db
+            var assoc = db.Associates.ToList().Where(m => m.Email.Equals(itm.Associate.Email)).FirstOrDefault();
+
+            //get housingUnit object from db
+            var assocHouse = db.HousingUnits.ToList().Where(m => m.HousingComplex.Name.Equals(itm.HousingUnit.HousingComplex.Name)).FirstOrDefault();
+
             //check gender match between Associate, Unit
-            //check that Unit occupancy is not exceeded using length of HousingDataByUnit result and current date
-            return true;
+            var genderMatch = assoc.Gender.Equals(assocHouse.Gender);
+
+            //check that Unit occupancy is not exceeded
+            //get number of assoc assigned to unit
+            var it = db.HousingData_By_Unit(assocHouse.HousingUnitId);
+
+            //continue insert if gender and capacity are OK
+            if (genderMatch && (it.Count() < assocHouse.MaxCapacity))
+            {
+                //insert into db
+                db.HousingDatas.Add(itm);
+                //return success or failure
+                return db.SaveChanges() > 0;
+            }
+            //return false if else
+            else
+                return false;
+
         }
 
         #endregion
