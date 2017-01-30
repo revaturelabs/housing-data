@@ -21,7 +21,6 @@ namespace Housing.Data.Domain.CRUD
             db = new HousingDB_DevEntities();
         }
 
-
         #region insertions
 
         /// <summary>

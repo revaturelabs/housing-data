@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HousingDB_DevModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HousingDB_DevModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Associate">
           <Key>
             <PropertyRef Name="AssociateId" />
@@ -56,6 +56,7 @@
             <PropertyRef Name="HousingDataId" />
           </Key>
           <Property Name="HousingDataId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="AssociateId" Type="int" Nullable="false" />
           <Property Name="HousingUnitId" Type="int" Nullable="false" />
           <Property Name="MoveInDate" Type="date" Nullable="false" />
@@ -67,6 +68,7 @@
             <PropertyRef Name="HousingUnitId" />
           </Key>
           <Property Name="HousingUnitId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HousingUnitName" Type="nvarchar" MaxLength="300" Nullable="false" />
           <Property Name="AptNumber" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="MaxCapacity" Type="int" Nullable="false" />
           <Property Name="GenderId" Type="int" Nullable="false" />
@@ -151,6 +153,7 @@
             <CollectionType>
               <RowType>
                 <Property Name="HousingDataId" Type="int" Nullable="false" />
+                <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
                 <Property Name="AssociateId" Type="int" Nullable="false" />
                 <Property Name="HousingUnitId" Type="int" Nullable="false" />
                 <Property Name="MoveInDate" Type="date" Nullable="false" />
@@ -166,6 +169,7 @@
             <CollectionType>
               <RowType>
                 <Property Name="HousingUnitId" Type="int" Nullable="false" />
+                <Property Name="HousingUnitName" Type="nvarchar" MaxLength="300" Nullable="false" />
                 <Property Name="AptNumber" Type="nvarchar" MaxLength="100" Nullable="false" />
                 <Property Name="MaxCapacity" Type="int" Nullable="false" />
                 <Property Name="GenderId" Type="int" Nullable="false" />
@@ -207,8 +211,7 @@
             <End Role="HousingUnit" EntitySet="HousingUnit" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HousingDB_DevModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -293,6 +296,7 @@
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Associate" Relationship="Self.FK_HousingData_Associate" FromRole="HousingData" ToRole="Associate" />
           <NavigationProperty Name="HousingUnit" Relationship="Self.FK_HousingData_HousingUnit" FromRole="HousingData" ToRole="HousingUnit" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="HousingUnit">
           <Key>
@@ -307,6 +311,7 @@
           <NavigationProperty Name="Gender" Relationship="Self.FK_HousingUnit_Gender" FromRole="HousingUnit" ToRole="Gender" />
           <NavigationProperty Name="HousingComplex" Relationship="Self.FK_HousingUnit_HousingComplex" FromRole="HousingUnit" ToRole="HousingComplex" />
           <NavigationProperty Name="HousingDatas" Relationship="Self.FK_HousingData_HousingUnit" FromRole="HousingUnit" ToRole="HousingData" />
+          <Property Name="HousingUnitName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Associate_Batch">
           <End Role="Batch" Type="Self.Batch" Multiplicity="1" />
@@ -412,10 +417,10 @@
             <End Role="HousingData" EntitySet="HousingDatas" />
           </AssociationSet>
           <FunctionImport Name="HousingData_By_Unit" IsComposable="true" ReturnType="Collection(HousingDB_DevModel.HousingData_By_Unit_Result)">
-            <Parameter Name="unitId" Mode="In" Type="Int32" />
+          <Parameter Name="unitId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="HousingUnit_By_Complex" IsComposable="true" ReturnType="Collection(HousingDB_DevModel.HousingUnit_By_Complex_Result)">
-            <Parameter Name="complexId" Mode="In" Type="Int32" />
+          <Parameter Name="complexId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
       </Schema>
@@ -477,6 +482,7 @@
           <EntitySetMapping Name="HousingDatas">
             <EntityTypeMapping TypeName="HousingDB_DevModel.HousingData">
               <MappingFragment StoreEntitySet="HousingData">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="HousingDataId" ColumnName="HousingDataId" />
                 <ScalarProperty Name="AssociateId" ColumnName="AssociateId" />
                 <ScalarProperty Name="HousingUnitId" ColumnName="HousingUnitId" />
@@ -489,6 +495,7 @@
           <EntitySetMapping Name="HousingUnits">
             <EntityTypeMapping TypeName="HousingDB_DevModel.HousingUnit">
               <MappingFragment StoreEntitySet="HousingUnit">
+                <ScalarProperty Name="HousingUnitName" ColumnName="HousingUnitName" />
                 <ScalarProperty Name="HousingUnitId" ColumnName="HousingUnitId" />
                 <ScalarProperty Name="AptNumber" ColumnName="AptNumber" />
                 <ScalarProperty Name="MaxCapacity" ColumnName="MaxCapacity" />
