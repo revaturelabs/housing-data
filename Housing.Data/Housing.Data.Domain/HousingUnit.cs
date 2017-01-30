@@ -27,7 +27,6 @@ namespace Housing.Data.Domain
         public int GenderId { get; set; }
         public int HousingComplexId { get; set; }
         public bool Active { get; set; }
-        public string HousingUnitName { get; set; }
     
         public virtual Gender Gender { get; set; }
         public virtual HousingComplex HousingComplex { get; set; }

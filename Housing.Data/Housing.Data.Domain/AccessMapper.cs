@@ -111,8 +111,8 @@ namespace Housing.Data.Domain
         {
             var mapper = AssociateMapper.CreateMapper();
             AssociateDao assocDao = mapper.Map<AssociateDao>(assoc);
-            assocDao.Batch = assoc.Batch.Name;
-            assocDao.Gender = assoc.Gender.Name;
+            assocDao.BatchName = assoc.Batch.Name;
+            assocDao.GenderName = assoc.Gender.Name;
             return assocDao;
         }
 
@@ -125,8 +125,8 @@ namespace Housing.Data.Domain
         {
             var mapper = AssociateMapper.CreateMapper();
             Associate assoc = mapper.Map<Associate>(assocDao);
-            assoc.BatchId = batches.Find(b => b.Name.Equals(assocDao.Batch)).BatchId;
-            assoc.GenderId = genders.Find(g => g.Name.Equals(assocDao.Gender)).GenderId;
+            assoc.BatchId = batches.Find(b => b.Name.Equals(assocDao.BatchName)).BatchId;
+            assoc.GenderId = genders.Find(g => g.Name.Equals(assocDao.GenderName)).GenderId;
             return assoc;
         }
 
@@ -173,8 +173,20 @@ namespace Housing.Data.Domain
         /// <returns>Gender</returns>
         public Gender MapToEntity(GenderDao genDao)
         {
+
             var mapper = GenderMapper.CreateMapper();
             Gender gen = mapper.Map<Gender>(genDao);
+            var fromDB = db.Genders.Where(m => m.Name.Equals(genDao.Name)).FirstOrDefault();
+            if(fromDB != null)
+            {
+                gen.Active = fromDB.Active;
+                gen.GenderId = fromDB.GenderId;                
+            }
+            else
+            {
+                gen.Active = true;
+            }            
+            
             return gen;
         }
 

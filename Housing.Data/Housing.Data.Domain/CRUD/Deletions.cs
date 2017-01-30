@@ -68,7 +68,8 @@ namespace Housing.Data.Domain.CRUD
         public bool DeleteGender(GenderDao g)
         {
             Gender gender = mapper.MapToEntity(g);
-            db.Genders.Remove(gender);
+            var toDelete = db.Genders.Where(m => m.GenderId == gender.GenderId).FirstOrDefault();
+            db.Genders.Remove(toDelete);
             return db.SaveChanges() > 0;
         }
 
