@@ -15,6 +15,7 @@ namespace Housing.Data.Domain
     public partial class HousingData
     {
         public int HousingDataId { get; set; }
+        public string Name { get; set; }
         public int AssociateId { get; set; }
         public int HousingUnitId { get; set; }
         public System.DateTime MoveInDate { get; set; }

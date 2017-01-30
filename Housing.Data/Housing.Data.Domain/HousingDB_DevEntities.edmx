@@ -231,91 +231,129 @@
           <Property Name="HousingComplexId" Type="Int32" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
         </ComplexType>
+        <EntityContainer Name="HousingDB_DevEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="HousingData_By_Unit" IsComposable="true" ReturnType="Collection(HousingDB_DevModel.HousingData_By_Unit_Result)">
+          <Parameter Name="unitId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="HousingUnit_By_Complex" IsComposable="true" ReturnType="Collection(HousingDB_DevModel.HousingUnit_By_Complex_Result)">
+          <Parameter Name="complexId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Associates" EntityType="HousingDB_DevModel.Associate" />
+          <EntitySet Name="Batches" EntityType="HousingDB_DevModel.Batch" />
+          <EntitySet Name="Genders" EntityType="HousingDB_DevModel.Gender" />
+          <EntitySet Name="HousingComplexes" EntityType="HousingDB_DevModel.HousingComplex" />
+          <EntitySet Name="HousingDatas" EntityType="HousingDB_DevModel.HousingData" />
+          <EntitySet Name="HousingUnits" EntityType="HousingDB_DevModel.HousingUnit" />
+          <AssociationSet Name="FK_Associate_Batch" Association="HousingDB_DevModel.FK_Associate_Batch">
+            <End Role="Batch" EntitySet="Batches" />
+            <End Role="Associate" EntitySet="Associates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Associate_Gender" Association="HousingDB_DevModel.FK_Associate_Gender">
+            <End Role="Gender" EntitySet="Genders" />
+            <End Role="Associate" EntitySet="Associates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HousingData_Associate" Association="HousingDB_DevModel.FK_HousingData_Associate">
+            <End Role="Associate" EntitySet="Associates" />
+            <End Role="HousingData" EntitySet="HousingDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HousingUnit_Gender" Association="HousingDB_DevModel.FK_HousingUnit_Gender">
+            <End Role="Gender" EntitySet="Genders" />
+            <End Role="HousingUnit" EntitySet="HousingUnits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HousingUnit_HousingComplex" Association="HousingDB_DevModel.FK_HousingUnit_HousingComplex">
+            <End Role="HousingComplex" EntitySet="HousingComplexes" />
+            <End Role="HousingUnit" EntitySet="HousingUnits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HousingData_HousingUnit" Association="HousingDB_DevModel.FK_HousingData_HousingUnit">
+            <End Role="HousingUnit" EntitySet="HousingUnits" />
+            <End Role="HousingData" EntitySet="HousingDatas" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Associate">
           <Key>
             <PropertyRef Name="AssociateId" />
           </Key>
           <Property Name="AssociateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="GenderId" Type="Int32" Nullable="false" />
           <Property Name="BatchId" Type="Int32" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="HasCar" Type="Boolean" Nullable="false" />
           <Property Name="HasKeys" Type="Boolean" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Batch" Relationship="Self.FK_Associate_Batch" FromRole="Associate" ToRole="Batch" />
-          <NavigationProperty Name="Gender" Relationship="Self.FK_Associate_Gender" FromRole="Associate" ToRole="Gender" />
-          <NavigationProperty Name="HousingDatas" Relationship="Self.FK_HousingData_Associate" FromRole="Associate" ToRole="HousingData" />
+          <NavigationProperty Name="Batch" Relationship="HousingDB_DevModel.FK_Associate_Batch" FromRole="Associate" ToRole="Batch" />
+          <NavigationProperty Name="Gender" Relationship="HousingDB_DevModel.FK_Associate_Gender" FromRole="Associate" ToRole="Gender" />
+          <NavigationProperty Name="HousingDatas" Relationship="HousingDB_DevModel.FK_HousingData_Associate" FromRole="Associate" ToRole="HousingData" />
         </EntityType>
         <EntityType Name="Batch">
           <Key>
             <PropertyRef Name="BatchId" />
           </Key>
           <Property Name="BatchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Instructor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Instructor" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="Technology" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Associates" Relationship="Self.FK_Associate_Batch" FromRole="Batch" ToRole="Associate" />
+          <Property Name="Technology" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Associates" Relationship="HousingDB_DevModel.FK_Associate_Batch" FromRole="Batch" ToRole="Associate" />
         </EntityType>
         <EntityType Name="Gender">
           <Key>
             <PropertyRef Name="GenderId" />
           </Key>
           <Property Name="GenderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Associates" Relationship="Self.FK_Associate_Gender" FromRole="Gender" ToRole="Associate" />
-          <NavigationProperty Name="HousingUnits" Relationship="Self.FK_HousingUnit_Gender" FromRole="Gender" ToRole="HousingUnit" />
+          <NavigationProperty Name="Associates" Relationship="HousingDB_DevModel.FK_Associate_Gender" FromRole="Gender" ToRole="Associate" />
+          <NavigationProperty Name="HousingUnits" Relationship="HousingDB_DevModel.FK_HousingUnit_Gender" FromRole="Gender" ToRole="HousingUnit" />
         </EntityType>
         <EntityType Name="HousingComplex">
           <Key>
             <PropertyRef Name="HousingComplexId" />
           </Key>
           <Property Name="HousingComplexId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="HousingUnits" Relationship="Self.FK_HousingUnit_HousingComplex" FromRole="HousingComplex" ToRole="HousingUnit" />
+          <NavigationProperty Name="HousingUnits" Relationship="HousingDB_DevModel.FK_HousingUnit_HousingComplex" FromRole="HousingComplex" ToRole="HousingUnit" />
         </EntityType>
         <EntityType Name="HousingData">
           <Key>
             <PropertyRef Name="HousingDataId" />
           </Key>
           <Property Name="HousingDataId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="AssociateId" Type="Int32" Nullable="false" />
           <Property Name="HousingUnitId" Type="Int32" Nullable="false" />
           <Property Name="MoveInDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="MoveOutDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Associate" Relationship="Self.FK_HousingData_Associate" FromRole="HousingData" ToRole="Associate" />
-          <NavigationProperty Name="HousingUnit" Relationship="Self.FK_HousingData_HousingUnit" FromRole="HousingData" ToRole="HousingUnit" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Associate" Relationship="HousingDB_DevModel.FK_HousingData_Associate" FromRole="HousingData" ToRole="Associate" />
+          <NavigationProperty Name="HousingUnit" Relationship="HousingDB_DevModel.FK_HousingData_HousingUnit" FromRole="HousingData" ToRole="HousingUnit" />
         </EntityType>
         <EntityType Name="HousingUnit">
           <Key>
             <PropertyRef Name="HousingUnitId" />
           </Key>
           <Property Name="HousingUnitId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AptNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HousingUnitName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="AptNumber" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="MaxCapacity" Type="Int32" Nullable="false" />
           <Property Name="GenderId" Type="Int32" Nullable="false" />
           <Property Name="HousingComplexId" Type="Int32" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Gender" Relationship="Self.FK_HousingUnit_Gender" FromRole="HousingUnit" ToRole="Gender" />
-          <NavigationProperty Name="HousingComplex" Relationship="Self.FK_HousingUnit_HousingComplex" FromRole="HousingUnit" ToRole="HousingComplex" />
-          <NavigationProperty Name="HousingDatas" Relationship="Self.FK_HousingData_HousingUnit" FromRole="HousingUnit" ToRole="HousingData" />
-          <Property Name="HousingUnitName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Gender" Relationship="HousingDB_DevModel.FK_HousingUnit_Gender" FromRole="HousingUnit" ToRole="Gender" />
+          <NavigationProperty Name="HousingComplex" Relationship="HousingDB_DevModel.FK_HousingUnit_HousingComplex" FromRole="HousingUnit" ToRole="HousingComplex" />
+          <NavigationProperty Name="HousingDatas" Relationship="HousingDB_DevModel.FK_HousingData_HousingUnit" FromRole="HousingUnit" ToRole="HousingData" />
         </EntityType>
         <Association Name="FK_Associate_Batch">
-          <End Role="Batch" Type="Self.Batch" Multiplicity="1" />
-          <End Role="Associate" Type="Self.Associate" Multiplicity="*" />
+          <End Type="HousingDB_DevModel.Batch" Role="Batch" Multiplicity="1" />
+          <End Type="HousingDB_DevModel.Associate" Role="Associate" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Batch">
               <PropertyRef Name="BatchId" />
@@ -326,8 +364,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Associate_Gender">
-          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
-          <End Role="Associate" Type="Self.Associate" Multiplicity="*" />
+          <End Type="HousingDB_DevModel.Gender" Role="Gender" Multiplicity="1" />
+          <End Type="HousingDB_DevModel.Associate" Role="Associate" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gender">
               <PropertyRef Name="GenderId" />
@@ -338,8 +376,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HousingData_Associate">
-          <End Role="Associate" Type="Self.Associate" Multiplicity="1" />
-          <End Role="HousingData" Type="Self.HousingData" Multiplicity="*" />
+          <End Type="HousingDB_DevModel.Associate" Role="Associate" Multiplicity="1" />
+          <End Type="HousingDB_DevModel.HousingData" Role="HousingData" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Associate">
               <PropertyRef Name="AssociateId" />
@@ -350,8 +388,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HousingUnit_Gender">
-          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
-          <End Role="HousingUnit" Type="Self.HousingUnit" Multiplicity="*" />
+          <End Type="HousingDB_DevModel.Gender" Role="Gender" Multiplicity="1" />
+          <End Type="HousingDB_DevModel.HousingUnit" Role="HousingUnit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gender">
               <PropertyRef Name="GenderId" />
@@ -362,8 +400,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HousingUnit_HousingComplex">
-          <End Role="HousingComplex" Type="Self.HousingComplex" Multiplicity="1" />
-          <End Role="HousingUnit" Type="Self.HousingUnit" Multiplicity="*" />
+          <End Type="HousingDB_DevModel.HousingComplex" Role="HousingComplex" Multiplicity="1" />
+          <End Type="HousingDB_DevModel.HousingUnit" Role="HousingUnit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HousingComplex">
               <PropertyRef Name="HousingComplexId" />
@@ -374,8 +412,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HousingData_HousingUnit">
-          <End Role="HousingUnit" Type="Self.HousingUnit" Multiplicity="1" />
-          <End Role="HousingData" Type="Self.HousingData" Multiplicity="*" />
+          <End Type="HousingDB_DevModel.HousingUnit" Role="HousingUnit" Multiplicity="1" />
+          <End Type="HousingDB_DevModel.HousingData" Role="HousingData" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HousingUnit">
               <PropertyRef Name="HousingUnitId" />
@@ -385,126 +423,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="HousingDB_DevEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Associates" EntityType="Self.Associate" />
-          <EntitySet Name="Batches" EntityType="Self.Batch" />
-          <EntitySet Name="Genders" EntityType="Self.Gender" />
-          <EntitySet Name="HousingComplexes" EntityType="Self.HousingComplex" />
-          <EntitySet Name="HousingDatas" EntityType="Self.HousingData" />
-          <EntitySet Name="HousingUnits" EntityType="Self.HousingUnit" />
-          <AssociationSet Name="FK_Associate_Batch" Association="Self.FK_Associate_Batch">
-            <End Role="Batch" EntitySet="Batches" />
-            <End Role="Associate" EntitySet="Associates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Associate_Gender" Association="Self.FK_Associate_Gender">
-            <End Role="Gender" EntitySet="Genders" />
-            <End Role="Associate" EntitySet="Associates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HousingData_Associate" Association="Self.FK_HousingData_Associate">
-            <End Role="Associate" EntitySet="Associates" />
-            <End Role="HousingData" EntitySet="HousingDatas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HousingUnit_Gender" Association="Self.FK_HousingUnit_Gender">
-            <End Role="Gender" EntitySet="Genders" />
-            <End Role="HousingUnit" EntitySet="HousingUnits" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HousingUnit_HousingComplex" Association="Self.FK_HousingUnit_HousingComplex">
-            <End Role="HousingComplex" EntitySet="HousingComplexes" />
-            <End Role="HousingUnit" EntitySet="HousingUnits" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HousingData_HousingUnit" Association="Self.FK_HousingData_HousingUnit">
-            <End Role="HousingUnit" EntitySet="HousingUnits" />
-            <End Role="HousingData" EntitySet="HousingDatas" />
-          </AssociationSet>
-          <FunctionImport Name="HousingData_By_Unit" IsComposable="true" ReturnType="Collection(HousingDB_DevModel.HousingData_By_Unit_Result)">
-          <Parameter Name="unitId" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="HousingUnit_By_Complex" IsComposable="true" ReturnType="Collection(HousingDB_DevModel.HousingUnit_By_Complex_Result)">
-          <Parameter Name="complexId" Mode="In" Type="Int32" />
-          </FunctionImport>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="HousingDB_DevModelStoreContainer" CdmEntityContainer="HousingDB_DevEntities">
-          <EntitySetMapping Name="Associates">
-            <EntityTypeMapping TypeName="HousingDB_DevModel.Associate">
-              <MappingFragment StoreEntitySet="Associate">
-                <ScalarProperty Name="AssociateId" ColumnName="AssociateId" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
-                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="HasCar" ColumnName="HasCar" />
-                <ScalarProperty Name="HasKeys" ColumnName="HasKeys" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Batches">
-            <EntityTypeMapping TypeName="HousingDB_DevModel.Batch">
-              <MappingFragment StoreEntitySet="Batch">
-                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Instructor" ColumnName="Instructor" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Technology" ColumnName="Technology" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Genders">
-            <EntityTypeMapping TypeName="HousingDB_DevModel.Gender">
-              <MappingFragment StoreEntitySet="Gender">
-                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HousingComplexes">
-            <EntityTypeMapping TypeName="HousingDB_DevModel.HousingComplex">
-              <MappingFragment StoreEntitySet="HousingComplex">
-                <ScalarProperty Name="HousingComplexId" ColumnName="HousingComplexId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HousingDatas">
-            <EntityTypeMapping TypeName="HousingDB_DevModel.HousingData">
-              <MappingFragment StoreEntitySet="HousingData">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="HousingDataId" ColumnName="HousingDataId" />
-                <ScalarProperty Name="AssociateId" ColumnName="AssociateId" />
-                <ScalarProperty Name="HousingUnitId" ColumnName="HousingUnitId" />
-                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
-                <ScalarProperty Name="MoveOutDate" ColumnName="MoveOutDate" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HousingUnits">
-            <EntityTypeMapping TypeName="HousingDB_DevModel.HousingUnit">
-              <MappingFragment StoreEntitySet="HousingUnit">
-                <ScalarProperty Name="HousingUnitName" ColumnName="HousingUnitName" />
-                <ScalarProperty Name="HousingUnitId" ColumnName="HousingUnitId" />
-                <ScalarProperty Name="AptNumber" ColumnName="AptNumber" />
-                <ScalarProperty Name="MaxCapacity" ColumnName="MaxCapacity" />
-                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
-                <ScalarProperty Name="HousingComplexId" ColumnName="HousingComplexId" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionName="HousingDB_DevModel.Store.HousingData_By_Unit" FunctionImportName="HousingData_By_Unit">
             <ResultMapping>
               <ComplexTypeMapping TypeName="HousingDB_DevModel.HousingData_By_Unit_Result">
@@ -529,6 +453,82 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Associates">
+            <EntityTypeMapping TypeName="HousingDB_DevModel.Associate">
+              <MappingFragment StoreEntitySet="Associate">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="HasKeys" ColumnName="HasKeys" />
+                <ScalarProperty Name="HasCar" ColumnName="HasCar" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="AssociateId" ColumnName="AssociateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Batches">
+            <EntityTypeMapping TypeName="HousingDB_DevModel.Batch">
+              <MappingFragment StoreEntitySet="Batch">
+                <ScalarProperty Name="Technology" ColumnName="Technology" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Instructor" ColumnName="Instructor" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genders">
+            <EntityTypeMapping TypeName="HousingDB_DevModel.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HousingComplexes">
+            <EntityTypeMapping TypeName="HousingDB_DevModel.HousingComplex">
+              <MappingFragment StoreEntitySet="HousingComplex">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="HousingComplexId" ColumnName="HousingComplexId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HousingDatas">
+            <EntityTypeMapping TypeName="HousingDB_DevModel.HousingData">
+              <MappingFragment StoreEntitySet="HousingData">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="MoveOutDate" ColumnName="MoveOutDate" />
+                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
+                <ScalarProperty Name="HousingUnitId" ColumnName="HousingUnitId" />
+                <ScalarProperty Name="AssociateId" ColumnName="AssociateId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="HousingDataId" ColumnName="HousingDataId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HousingUnits">
+            <EntityTypeMapping TypeName="HousingDB_DevModel.HousingUnit">
+              <MappingFragment StoreEntitySet="HousingUnit">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="HousingComplexId" ColumnName="HousingComplexId" />
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+                <ScalarProperty Name="MaxCapacity" ColumnName="MaxCapacity" />
+                <ScalarProperty Name="AptNumber" ColumnName="AptNumber" />
+                <ScalarProperty Name="HousingUnitName" ColumnName="HousingUnitName" />
+                <ScalarProperty Name="HousingUnitId" ColumnName="HousingUnitId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

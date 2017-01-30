@@ -8,7 +8,7 @@ namespace Housing.Data.Domain.DataAccessObjects
 {
     public class AssociateDao
     {
-        public int AssociateId { get; set; }
+       // public int AssociateId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Gender { get; set; }
