@@ -20,6 +20,7 @@ namespace Housing.Data.Domain
         public System.DateTime MoveInDate { get; set; }
         public System.DateTime MoveOutDate { get; set; }
         public bool Active { get; set; }
+        public string Name { get; set; }
     
         public virtual Associate Associate { get; set; }
         public virtual HousingUnit HousingUnit { get; set; }
