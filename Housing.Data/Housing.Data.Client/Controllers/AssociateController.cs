@@ -12,6 +12,7 @@ namespace Housing.Data.Client.Controllers
 {   /// <summary>
     /// 
     /// </summary>
+    [RoutePrefix("api/associate")]
     public class AssociateController : ApiController
     {
         /// <summary>
@@ -32,22 +33,23 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="email"></param>
         /// <returns></returns>
         // GET: api/Associate/5
-        public string Get(int id)
+        [Route("GetByEmail")]
+        [HttpGet]
+        public AssociateDao Get(string email)
         {
-            return "value";
+            return helper.GetAssociates().Where( x => x.Email == email).First();
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="value"></param>
+        /// <param name="a"></param>       
         /// <returns></returns>
         // POST: api/Associate
-        public bool Post(AssociateDao a, [FromBody]string value)
+        public bool Post([FromBody]AssociateDao a)
         {
             if (a != null)
             {
@@ -66,16 +68,15 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="value"></param>
+        /// <param name="email"></param>
+        /// <param name="assoc"></param>
         /// <returns></returns>
         // PUT: api/Associate/5
-        public bool Put(string email, [FromBody]string value)
+        public bool Put(string email, [FromBody]AssociateDao assoc)
         {
             try
-            {
-                AssociateDao a = helper.GetAssociates().Where(b => b.Email == email).First();
-                return helper.UpdateAssociate(a);
+            {                
+                return helper.UpdateAssociate(assoc);
             }
             catch (Exception)
             {
@@ -86,7 +87,7 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="email"></param>
         /// <returns></returns>
         // DELETE: api/Associate/5
         public bool Delete(string email)
