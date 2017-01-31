@@ -46,9 +46,35 @@ namespace Housing.Data.Domain
         /// <param name="comDao"></param>
         /// <returns>HousingComplex</returns>
         public HousingComplex MapToEntity(HousingComplexDao comDao)
-        {
+        {           
+            HousingComplex com = null;
+            HousingComplex fromDB = null;
+            //use automapper to map matching properties
             var mapper = HousingComplexMapper.CreateMapper();
-            HousingComplex com = mapper.Map<HousingComplex>(comDao);
+            if (comDao != null)
+            {
+                com = mapper.Map<HousingComplex>(comDao);
+            }
+            //get original object from db
+            if (!string.IsNullOrEmpty(comDao.Name))
+            {
+                fromDB = db.HousingComplexes.Where(m => m.Name.Equals(comDao.Name)).FirstOrDefault();
+            }
+            //if db object exist then use existing object and map properties sent from dao-ignore name
+            if (fromDB != null)
+            {
+                com = fromDB;
+                if (!string.IsNullOrEmpty(comDao.Name))
+                {
+                    com.Address = comDao.Address;
+                    com.PhoneNumber = comDao.PhoneNumber;
+                }
+            }
+            //if db object does not exist use automapper version of object and set active to true            
+            else
+            {
+                com.Active = true;
+            }
             return com;
         }
 
@@ -72,10 +98,45 @@ namespace Housing.Data.Domain
         /// <returns>HousingUnit</returns>
         public HousingUnit MapToEntity(HousingUnitDao unitDao)
         {
+            //var mapper = HousingUnitMapper.CreateMapper();
+            //HousingUnit unit = mapper.Map<HousingUnit>(unitDao);
+            //unit.GenderId = genders.Find(g => g.Name.Equals(unitDao.Gender)).GenderId;
+            //return unit;
+
+            HousingUnit hu = null;
+            HousingUnit fromDB = null;
+            //use automapper to map matching properties
             var mapper = HousingUnitMapper.CreateMapper();
-            HousingUnit unit = mapper.Map<HousingUnit>(unitDao);
-            unit.GenderId = genders.Find(g => g.Name.Equals(unitDao.Gender)).GenderId;
-            return unit;
+            if (unitDao != null)
+            {
+                hu = mapper.Map<HousingUnit>(unitDao);
+            }
+            //get original object from db
+            if (!string.IsNullOrEmpty(unitDao.HousingUnitName))
+            {
+                fromDB = db.HousingUnits.Where(m => m.HousingUnitName.Equals(unitDao.HousingUnitName)).FirstOrDefault();
+            }
+            //if db object exist then use existing object and map properties sent from dao-ignore housingUnitName
+            if (fromDB != null)
+            {
+                hu = fromDB;
+                if (!string.IsNullOrEmpty(unitDao.HousingUnitName))
+                {
+                    hu.AptNumber = unitDao.AptNumber;
+                    hu.Gender = unitDao.Gender;
+                    hu.GenderId = hu.Gender.GenderId;
+                    hu.HousingComplex = unitDao.HousingUnitName;
+                    hu.HousingComplexId = hu.HousingComplex.HousingComplexId;
+                    hu.MaxCapacity = unitDao.MaxCapacity;
+                    
+                }
+            }
+            //if db object does not exist use automapper version of object and set active to true            
+            else
+            {
+                com.Active = true;
+            }
+            return com;
         }
 
         /// <summary>
