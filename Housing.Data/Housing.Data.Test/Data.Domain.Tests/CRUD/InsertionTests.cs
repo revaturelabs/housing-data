@@ -15,11 +15,12 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         private Housing.Data.Domain.AccessMapper map = new Housing.Data.Domain.AccessMapper();
         private Housing.Data.Domain.CRUD.AccessHelper ah = new Housing.Data.Domain.CRUD.AccessHelper();
 
+        // TO run test to pass, must have a unique name
         [Fact]
         public void insertGenderTest()
         {
             var expected = true;
-            var actual = ah.InsertGender(new GenderDao { Name = "undefined" });
+            var actual = ah.InsertGender(new GenderDao { Name = "undefinedtest2" });
             Assert.Equal(expected, actual);
         }
     }

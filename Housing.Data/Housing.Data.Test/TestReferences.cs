@@ -668,7 +668,7 @@ namespace Housing.Data.Test
         //using xunit
 
         #region revashare-db tests
-
+            /*
         private AccessHelper ah = new AccessHelper();
 
         [Fact]
@@ -692,7 +692,7 @@ namespace Housing.Data.Test
             var actual = ah.DeleteGender(toDelete);
             Assert.True(actual);
         }
-
+        */
 
         /*
         #region Ride Tests

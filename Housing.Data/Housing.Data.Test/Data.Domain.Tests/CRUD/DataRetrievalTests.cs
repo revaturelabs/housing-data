@@ -66,20 +66,20 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         }
         
         [Fact]
-        public void Test_GetUnitsByComplexID()
+        public void Test_GetUnitsByComplexName()
         {
             AccessHelper db = new AccessHelper();
-            string ID = "";
-            var units = db.GetUnitsByComplex(ID);
+            string Name = "Camden Dulles Station";
+            var units = db.GetUnitsByComplex(Name);
             Assert.NotEmpty(units);
         }
         
         [Fact]
-        public void Test_GetDataByUnitID()
+        public void Test_GetDataByUnitName()
         {
             AccessHelper db = new AccessHelper();
-            string ID = "";
-            var data = db.GetDataByUnit(ID);
+            string Name = "Camden Dulles Station 1409";
+            var data = db.GetDataByUnit(Name);
             Assert.NotEmpty(data);
         }
         
