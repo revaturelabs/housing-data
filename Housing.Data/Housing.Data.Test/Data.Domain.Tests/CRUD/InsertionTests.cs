@@ -15,13 +15,30 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         private Housing.Data.Domain.AccessMapper map = new Housing.Data.Domain.AccessMapper();
         private Housing.Data.Domain.CRUD.AccessHelper ah = new Housing.Data.Domain.CRUD.AccessHelper();
 
-        // TO run test to pass, must have a unique name
+        // To run test to pass, must have a unique name.
+        // Cannot use same name even after using the DeleteGender function
         [Fact]
-        public void insertGenderTest()
+        public void Test_InsertGender()
         {
             var expected = true;
-            var actual = ah.InsertGender(new GenderDao { Name = "undefinedtest2" });
+            var actual = ah.InsertGender(new GenderDao { Name = "undefinedtest4" });
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void Test_InsertBatch()
+        {
+            var expected = true;
+            var actual = ah.InsertBatch(new BatchDao { Name = "Test1", Instructor="Test", Technology="Test" });
+            Assert.Equal(expected, actual);
+        }
+
+        //InsertAssociate
+
+        //InsertHousingComplex
+
+        //InsertHousingUnit
+
+        //InsertHousingData
     }
 }

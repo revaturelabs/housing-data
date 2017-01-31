@@ -13,6 +13,33 @@ namespace Housing.Data.Domain.CRUD
         #region deletions 
 
         /// <summary>
+        /// Delete Gender
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        public bool DeleteGender(GenderDao g)
+        {
+            Gender gender = mapper.MapToEntity(g);
+            var toDelete = db.Genders.Where(m => m.GenderId == gender.GenderId).FirstOrDefault();
+            db.Genders.Remove(toDelete);
+            return db.SaveChanges() > 0;
+        }
+
+        /// <summary>
+        /// Delete batch
+        /// </summary>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public bool DeleteBatch(BatchDao b)
+        {
+            Batch batch = mapper.MapToEntity(b);
+            var toDelete = db.Batches.Where(m => m.BatchId == batch.BatchId).FirstOrDefault();
+
+            db.Batches.Remove(toDelete);
+            return db.SaveChanges() > 0;
+        }
+        
+        /// <summary>
         /// delete Associate
         /// </summary>
         /// <param name="assoc"></param>
@@ -51,34 +78,7 @@ namespace Housing.Data.Domain.CRUD
             db.HousingUnits.Remove(toDelete);
             return db.SaveChanges() > 0;
         }
-
-        /// <summary>
-        /// Delete batch
-        /// </summary>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public bool DeleteBatch(BatchDao b)
-        {
-            Batch batch = mapper.MapToEntity(b);
-            var toDelete = db.Batches.Where(m => m.BatchId == batch.BatchId).FirstOrDefault();
-
-            db.Batches.Remove(toDelete);
-            return db.SaveChanges() > 0;
-        }
-
-        /// <summary>
-        /// Delete Gender
-        /// </summary>
-        /// <param name="g"></param>
-        /// <returns></returns>
-        public bool DeleteGender(GenderDao g)
-        {
-            Gender gender = mapper.MapToEntity(g);
-            var toDelete = db.Genders.Where(m => m.GenderId == gender.GenderId).FirstOrDefault();
-            db.Genders.Remove(toDelete);
-            return db.SaveChanges() > 0;
-        }
-
+        
         /// <summary>
         /// delete HousingData entry
         /// </summary>
