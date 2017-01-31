@@ -97,9 +97,59 @@ namespace Housing.Data.Domain
         /// <returns>HousingData</returns>
         public HousingData MapToEntity(HousingDataDao dataDao)
         {
+            HousingData hd=null;
+            HousingData fromDB=null;
+            //use automapper to map matching properties
             var mapper = HousingDataMapper.CreateMapper();
-            HousingData data = mapper.Map<HousingData>(dataDao);
-            return data;
+            if (dataDao!=null)
+            {
+                hd = mapper.Map<HousingData>(dataDao); 
+            }
+            //get original object from db
+            if (!string.IsNullOrEmpty(dataDao.HousingDataAltId))
+            {
+                fromDB = db.HousingDatas.Where(m => m.HousingDataAltId.Equals(dataDao.HousingDataAltId)).FirstOrDefault(); 
+            }
+            //if db object exist then use existing object and map properties sent from dao-ignore housingDataAltId
+            if (fromDB != null)
+            {
+                if (dataDao!=null)
+                {
+                    hd = fromDB;
+                    if (!string.IsNullOrEmpty(dataDao.AssociateEmail))
+                    {
+                        hd.Associate = db.Associates.Where(m => m.Email.Equals(dataDao.AssociateEmail)).FirstOrDefault(); 
+                    }
+                    if (hd!=null && hd.Associate!=null && hd.Associate.AssociateId>0)
+                    {
+                        hd.AssociateId = hd.Associate.AssociateId; 
+                    }
+                    if (!string.IsNullOrEmpty(dataDao.HousingUnitName))
+                    {
+                        hd.HousingUnit = db.HousingUnits.Where(m => m.HousingUnitName.Equals(dataDao.HousingUnitName)).FirstOrDefault(); 
+                    }
+                    if (hd!=null && hd.HousingUnit!=null && hd.HousingUnit.HousingUnitId>0)
+                    {
+                        hd.HousingUnitId = hd.HousingUnit.HousingUnitId; 
+                    }
+                    if (!(dataDao.MoveInDate==DateTime.MinValue))
+                    {
+                        hd.MoveInDate = dataDao.MoveInDate; 
+                    }
+                    if (!(dataDao.MoveOutDate==DateTime.MinValue))
+                    {
+                        hd.MoveOutDate = dataDao.MoveOutDate;  
+                    }
+                }
+                
+
+            }
+            //if db object does not exist use automapper version of object and set active to true            
+            else
+            {
+                hd.Active = true;
+            }
+            return hd;
         }
 
         /// <summary>
@@ -122,11 +172,67 @@ namespace Housing.Data.Domain
         /// <param name="assocDao"></param>
         /// <returns>Associate</returns>
         public Associate MapToEntity(AssociateDao assocDao)
-        {
+        {           
+            Associate assoc=null;
+            Associate fromDB=null;
+            //use automapper to map matching properties
             var mapper = AssociateMapper.CreateMapper();
-            Associate assoc = mapper.Map<Associate>(assocDao);
-            assoc.BatchId = batches.Find(b => b.Name.Equals(assocDao.BatchName)).BatchId;
-            assoc.GenderId = genders.Find(g => g.Name.Equals(assocDao.GenderName)).GenderId;
+            if (assocDao!=null)
+            {
+                assoc = mapper.Map<Associate>(assocDao); 
+            }
+            //get original object from db
+            if (!string.IsNullOrEmpty(assocDao.Email))
+            {
+                fromDB = db.Associates.Where(m => m.Email.Equals(assocDao.Email)).FirstOrDefault(); 
+            }
+            //if db object exist then use existing object and map properties sent from dao-ignore email
+            if (fromDB != null)
+            {
+                assoc = fromDB;
+                if(assocDao!=null)
+                {
+                    if (!string.IsNullOrEmpty(assocDao.BatchName))
+                    {
+                        assoc.Batch = db.Batches.Where(m => m.Name.Equals(assocDao.BatchName)).FirstOrDefault();
+                    }
+                    if (assoc.Batch != null && assoc.Batch.BatchId > 0)
+                    {
+                        assoc.BatchId = assoc.Batch.BatchId;
+                    }
+                    if (!string.IsNullOrEmpty(assocDao.GenderName))
+                    {
+                        assoc.Gender = db.Genders.Where(m => m.Name.Equals(assocDao.GenderName)).FirstOrDefault();
+                    }
+                    if (assoc.Gender != null && assoc.Gender.GenderId > 0)
+                    {
+                        assoc.GenderId = assoc.Gender.GenderId;
+                    }
+                    if (!(assocDao.DateOfBirth == DateTime.MinValue))
+                    {
+                        assoc.DateOfBirth = assocDao.DateOfBirth;
+                    }
+                    if (!string.IsNullOrEmpty(assocDao.FirstName))
+                    {
+                        assoc.FirstName = assocDao.FirstName;
+                    }
+                    assoc.HasCar = assocDao.HasCar;//no way to test if data is valid
+                    assoc.HasKeys = assocDao.HasKeys;//no way to test if data is valid
+                    if (!string.IsNullOrEmpty(assocDao.LastName))
+                    {
+                        assoc.LastName = assocDao.LastName; 
+                    }
+                    if (!string.IsNullOrEmpty(assocDao.PhoneNumber))
+                    {
+                        assoc.PhoneNumber = assocDao.PhoneNumber; 
+                    }
+                }               
+            }
+            //if db object does not exist use automapper version of object and set active to true            
+            else
+            {
+                assoc.Active = true;
+            }
             return assoc;
         }
 
@@ -149,8 +255,46 @@ namespace Housing.Data.Domain
         /// <returns>Batch</returns>
         public Batch MapToEntity(BatchDao batchDao)
         {
+            Batch batch=null;
+            Batch fromDB = null;
+            //use automapper to map matching properties
             var mapper = BatchMapper.CreateMapper();
-            Batch batch = mapper.Map<Batch>(batchDao);
+            if (batchDao!=null)
+            {
+                batch = mapper.Map<Batch>(batchDao); 
+            }
+            //get original object from db
+            if (!string.IsNullOrEmpty(batchDao.Name))
+            {
+                fromDB = db.Batches.Where(m => m.Name.Equals(batchDao.Name)).FirstOrDefault(); 
+            }
+            //if db object exist then use existing object and map properties sent from dao-ignore name
+            if (fromDB != null)
+            {
+                                
+                batch = fromDB;                
+                if (!(batchDao.EndDate == DateTime.MinValue))
+                {
+                    batch.EndDate = batchDao.EndDate; 
+                }
+                if (!string.IsNullOrEmpty(batchDao.Instructor))
+                {
+                    batch.Instructor = batchDao.Instructor; 
+                }
+                if (!(batch.StartDate==DateTime.MinValue))
+                {
+                    batch.StartDate = batchDao.StartDate; 
+                }
+                if (!string.IsNullOrEmpty(batchDao.Technology))
+                {
+                    batch.Technology = batchDao.Technology; 
+                }
+            }
+            //if db object does not exist use automapper version of object and set active to true            
+            else
+            {
+                batch.Active = true;                
+            }
             return batch;
         }
 
@@ -173,20 +317,34 @@ namespace Housing.Data.Domain
         /// <returns>Gender</returns>
         public Gender MapToEntity(GenderDao genDao)
         {
-
+            Gender gen=null;
+            Gender fromDB=null;
+            //use automapper to map matching properties
             var mapper = GenderMapper.CreateMapper();
-            Gender gen = mapper.Map<Gender>(genDao);
-            var fromDB = db.Genders.Where(m => m.Name.Equals(genDao.Name)).FirstOrDefault();
-            if(fromDB != null)
+            if (genDao!=null)
             {
-                gen.Active = fromDB.Active;
-                gen.GenderId = fromDB.GenderId;                
+                gen = mapper.Map<Gender>(genDao); 
             }
-            else
+            //get original object from db
+            if (!string.IsNullOrEmpty(genDao.Name))
             {
-                gen.Active = true;
-            }            
-            
+                fromDB = db.Genders.Where(m => m.Name.Equals(genDao.Name)).FirstOrDefault(); 
+            }
+            //if db object exist then use existing object and map properties sent from dao
+            if (fromDB != null)
+            {
+                gen = fromDB;
+                if(!string.IsNullOrEmpty(genDao.Name))                
+                {
+                    gen.Name = genDao.Name;
+                }
+                                
+            }
+            //if db object does not exist use automapper version of object and set active to true            
+            else
+            {                
+                gen.Active = true;                
+            }                        
             return gen;
         }
 

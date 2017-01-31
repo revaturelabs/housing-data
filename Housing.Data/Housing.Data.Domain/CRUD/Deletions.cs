@@ -20,7 +20,8 @@ namespace Housing.Data.Domain.CRUD
         public bool DeleteAssociate(AssociateDao assoc)
         {
             Associate t = mapper.MapToEntity(assoc);
-            db.Associates.Remove(t);
+            var toDelete = db.Associates.Where(m => m.AssociateId == t.AssociateId).FirstOrDefault();
+            db.Associates.Remove(toDelete);
             return db.SaveChanges() > 0;
         }
 
@@ -32,7 +33,8 @@ namespace Housing.Data.Domain.CRUD
         public bool DeleteHousingComplex(HousingComplexDao hc)
         {
             HousingComplex h = mapper.MapToEntity(hc);
-            db.HousingComplexes.Remove(h);
+            var toDelete = db.HousingComplexes.Where(m => m.HousingComplexId == h.HousingComplexId).FirstOrDefault();
+            db.HousingComplexes.Remove(toDelete);
             return db.SaveChanges() > 0;
         }
 
@@ -44,7 +46,9 @@ namespace Housing.Data.Domain.CRUD
         public bool DeleteHousingUnit(HousingUnitDao hu)
         {
             HousingUnit u = mapper.MapToEntity(hu);
-            db.HousingUnits.Remove(u);
+            var toDelete = db.HousingUnits.Where(m => m.HousingUnitId == u.HousingUnitId).FirstOrDefault();
+
+            db.HousingUnits.Remove(toDelete);
             return db.SaveChanges() > 0;
         }
 
@@ -56,7 +60,9 @@ namespace Housing.Data.Domain.CRUD
         public bool DeleteBatch(BatchDao b)
         {
             Batch batch = mapper.MapToEntity(b);
-            db.Batches.Remove(batch);
+            var toDelete = db.Batches.Where(m => m.BatchId == batch.BatchId).FirstOrDefault();
+
+            db.Batches.Remove(toDelete);
             return db.SaveChanges() > 0;
         }
 
@@ -81,7 +87,9 @@ namespace Housing.Data.Domain.CRUD
         public bool DeleteHousingData(HousingDataDao hd)
         {
             HousingData d = mapper.MapToEntity(hd);
-            db.HousingDatas.Remove(d);
+            var toDelete = db.HousingDatas.Where(m => m.HousingDataId == d.HousingDataId).FirstOrDefault();
+
+            db.HousingDatas.Remove(toDelete);
             return db.SaveChanges() > 0;
         }
     #endregion
