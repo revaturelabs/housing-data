@@ -1,11 +1,14 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using System.Linq;
+using Housing.Data.Domain.DataAccessObjects;
+using Housing.Data.Domain.CRUD;
 
 namespace Housing.Data.Test
 {
     // This is just used for referencing different types of tests
     // and none of these tests should/would work in the actual app
-    [TestClass]
+   
     public class TestReferences
     {
         //using xunit
@@ -665,6 +668,31 @@ namespace Housing.Data.Test
         //using xunit
 
         #region revashare-db tests
+
+        private AccessHelper ah = new AccessHelper();
+
+        [Fact]
+        public void insertGenderTest()
+        {
+            var actual = ah.InsertGender(new GenderDao { Name = "Alien" });
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void GetGenderTest()
+        {
+            var actual = ah.GetGenders();
+            Assert.NotEmpty(actual);
+        }
+
+        [Fact]
+        public void deleteGenderTest()
+        {
+            var toDelete = ah.GetGenders().Where(m => m.Name.Equals("Alien")).FirstOrDefault();
+            var actual = ah.DeleteGender(toDelete);
+            Assert.True(actual);
+        }
+
 
         /*
         #region Ride Tests

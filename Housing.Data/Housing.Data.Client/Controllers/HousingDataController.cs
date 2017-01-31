@@ -20,9 +20,9 @@ namespace Housing.Data.Client.Controllers
         }
 
         // GET: api/HousingData/5
-        public List<HousingDataDao> Get(int id)
+        public List<HousingDataDao> Get(string unitName)
         {
-            return helper.GetDataByUnit(id);
+            return helper.GetDataByUnit(unitName);
         }
 
         // POST: api/HousingData
@@ -52,14 +52,14 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="housingDataAltId"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public bool Put(string name, [FromBody]string value)
+        public bool Put(string housingDataAltId, [FromBody]string value)
         {
             try
             {
-                HousingDataDao a = helper.GetHousingData().Where(b => b.Name == name).First();
+                HousingDataDao a = helper.GetHousingData().Where(b => b.HousingDataAltId == housingDataAltId).First();
                 return helper.UpdateHousingData(a);
             }
             catch (Exception)
@@ -72,14 +72,14 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="housingDataAltId"></param>
         /// <returns></returns>
-        public bool Delete(string name)
+        public bool Delete(string housingDataAltId)
         {
 
             try
             {
-                HousingDataDao a = helper.GetHousingData().Where(b => b.Name == name).First();
+                HousingDataDao a = helper.GetHousingData().Where(b => b.HousingDataAltId == housingDataAltId).First();
                 return helper.DeleteHousingData(a);
             }
             catch (Exception)

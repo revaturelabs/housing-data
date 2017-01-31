@@ -32,7 +32,7 @@ namespace Housing.Data.Client.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public List<HousingUnitDao> Get(int id)
+        public List<HousingUnitDao> Get(string id)
         {
             return helper.GetUnitsByComplex(id);
         }

@@ -56,7 +56,7 @@
             <PropertyRef Name="HousingDataId" />
           </Key>
           <Property Name="HousingDataId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="HousingDataAltId" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="AssociateId" Type="int" Nullable="false" />
           <Property Name="HousingUnitId" Type="int" Nullable="false" />
           <Property Name="MoveInDate" Type="date" Nullable="false" />
@@ -153,7 +153,7 @@
             <CollectionType>
               <RowType>
                 <Property Name="HousingDataId" Type="int" Nullable="false" />
-                <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+                <Property Name="HousingDataAltId" Type="nvarchar" MaxLength="255" Nullable="false" />
                 <Property Name="AssociateId" Type="int" Nullable="false" />
                 <Property Name="HousingUnitId" Type="int" Nullable="false" />
                 <Property Name="MoveInDate" Type="date" Nullable="false" />
@@ -268,7 +268,7 @@
             <End Role="HousingUnit" EntitySet="HousingUnits" />
             <End Role="HousingData" EntitySet="HousingDatas" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Associate">
           <Key>
             <PropertyRef Name="AssociateId" />
@@ -327,7 +327,7 @@
             <PropertyRef Name="HousingDataId" />
           </Key>
           <Property Name="HousingDataId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="HousingDataAltId" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="AssociateId" Type="Int32" Nullable="false" />
           <Property Name="HousingUnitId" Type="Int32" Nullable="false" />
           <Property Name="MoveInDate" Type="DateTime" Nullable="false" Precision="0" />
@@ -423,7 +423,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -511,7 +511,7 @@
                 <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
                 <ScalarProperty Name="HousingUnitId" ColumnName="HousingUnitId" />
                 <ScalarProperty Name="AssociateId" ColumnName="AssociateId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="HousingDataAltId" ColumnName="HousingDataAltId" />
                 <ScalarProperty Name="HousingDataId" ColumnName="HousingDataId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -529,7 +529,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

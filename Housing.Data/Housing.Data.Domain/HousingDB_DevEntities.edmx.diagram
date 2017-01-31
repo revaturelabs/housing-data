@@ -18,8 +18,6 @@
         <AssociationConnector Association="HousingDB_DevModel.FK_HousingUnit_Gender" />
         <AssociationConnector Association="HousingDB_DevModel.FK_HousingUnit_HousingComplex" />
         <AssociationConnector Association="HousingDB_DevModel.FK_HousingData_HousingUnit" />
-
-
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
