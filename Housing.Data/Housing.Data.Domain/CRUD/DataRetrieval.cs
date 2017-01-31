@@ -123,16 +123,17 @@ namespace Housing.Data.Domain.CRUD
         /// all active HousingUnits associated with given HousingComplexId
         /// </summary>
         /// <returns>List(HousingUnitDao)</returns>
-        public List<HousingUnitDao> GetUnitsByComplex(int id)
+        public List<HousingUnitDao> GetUnitsByComplex(string complexName)
         {
             var result = new List<HousingUnitDao>();
-            var units = db.HousingUnits.ToList().Where(b => b.HousingUnitId == id);
+            var units = db.HousingUnits.ToList().Where(b => b.HousingComplex.Name.Equals(complexName));
             foreach (var item in units)
             {
                 if (item.Active)
                 {
                     result.Add(new HousingUnitDao(item.AptNumber, item.HousingUnitName, item.MaxCapacity,
-                         mapper.genders.Find(g => g.GenderId == item.GenderId).Name, item.HousingComplexId));
+                         mapper.genders.Find(g => g.GenderId == item.GenderId).Name, 
+                         mapper.housingUnits.Find(m => m.HousingComplex.Name.Equals(complexName)).HousingComplex.Name));
                 }
             }
             return result;
@@ -142,10 +143,10 @@ namespace Housing.Data.Domain.CRUD
         /// all active HousingData associated with given HousingUnitId
         /// </summary>
         /// <returns>List(HousingDataDao)</returns>
-        public List<HousingDataDao> GetDataByUnit(int id)
+        public List<HousingDataDao> GetDataByUnit(string housingUnitName)
         {
             var result = new List<HousingDataDao>();
-            var data = db.HousingDatas.ToList().Where(x => x.HousingUnitId == id );
+            var data = db.HousingDatas.ToList().Where(x => x.HousingUnit.HousingUnitName.Equals(housingUnitName) );
             foreach (var item in data)
             {
                 if (item.Active)

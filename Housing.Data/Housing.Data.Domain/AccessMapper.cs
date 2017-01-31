@@ -21,11 +21,13 @@ namespace Housing.Data.Domain
         private readonly HousingDB_DevEntities db;
         public List<Batch> batches;
         public List<Gender> genders;
+        public List<HousingUnit> housingUnits;
         
         public AccessMapper() {
             db = new HousingDB_DevEntities();
             batches = db.Batches.ToList();
             genders = db.Genders.ToList();
+            housingUnits = db.HousingUnits.ToList();
         }
 
         /// <summary>
@@ -36,7 +38,15 @@ namespace Housing.Data.Domain
         public HousingComplexDao MapToDao(HousingComplex com)
         {
             var mapper = HousingComplexMapper.CreateMapper();
-            HousingComplexDao comDao = mapper.Map<HousingComplexDao>(com);
+            HousingComplexDao comDao;
+            if(com!=null)
+            {
+                comDao = mapper.Map<HousingComplexDao>(com);
+            }
+            else
+            {
+                comDao = new HousingComplexDao();
+            }
             return comDao;
         }
 
@@ -56,7 +66,7 @@ namespace Housing.Data.Domain
                 com = mapper.Map<HousingComplex>(comDao);
             }
             //get original object from db
-            if (!string.IsNullOrEmpty(comDao.Name))
+            if (!string.IsNullOrWhiteSpace(comDao.Name))
             {
                 fromDB = db.HousingComplexes.Where(m => m.Name.Equals(comDao.Name)).FirstOrDefault();
             }
@@ -64,9 +74,13 @@ namespace Housing.Data.Domain
             if (fromDB != null)
             {
                 com = fromDB;
-                if (!string.IsNullOrEmpty(comDao.Name))
+                if (!string.IsNullOrWhiteSpace(comDao.Address))
                 {
                     com.Address = comDao.Address;
+                    
+                }
+                if(!string.IsNullOrWhiteSpace(comDao.PhoneNumber))
+                {
                     com.PhoneNumber = comDao.PhoneNumber;
                 }
             }
@@ -85,9 +99,10 @@ namespace Housing.Data.Domain
         /// <returns>HousingUnitDao</returns>
         public HousingUnitDao MapToDao(HousingUnit unit)
         {
+            //todo add null checks
             var mapper = HousingUnitMapper.CreateMapper();
             HousingUnitDao unitDao = mapper.Map<HousingUnitDao>(unit);
-            unitDao.Gender = unit.Gender.Name;
+            unitDao.GenderName = unit.Gender.Name;
             return unitDao;
         }
 
@@ -97,12 +112,7 @@ namespace Housing.Data.Domain
         /// <param name="unitDao"></param>
         /// <returns>HousingUnit</returns>
         public HousingUnit MapToEntity(HousingUnitDao unitDao)
-        {
-            //var mapper = HousingUnitMapper.CreateMapper();
-            //HousingUnit unit = mapper.Map<HousingUnit>(unitDao);
-            //unit.GenderId = genders.Find(g => g.Name.Equals(unitDao.Gender)).GenderId;
-            //return unit;
-
+        {            
             HousingUnit hu = null;
             HousingUnit fromDB = null;
             //use automapper to map matching properties
@@ -112,7 +122,7 @@ namespace Housing.Data.Domain
                 hu = mapper.Map<HousingUnit>(unitDao);
             }
             //get original object from db
-            if (!string.IsNullOrEmpty(unitDao.HousingUnitName))
+            if (!string.IsNullOrWhiteSpace(unitDao.HousingUnitName))
             {
                 fromDB = db.HousingUnits.Where(m => m.HousingUnitName.Equals(unitDao.HousingUnitName)).FirstOrDefault();
             }
@@ -120,12 +130,12 @@ namespace Housing.Data.Domain
             if (fromDB != null)
             {
                 hu = fromDB;
-                if (!string.IsNullOrEmpty(unitDao.HousingUnitName))
+                if (!string.IsNullOrWhiteSpace(unitDao.HousingUnitName))
                 {
                     hu.AptNumber = unitDao.AptNumber;
-                    hu.Gender = unitDao.Gender;
+                    hu.Gender = db.Genders.Where(m => m.Name.Equals(unitDao.GenderName)).FirstOrDefault();
                     hu.GenderId = hu.Gender.GenderId;
-                    hu.HousingComplex = unitDao.HousingUnitName;
+                    hu.HousingComplex = db.HousingComplexes.Where(m => m.Name.Equals(unitDao.HousingComplexName)).FirstOrDefault();
                     hu.HousingComplexId = hu.HousingComplex.HousingComplexId;
                     hu.MaxCapacity = unitDao.MaxCapacity;
                     
@@ -134,9 +144,9 @@ namespace Housing.Data.Domain
             //if db object does not exist use automapper version of object and set active to true            
             else
             {
-                com.Active = true;
+                hu.Active = true;
             }
-            return com;
+            return hu;
         }
 
         /// <summary>
@@ -167,7 +177,7 @@ namespace Housing.Data.Domain
                 hd = mapper.Map<HousingData>(dataDao); 
             }
             //get original object from db
-            if (!string.IsNullOrEmpty(dataDao.HousingDataAltId))
+            if (!string.IsNullOrWhiteSpace(dataDao.HousingDataAltId))
             {
                 fromDB = db.HousingDatas.Where(m => m.HousingDataAltId.Equals(dataDao.HousingDataAltId)).FirstOrDefault(); 
             }
@@ -177,7 +187,7 @@ namespace Housing.Data.Domain
                 if (dataDao!=null)
                 {
                     hd = fromDB;
-                    if (!string.IsNullOrEmpty(dataDao.AssociateEmail))
+                    if (!string.IsNullOrWhiteSpace(dataDao.AssociateEmail))
                     {
                         hd.Associate = db.Associates.Where(m => m.Email.Equals(dataDao.AssociateEmail)).FirstOrDefault(); 
                     }
@@ -185,7 +195,7 @@ namespace Housing.Data.Domain
                     {
                         hd.AssociateId = hd.Associate.AssociateId; 
                     }
-                    if (!string.IsNullOrEmpty(dataDao.HousingUnitName))
+                    if (!string.IsNullOrWhiteSpace(dataDao.HousingUnitName))
                     {
                         hd.HousingUnit = db.HousingUnits.Where(m => m.HousingUnitName.Equals(dataDao.HousingUnitName)).FirstOrDefault(); 
                     }
@@ -243,7 +253,7 @@ namespace Housing.Data.Domain
                 assoc = mapper.Map<Associate>(assocDao); 
             }
             //get original object from db
-            if (!string.IsNullOrEmpty(assocDao.Email))
+            if (!string.IsNullOrWhiteSpace(assocDao.Email))
             {
                 fromDB = db.Associates.Where(m => m.Email.Equals(assocDao.Email)).FirstOrDefault(); 
             }
@@ -253,7 +263,7 @@ namespace Housing.Data.Domain
                 assoc = fromDB;
                 if(assocDao!=null)
                 {
-                    if (!string.IsNullOrEmpty(assocDao.BatchName))
+                    if (!string.IsNullOrWhiteSpace(assocDao.BatchName))
                     {
                         assoc.Batch = db.Batches.Where(m => m.Name.Equals(assocDao.BatchName)).FirstOrDefault();
                     }
@@ -261,7 +271,7 @@ namespace Housing.Data.Domain
                     {
                         assoc.BatchId = assoc.Batch.BatchId;
                     }
-                    if (!string.IsNullOrEmpty(assocDao.GenderName))
+                    if (!string.IsNullOrWhiteSpace(assocDao.GenderName))
                     {
                         assoc.Gender = db.Genders.Where(m => m.Name.Equals(assocDao.GenderName)).FirstOrDefault();
                     }
@@ -273,7 +283,7 @@ namespace Housing.Data.Domain
                     {
                         assoc.DateOfBirth = assocDao.DateOfBirth;
                     }
-                    if (!string.IsNullOrEmpty(assocDao.FirstName))
+                    if (!string.IsNullOrWhiteSpace(assocDao.FirstName))
                     {
                         assoc.FirstName = assocDao.FirstName;
                     }
@@ -325,7 +335,7 @@ namespace Housing.Data.Domain
                 batch = mapper.Map<Batch>(batchDao); 
             }
             //get original object from db
-            if (!string.IsNullOrEmpty(batchDao.Name))
+            if (!string.IsNullOrWhiteSpace(batchDao.Name))
             {
                 fromDB = db.Batches.Where(m => m.Name.Equals(batchDao.Name)).FirstOrDefault(); 
             }
@@ -338,7 +348,7 @@ namespace Housing.Data.Domain
                 {
                     batch.EndDate = batchDao.EndDate; 
                 }
-                if (!string.IsNullOrEmpty(batchDao.Instructor))
+                if (!string.IsNullOrWhiteSpace(batchDao.Instructor))
                 {
                     batch.Instructor = batchDao.Instructor; 
                 }
@@ -346,7 +356,7 @@ namespace Housing.Data.Domain
                 {
                     batch.StartDate = batchDao.StartDate; 
                 }
-                if (!string.IsNullOrEmpty(batchDao.Technology))
+                if (!string.IsNullOrWhiteSpace(batchDao.Technology))
                 {
                     batch.Technology = batchDao.Technology; 
                 }
@@ -387,7 +397,7 @@ namespace Housing.Data.Domain
                 gen = mapper.Map<Gender>(genDao); 
             }
             //get original object from db
-            if (!string.IsNullOrEmpty(genDao.Name))
+            if (!string.IsNullOrWhiteSpace(genDao.Name))
             {
                 fromDB = db.Genders.Where(m => m.Name.Equals(genDao.Name)).FirstOrDefault(); 
             }
@@ -395,7 +405,7 @@ namespace Housing.Data.Domain
             if (fromDB != null)
             {
                 gen = fromDB;
-                if(!string.IsNullOrEmpty(genDao.Name))                
+                if(!string.IsNullOrWhiteSpace(genDao.Name))                
                 {
                     gen.Name = genDao.Name;
                 }

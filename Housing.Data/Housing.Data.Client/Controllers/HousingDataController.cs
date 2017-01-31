@@ -20,9 +20,9 @@ namespace Housing.Data.Client.Controllers
         }
 
         // GET: api/HousingData/5
-        public List<HousingDataDao> Get(int id)
+        public List<HousingDataDao> Get(string unitName)
         {
-            return helper.GetDataByUnit(id);
+            return helper.GetDataByUnit(unitName);
         }
 
         // POST: api/HousingData

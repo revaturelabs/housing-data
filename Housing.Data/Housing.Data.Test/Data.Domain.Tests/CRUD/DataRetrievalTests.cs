@@ -69,7 +69,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         public void Test_GetUnitsByComplexID()
         {
             AccessHelper db = new AccessHelper();
-            int ID = 1;
+            string ID = "";
             var units = db.GetUnitsByComplex(ID);
             Assert.NotEmpty(units);
         }
@@ -78,7 +78,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         public void Test_GetDataByUnitID()
         {
             AccessHelper db = new AccessHelper();
-            int ID = 1;
+            string ID = "";
             var data = db.GetDataByUnit(ID);
             Assert.NotEmpty(data);
         }
