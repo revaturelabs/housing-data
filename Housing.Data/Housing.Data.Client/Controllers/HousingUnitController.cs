@@ -13,6 +13,7 @@ namespace Housing.Data.Client.Controllers
     /// <summary>
     /// 
     /// </summary>
+    [RoutePrefix("api/housingunit")]
     public class HousingUnitController : ApiController
     {
         private static AccessHelper helper = new AccessHelper();
@@ -32,9 +33,12 @@ namespace Housing.Data.Client.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public List<HousingUnitDao> Get(string id)
+        [Route("GetById")]
+        [HttpGet]
+        public HttpResponseMessage Get(string id)
         {
-            return helper.GetUnitsByComplex(id);
+            List<HousingUnitDao> a = helper.GetUnitsByComplex(id);
+            return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
         }
 
         // POST: api/HousingUnit
@@ -42,9 +46,8 @@ namespace Housing.Data.Client.Controllers
         /// 
         /// </summary>
         /// <param name="hu"></param>
-        /// <param name="value"></param>
         /// <returns></returns>
-        public bool Post(HousingUnitDao hu, [FromBody]string value)
+        public bool Post([FromBody]HousingUnitDao hu)
         {
             if (hu != null)
             {
@@ -64,9 +67,9 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="value"></param>
-        public bool Put(string name, [FromBody]string value)
+        /// <param name="name"></param>
+        /// <param name="hu"></param>
+        public bool Put(string name, [FromBody]HousingUnitDao hu)
         {
             try
             {
@@ -83,7 +86,7 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="name"></param>
         public bool Delete(string name)
         {
             try

@@ -13,6 +13,7 @@ namespace Housing.Data.Client.Controllers
     /// <summary>
     /// 
     /// </summary>
+    [RoutePrefix("api/batch")]
     public class BatchController : ApiController
     {
         /// <summary>
@@ -33,11 +34,14 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public string Get(string name)
+        [Route("GetById")]
+        [HttpGet]
+        public HttpResponseMessage Get(string id)
         {
-            return helper.GetBatches().Where( x => x.Name == name).First().ToString();
+            var a = helper.GetBatches().Where( x => x.Name == id).First();
+            return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
         }
 
         // POST: api/Batch

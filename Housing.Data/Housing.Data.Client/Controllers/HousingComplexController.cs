@@ -13,6 +13,7 @@ namespace Housing.Data.Client.Controllers
     /// <summary>
     /// 
     /// </summary>
+    [RoutePrefix("api/housingcomplex")]
     public class HousingComplexController : ApiController
     {
         private static AccessHelper helper = new AccessHelper();
@@ -33,9 +34,12 @@ namespace Housing.Data.Client.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public string Get(int id)
+        [Route("GetById")]
+        [HttpGet]
+        public HttpResponseMessage Get(string id)
         {
-            return "value";
+            var a = helper.GetHousingComplexes().Where(x => x.Name == id).First();
+            return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
         }
 
         // POST: api/HousingComplex
@@ -43,9 +47,8 @@ namespace Housing.Data.Client.Controllers
         /// 
         /// </summary>
         /// <param name="hc"></param>
-        /// <param name="value"></param>
         /// <returns></returns>
-        public bool Post(HousingComplexDao hc, [FromBody]string value)
+        public bool Post([FromBody]HousingComplexDao hc)
         {
             if (hc != null)
             {

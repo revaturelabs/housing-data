@@ -33,14 +33,15 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="email"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         // GET: api/Associate/5
         [Route("GetByEmail")]
         [HttpGet]
-        public AssociateDao Get(string email)
+        public HttpResponseMessage Get(string id)
         {
-            return helper.GetAssociates().Where( x => x.Email == email).First();
+            var a = helper.GetAssociates().Where( x => x.Email == id).First();
+            return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
         }
 
         /// <summary>

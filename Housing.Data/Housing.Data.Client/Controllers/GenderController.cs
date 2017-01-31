@@ -10,19 +10,38 @@ using System.Web.Http;
 
 namespace Housing.Data.Client.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    [RoutePrefix("api/gender")]
     public class GenderController : ApiController
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public static AccessHelper helper = new AccessHelper();
         // GET: api/Gender
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<GenderDao> Get()
         {
             return helper.GetGenders();
         }
 
         // GET: api/Gender/5
-        public string Get(int id)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("GetById")]
+        [HttpGet]
+        public HttpResponseMessage Get(string id)
         {
-            return "value";
+            var a = helper.GetGenders().Where(x => x.Name == id).First();
+            return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
         }
 
         // POST: api/Gender
