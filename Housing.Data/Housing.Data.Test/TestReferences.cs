@@ -670,13 +670,68 @@ namespace Housing.Data.Test
         #region revashare-db tests
 
         private AccessHelper ah = new AccessHelper();
+        #region inserts
 
         [Fact]
         public void insertGenderTest()
         {
-            var actual = ah.InsertGender(new GenderDao { Name = "Alien" });
+            var actual = ah.InsertGender(new GenderDao { Name = "Pangender" });
             Assert.True(actual);
         }
+        [Fact]
+        public void insertBatchTest()
+        {
+            var actual = ah.InsertBatch(new BatchDao {EndDate=DateTime.Now, Instructor="test instructor", Name="new test batch",
+                                                        StartDate=DateTime.Now, Technology="test technology"});
+            Assert.True(actual);
+        }
+        [Fact]
+        public void insertAssocTest()
+        {
+            var assoc = new AssociateDao();
+            assoc.BatchName = "new test batch";
+            assoc.DateOfBirth = DateTime.MinValue;
+            assoc.Email = "a@b.c";
+            assoc.FirstName = "fname";
+            assoc.GenderName = "Pangender";
+            assoc.HasCar = true;
+            assoc.HasKeys = true;
+            assoc.LastName = "lname";
+            assoc.PhoneNumber = "123456789";
+            var actual = ah.InsertAssociate(assoc);
+            Assert.True(actual);
+        }
+        [Fact]
+        public void insertHousingDataTest()
+        {
+            //actual = ah.InsertHousingData(new GenderDao { Name = "Pangender" });
+            //Assert.True(actual);
+        }
+        [Fact]
+        public void insertComplexTest()
+        {
+            var complex = new HousingComplexDao();
+            complex.Address = "test address";
+            complex.Name = "test complex name";
+            complex.PhoneNumber = "9876543210"; 
+            var actual = ah.InsertHousingComplex(complex);
+            Assert.True(actual);
+        }
+        [Fact]
+        public void insertUnitTest()
+        {
+            //var unit = new HousingUnitDao();
+            //unit.AptNumber = "88888";
+            //unit.GenderName = "Pangender";
+            //unit.HousingComplexName = "test complex name";
+            //unit.HousingUnitName = "test complex name 88888";
+            //unit.MaxCapacity = 6;
+            //var actual = ah.InsertHousingUnit(unit);
+            //Assert.True(actual);
+        }
+        #endregion
+
+        #region gets
 
         [Fact]
         public void GetGenderTest()
@@ -686,13 +741,47 @@ namespace Housing.Data.Test
         }
 
         [Fact]
+        public void GetBatchTest()
+        {
+            var actual = ah.GetBatches();
+            Assert.NotEmpty(actual);
+        }
+        [Fact]
+        public void GetAssociatesTest()
+        {
+            var actual = ah.GetAssociates();
+            Assert.NotEmpty(actual);
+        }
+        [Fact]
+        public void GetHousingDataTest()
+        {
+            var actual = ah.GetHousingData();
+            Assert.NotEmpty(actual);
+        }
+        [Fact]
+        public void GetComplexTest()
+        {
+            var actual = ah.GetHousingComplexes();
+            Assert.NotEmpty(actual);
+        }
+        [Fact]
+        public void GetHousingUnitsTest()
+        {
+            var actual = ah.GetHousingUnits();
+            Assert.NotEmpty(actual);
+        }
+
+        #endregion
+
+        #region deletes
+        [Fact]
         public void deleteGenderTest()
         {
             var toDelete = ah.GetGenders().Where(m => m.Name.Equals("Alien")).FirstOrDefault();
             var actual = ah.DeleteGender(toDelete);
             Assert.True(actual);
         }
-
+        #endregion  
 
         /*
         #region Ride Tests

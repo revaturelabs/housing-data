@@ -11,7 +11,7 @@ namespace Housing.Data.Domain.CRUD
     {
 
         private readonly HousingDB_DevEntities db;
-        public static AccessMapper mapper = new AccessMapper();
+        public static AccessMapper mapper;
 
         /// <summary>
         /// constructor
@@ -19,6 +19,7 @@ namespace Housing.Data.Domain.CRUD
         public AccessHelper()
         {
             db = new HousingDB_DevEntities();
+            mapper = new AccessMapper(db);
         }
 
         #region insertions
