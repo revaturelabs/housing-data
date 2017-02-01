@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Housing.Data;
 using Housing.Data.Domain.DataAccessObjects;
-
+using Housing.Data.Domain;
 
 namespace Housing.Data.Test.Data.Domain.Tests.CRUD
 {
@@ -34,6 +34,23 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         }
 
         //InsertAssociate
+        Associate associate = new Associate()
+        {
+            FirstName = "First",
+            LastName = "Last",
+            GenderId = 1,
+            BatchId = 1,
+            PhoneNumber = "7321231233",
+            Email = "come@me.net",
+            HasCar = true,
+            HasKeys = true
+        };
+        //[Fact]
+        //public void Test_InsertAssociate()
+        //{
+
+        //    var actual = ah.InsertAssociate(associate);
+        //}
         /*
          Error happening 
         [Fact]
@@ -49,6 +66,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
 
     */
         //InsertHousingComplex
+
         [Fact]
         public void Test_InsertHousingComplex()
         {
