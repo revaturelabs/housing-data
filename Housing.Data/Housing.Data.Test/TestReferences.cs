@@ -704,8 +704,14 @@ namespace Housing.Data.Test
         [Fact]
         public void insertHousingDataTest()
         {
-            //actual = ah.InsertHousingData(new GenderDao { Name = "Pangender" });
-            //Assert.True(actual);
+            var data = new HousingDataDao();
+            data.AssociateEmail = "a@b.c";
+            data.HousingDataAltId = "A123B456";
+            data.HousingUnitName = "test complex name 88888";
+            data.MoveInDate = DateTime.Now;
+            data.MoveOutDate = DateTime.Now;
+            var actual = ah.InsertHousingData(data);
+            Assert.True(actual);
         }
         [Fact]
         public void insertComplexTest()
@@ -720,14 +726,14 @@ namespace Housing.Data.Test
         [Fact]
         public void insertUnitTest()
         {
-            //var unit = new HousingUnitDao();
-            //unit.AptNumber = "88888";
-            //unit.GenderName = "Pangender";
-            //unit.HousingComplexName = "test complex name";
-            //unit.HousingUnitName = "test complex name 88888";
-            //unit.MaxCapacity = 6;
-            //var actual = ah.InsertHousingUnit(unit);
-            //Assert.True(actual);
+            var unit = new HousingUnitDao();
+            unit.AptNumber = "88888";
+            unit.GenderName = "Pangender";
+            unit.HousingComplexName = "test complex name";
+            unit.HousingUnitName = "test complex name 88888";
+            unit.MaxCapacity = 6;
+            var actual = ah.InsertHousingUnit(unit);
+            Assert.True(actual);
         }
         #endregion
 

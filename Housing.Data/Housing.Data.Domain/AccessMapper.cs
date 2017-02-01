@@ -151,6 +151,10 @@ namespace Housing.Data.Domain
             else
             {
                 hu.Active = true;
+                hu.Gender = db.Genders.Where(m => m.Name.Equals(unitDao.GenderName)).FirstOrDefault();
+                hu.GenderId = hu.Gender.GenderId;
+                hu.HousingComplex = db.HousingComplexes.Where(m => m.Name.Equals(unitDao.HousingComplexName)).FirstOrDefault();
+                hu.HousingComplexId = hu.HousingComplex.HousingComplexId; 
             }
             return hu;
         }
@@ -226,6 +230,11 @@ namespace Housing.Data.Domain
             else
             {
                 hd.Active = true;
+                hd.Associate = db.Associates.Where(m => m.Email.Equals(dataDao.AssociateEmail)).FirstOrDefault();
+                hd.AssociateId = hd.Associate.AssociateId;
+                hd.HousingUnit = db.HousingUnits.Where(m => m.HousingUnitName.Equals(dataDao.HousingUnitName)).FirstOrDefault();
+                hd.HousingUnitId = hd.HousingUnit.HousingUnitId;
+                
             }
             return hd;
         }
