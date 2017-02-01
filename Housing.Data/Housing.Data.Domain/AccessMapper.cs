@@ -236,6 +236,7 @@ namespace Housing.Data.Domain
                 hd.HousingUnitId = hd.HousingUnit.HousingUnitId;
                 
             }
+            
             return hd;
         }
 

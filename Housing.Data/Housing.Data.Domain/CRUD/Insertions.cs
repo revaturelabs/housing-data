@@ -10,13 +10,13 @@ namespace Housing.Data.Domain.CRUD
     public partial class AccessHelper
     {
 
-        private readonly HousingDB_DevEntities db;
+        private static readonly HousingDB_DevEntities db;
         public static AccessMapper mapper;
 
         /// <summary>
         /// constructor
         /// </summary>
-        public AccessHelper()
+        static AccessHelper()
         {
             db = new HousingDB_DevEntities();
             mapper = new AccessMapper(db);
@@ -138,6 +138,8 @@ namespace Housing.Data.Domain.CRUD
             //continue insert if gender and capacity are OK
             if (genderMatch && (it.Count() < assocHouse.MaxCapacity))
             {
+                
+                
                 //insert into db
                 db.HousingDatas.Add(itm);
                 //return success or failure

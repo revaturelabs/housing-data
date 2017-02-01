@@ -670,7 +670,7 @@ namespace Housing.Data.Test
         #region revashare-db tests
 
         private AccessHelper ah = new AccessHelper();
-        #region inserts
+        #region inserts tests
 
         [Fact]
         public void insertGenderTest()
@@ -681,8 +681,11 @@ namespace Housing.Data.Test
         [Fact]
         public void insertBatchTest()
         {
-            var actual = ah.InsertBatch(new BatchDao {EndDate=DateTime.Now, Instructor="test instructor", Name="new test batch",
-                                                        StartDate=DateTime.Now, Technology="test technology"});
+            var actual = ah.InsertBatch(new BatchDao {  EndDate=DateTime.Now,
+                                                        Instructor ="test instructor",
+                                                        Name ="new test batch",
+                                                        StartDate=DateTime.Now,
+                                                        Technology ="test technology"});
             Assert.True(actual);
         }
         [Fact]
@@ -737,7 +740,7 @@ namespace Housing.Data.Test
         }
         #endregion
 
-        #region gets
+        #region get tests
 
         [Fact]
         public void GetGenderTest()
@@ -780,14 +783,58 @@ namespace Housing.Data.Test
         #endregion
 
         #region deletes
+
         [Fact]
         public void deleteGenderTest()
+        {
+            var toDelete = ah.GetGenders().Where(m => m.Name.Equals("Pangender")).FirstOrDefault();
+            var actual = ah.DeleteGender(toDelete);
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void deleteBatchTest()
         {
             var toDelete = ah.GetGenders().Where(m => m.Name.Equals("Alien")).FirstOrDefault();
             var actual = ah.DeleteGender(toDelete);
             Assert.True(actual);
         }
+
+        [Fact]
+        public void deleteAssociateTest()
+        {
+            var toDelete = ah.GetGenders().Where(m => m.Name.Equals("Alien")).FirstOrDefault();
+            var actual = ah.DeleteGender(toDelete);
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void deleteComplexTest()
+        {
+            var toDelete = ah.GetHousingComplexes().Where(m => m.Name.Equals("test complex name")).FirstOrDefault();
+            var actual = ah.DeleteHousingComplex(toDelete);
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void deleteUnitTest()
+        {
+            var toDelete = ah.GetHousingUnits().Where(m => m.HousingUnitName.Equals("test complex name 88888")).FirstOrDefault();
+            var actual = ah.DeleteHousingUnit(toDelete);
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void deleteDataTest()
+        {
+            var toDelete = ah.GetHousingData().Where(m => m.HousingDataAltId.Equals("A123B456")).FirstOrDefault();
+            var actual = ah.DeleteHousingData(toDelete);
+            Assert.True(actual);
+        }
+
         #endregion  
+
+
 
         /*
         #region Ride Tests
