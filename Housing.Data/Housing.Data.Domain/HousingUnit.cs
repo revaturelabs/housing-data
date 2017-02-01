@@ -21,6 +21,7 @@ namespace Housing.Data.Domain
         }
     
         public int HousingUnitId { get; set; }
+        public string HousingUnitName { get; set; }
         public string AptNumber { get; set; }
         public int MaxCapacity { get; set; }
         public int GenderId { get; set; }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Housing.Data.Domain", "Hous
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Housing.Data.Client", "Housing.Data.Client\Housing.Data.Client.csproj", "{C52820D9-7F6B-4896-9F52-A472F3CF5035}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Housing.Data.Test", "Housing.Data.Test\Housing.Data.Test.csproj", "{29AA2AAC-E756-4877-8CE1-419798B04E31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C52820D9-7F6B-4896-9F52-A472F3CF5035}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C52820D9-7F6B-4896-9F52-A472F3CF5035}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C52820D9-7F6B-4896-9F52-A472F3CF5035}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29AA2AAC-E756-4877-8CE1-419798B04E31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29AA2AAC-E756-4877-8CE1-419798B04E31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29AA2AAC-E756-4877-8CE1-419798B04E31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29AA2AAC-E756-4877-8CE1-419798B04E31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

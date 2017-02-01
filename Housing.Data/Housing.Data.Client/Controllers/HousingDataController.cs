@@ -20,24 +20,72 @@ namespace Housing.Data.Client.Controllers
         }
 
         // GET: api/HousingData/5
-        public List<HousingDataDao> Get(int id)
+        public List<HousingDataDao> Get(string unitName)
         {
-            return helper.GetDataByUnit(id);
+            return helper.GetDataByUnit(unitName);
         }
 
         // POST: api/HousingData
-        public void Post([FromBody]string value)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hd"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool Post(HousingDataDao hd, [FromBody]string value)
         {
+            if (hd != null)
+            {
+                try
+                {
+                    return helper.InsertHousingData(hd);
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            return false;
         }
 
         // PUT: api/HousingData/5
-        public void Put(int id, [FromBody]string value)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="housingDataAltId"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool Put(string housingDataAltId, [FromBody]string value)
         {
+            try
+            {
+                HousingDataDao a = helper.GetHousingData().Where(b => b.HousingDataAltId == housingDataAltId).First();
+                return helper.UpdateHousingData(a);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         // DELETE: api/HousingData/5
-        public void Delete(int id)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="housingDataAltId"></param>
+        /// <returns></returns>
+        public bool Delete(string housingDataAltId)
         {
+
+            try
+            {
+                HousingDataDao a = helper.GetHousingData().Where(b => b.HousingDataAltId == housingDataAltId).First();
+                return helper.DeleteHousingData(a);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
