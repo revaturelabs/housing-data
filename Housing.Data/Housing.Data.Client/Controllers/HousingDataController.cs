@@ -10,19 +10,33 @@ using Housing.Data.Domain.CRUD;
 
 namespace Housing.Data.Client.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    
     public class HousingDataController : ApiController
     {
         private static AccessHelper helper = new AccessHelper();
         // GET: api/HousingData
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<HousingDataDao> Get()
         {
             return helper.GetHousingData();
         }
 
         // GET: api/HousingData/5
-        public List<HousingDataDao> Get(string unitName)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public HttpResponseMessage Get(string id)
         {
-            return helper.GetDataByUnit(unitName);
+            List<HousingDataDao> a = helper.GetDataByUnit(id);
+            return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
         }
 
         // POST: api/HousingData
@@ -30,9 +44,8 @@ namespace Housing.Data.Client.Controllers
         /// 
         /// </summary>
         /// <param name="hd"></param>
-        /// <param name="value"></param>
         /// <returns></returns>
-        public bool Post(HousingDataDao hd, [FromBody]string value)
+        public bool Post([FromBody]HousingDataDao hd)
         {
             if (hd != null)
             {
@@ -52,14 +65,14 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="housingDataAltId"></param>
-        /// <param name="value"></param>
+        /// <param name="id"></param>
+        /// <param name="hd"></param>
         /// <returns></returns>
-        public bool Put(string housingDataAltId, [FromBody]string value)
+        public bool Put(string id, [FromBody]HousingDataDao hd)
         {
             try
             {
-                HousingDataDao a = helper.GetHousingData().Where(b => b.HousingDataAltId == housingDataAltId).First();
+                HousingDataDao a = helper.GetHousingData().Where(b => b.HousingDataAltId == id).First();
                 return helper.UpdateHousingData(a);
             }
             catch (Exception)
@@ -72,14 +85,14 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="housingDataAltId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public bool Delete(string housingDataAltId)
+        public bool Delete(string id)
         {
 
             try
             {
-                HousingDataDao a = helper.GetHousingData().Where(b => b.HousingDataAltId == housingDataAltId).First();
+                HousingDataDao a = helper.GetHousingData().Where(b => b.HousingDataAltId == id).First();
                 return helper.DeleteHousingData(a);
             }
             catch (Exception)

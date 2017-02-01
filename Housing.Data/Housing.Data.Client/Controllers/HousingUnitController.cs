@@ -13,6 +13,7 @@ namespace Housing.Data.Client.Controllers
     /// <summary>
     /// 
     /// </summary>
+   
     public class HousingUnitController : ApiController
     {
         private static AccessHelper helper = new AccessHelper();
@@ -32,9 +33,10 @@ namespace Housing.Data.Client.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public List<HousingUnitDao> Get(string id)
+        public HttpResponseMessage Get(string id)
         {
-            return helper.GetUnitsByComplex(id);
+            List<HousingUnitDao> a = helper.GetUnitsByComplex(id);
+            return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
         }
 
         // POST: api/HousingUnit
@@ -42,9 +44,8 @@ namespace Housing.Data.Client.Controllers
         /// 
         /// </summary>
         /// <param name="hu"></param>
-        /// <param name="value"></param>
         /// <returns></returns>
-        public bool Post(HousingUnitDao hu, [FromBody]string value)
+        public bool Post([FromBody]HousingUnitDao hu)
         {
             if (hu != null)
             {
@@ -65,12 +66,12 @@ namespace Housing.Data.Client.Controllers
         /// 
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="value"></param>
-        public bool Put(string name, [FromBody]string value)
+        /// <param name="hu"></param>
+        public bool Put(string id, [FromBody]HousingUnitDao hu)
         {
             try
             {
-                HousingUnitDao a = helper.GetHousingUnits().Where(b => b.HousingUnitName == name).First();
+                HousingUnitDao a = helper.GetHousingUnits().Where(b => b.HousingUnitName == id).First();
                 return helper.UpdateHousingUnit(a);
             }
             catch (Exception)
@@ -84,11 +85,11 @@ namespace Housing.Data.Client.Controllers
         /// 
         /// </summary>
         /// <param name="id"></param>
-        public bool Delete(string name)
+        public bool Delete(string id)
         {
             try
             {
-                HousingUnitDao a = helper.GetHousingUnits().Where(b => b.HousingUnitName == name).First();
+                HousingUnitDao a = helper.GetHousingUnits().Where(b => b.HousingUnitName == id).First();
                 return helper.DeleteHousingUnit(a);
             }
             catch (Exception)
