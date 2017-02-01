@@ -16,7 +16,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         private Housing.Data.Domain.CRUD.AccessHelper ah = new Housing.Data.Domain.CRUD.AccessHelper();
 
         // To run test to pass, must have a unique name.
-        // Cannot use same name even after using the DeleteGender function
+        // Cannot use same name even after using ANY of the delete functions. Must be a manual removal from the db
         [Fact]
         public void Test_InsertGender()
         {
