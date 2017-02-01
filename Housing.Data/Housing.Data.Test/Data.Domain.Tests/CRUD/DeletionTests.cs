@@ -13,7 +13,9 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         private Housing.Data.Domain.AccessMapper map = new Housing.Data.Domain.AccessMapper();
         private Housing.Data.Domain.CRUD.AccessHelper ah = new Housing.Data.Domain.CRUD.AccessHelper();
 
+        
         // DeleteGender only changes the active bit to 0, does not remove from database.
+        // Tests will run even if the active bit is already at 0
         [Fact]
         public void Test_DeleteGender()
         {
