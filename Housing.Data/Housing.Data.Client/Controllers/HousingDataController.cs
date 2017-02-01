@@ -13,7 +13,7 @@ namespace Housing.Data.Client.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [RoutePrefix("api/housingdata")]
+    
     public class HousingDataController : ApiController
     {
         private static AccessHelper helper = new AccessHelper();
@@ -33,8 +33,6 @@ namespace Housing.Data.Client.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("GetById")]
-        [HttpGet]
         public HttpResponseMessage Get(string id)
         {
             List<HousingDataDao> a = helper.GetDataByUnit(id);
@@ -67,14 +65,14 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="housingDataAltId"></param>
+        /// <param name="id"></param>
         /// <param name="hd"></param>
         /// <returns></returns>
-        public bool Put(string housingDataAltId, [FromBody]HousingDataDao hd)
+        public bool Put(string id, [FromBody]HousingDataDao hd)
         {
             try
             {
-                HousingDataDao a = helper.GetHousingData().Where(b => b.HousingDataAltId == housingDataAltId).First();
+                HousingDataDao a = helper.GetHousingData().Where(b => b.HousingDataAltId == id).First();
                 return helper.UpdateHousingData(a);
             }
             catch (Exception)
@@ -87,14 +85,14 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="housingDataAltId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public bool Delete(string housingDataAltId)
+        public bool Delete(string id)
         {
 
             try
             {
-                HousingDataDao a = helper.GetHousingData().Where(b => b.HousingDataAltId == housingDataAltId).First();
+                HousingDataDao a = helper.GetHousingData().Where(b => b.HousingDataAltId == id).First();
                 return helper.DeleteHousingData(a);
             }
             catch (Exception)

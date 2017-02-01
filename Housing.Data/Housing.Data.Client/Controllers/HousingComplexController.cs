@@ -13,7 +13,7 @@ namespace Housing.Data.Client.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [RoutePrefix("api/housingcomplex")]
+   
     public class HousingComplexController : ApiController
     {
         private static AccessHelper helper = new AccessHelper();
@@ -34,8 +34,6 @@ namespace Housing.Data.Client.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("GetById")]
-        [HttpGet]
         public HttpResponseMessage Get(string id)
         {
             var a = helper.GetHousingComplexes().Where(x => x.Name == id).First();
@@ -71,11 +69,11 @@ namespace Housing.Data.Client.Controllers
         /// <param name="id"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public bool Put(string name, [FromBody]string value)
+        public bool Put(string id, [FromBody]string value)
         {
             try
             {
-                HousingComplexDao hc = helper.GetHousingComplexes().Where(b => b.Name == name).First();
+                HousingComplexDao hc = helper.GetHousingComplexes().Where(b => b.Name == id).First();
                 return helper.UpdateHousingComplex(hc);
             }
             catch (Exception)
@@ -90,11 +88,11 @@ namespace Housing.Data.Client.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public bool Delete(string name)
+        public bool Delete(string id)
         {
             try
             {
-                HousingComplexDao a = helper.GetHousingComplexes().Where(b => b.Name == name).First();
+                HousingComplexDao a = helper.GetHousingComplexes().Where(b => b.Name == id).First();
                 return helper.DeleteHousingComplex(a);
             }
             catch (Exception)

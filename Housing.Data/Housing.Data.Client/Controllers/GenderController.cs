@@ -13,7 +13,7 @@ namespace Housing.Data.Client.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [RoutePrefix("api/gender")]
+    
     public class GenderController : ApiController
     {
         /// <summary>
@@ -35,9 +35,7 @@ namespace Housing.Data.Client.Controllers
         /// 
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
-        [Route("GetById")]
-        [HttpGet]
+        /// <returns></returns>        
         public HttpResponseMessage Get(string id)
         {
             var a = helper.GetGenders().Where(x => x.Name == id).First();

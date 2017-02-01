@@ -13,7 +13,7 @@ namespace Housing.Data.Client.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [RoutePrefix("api/batch")]
+    
     public class BatchController : ApiController
     {
         /// <summary>
@@ -35,9 +35,7 @@ namespace Housing.Data.Client.Controllers
         /// 
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
-        [Route("GetById")]
-        [HttpGet]
+        /// <returns></returns>              
         public HttpResponseMessage Get(string id)
         {
             var a = helper.GetBatches().Where( x => x.Name == id).First();
@@ -69,9 +67,9 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="id"></param>
         /// <param name="batch"></param>
-        public bool Put(string name, [FromBody]BatchDao batch)
+        public bool Put(string id, [FromBody]BatchDao batch)
         {
             try
             {                
@@ -87,12 +85,12 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="name"></param>
-        public bool Delete(string name)
+        /// <param name="id"></param>
+        public bool Delete(string id)
         {
             try
             {
-                BatchDao a = helper.GetBatches().Where(b => b.Name == name).First();
+                BatchDao a = helper.GetBatches().Where(b => b.Name == id).First();
                 return helper.DeleteBatch(a);
             }
             catch (Exception)

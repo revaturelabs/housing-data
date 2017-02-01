@@ -12,7 +12,7 @@ namespace Housing.Data.Client.Controllers
 {   /// <summary>
     /// 
     /// </summary>
-    [RoutePrefix("api/associate")]
+    
     public class AssociateController : ApiController
     {
         /// <summary>
@@ -36,8 +36,6 @@ namespace Housing.Data.Client.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // GET: api/Associate/5
-        [Route("GetByEmail")]
-        [HttpGet]
         public HttpResponseMessage Get(string id)
         {
             var a = helper.GetAssociates().Where( x => x.Email == id).First();
@@ -69,11 +67,11 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="email"></param>
+        /// <param name="id"></param>
         /// <param name="assoc"></param>
         /// <returns></returns>
         // PUT: api/Associate/5
-        public bool Put(string email, [FromBody]AssociateDao assoc)
+        public bool Put(string id, [FromBody]AssociateDao assoc)
         {
             try
             {                
@@ -88,14 +86,14 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="email"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         // DELETE: api/Associate/5
-        public bool Delete(string email)
+        public bool Delete(string id)
         {
             try
             {
-                AssociateDao a = helper.GetAssociates().Where(b => b.Email == email).First();
+                AssociateDao a = helper.GetAssociates().Where(b => b.Email == id).First();
                 return helper.DeleteAssociate(a);
             }
             catch (Exception)

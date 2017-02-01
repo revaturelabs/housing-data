@@ -13,7 +13,7 @@ namespace Housing.Data.Client.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [RoutePrefix("api/housingunit")]
+   
     public class HousingUnitController : ApiController
     {
         private static AccessHelper helper = new AccessHelper();
@@ -33,8 +33,6 @@ namespace Housing.Data.Client.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("GetById")]
-        [HttpGet]
         public HttpResponseMessage Get(string id)
         {
             List<HousingUnitDao> a = helper.GetUnitsByComplex(id);
@@ -67,13 +65,13 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="id"></param>
         /// <param name="hu"></param>
-        public bool Put(string name, [FromBody]HousingUnitDao hu)
+        public bool Put(string id, [FromBody]HousingUnitDao hu)
         {
             try
             {
-                HousingUnitDao a = helper.GetHousingUnits().Where(b => b.HousingUnitName == name).First();
+                HousingUnitDao a = helper.GetHousingUnits().Where(b => b.HousingUnitName == id).First();
                 return helper.UpdateHousingUnit(a);
             }
             catch (Exception)
@@ -86,12 +84,12 @@ namespace Housing.Data.Client.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="name"></param>
-        public bool Delete(string name)
+        /// <param name="id"></param>
+        public bool Delete(string id)
         {
             try
             {
-                HousingUnitDao a = helper.GetHousingUnits().Where(b => b.HousingUnitName == name).First();
+                HousingUnitDao a = helper.GetHousingUnits().Where(b => b.HousingUnitName == id).First();
                 return helper.DeleteHousingUnit(a);
             }
             catch (Exception)
