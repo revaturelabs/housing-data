@@ -35,8 +35,14 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         //DeleteAssociate
 
 
-        //DeleteHousingComplex
-
+        //DeleteHousingComplex only changes the active bit to 0, does not remove from database.
+        [Fact]
+        public void Test_DeleteHousingComplex()
+        {
+            var expected = true;
+            var actual = ah.DeleteHousingComplex(new HousingComplexDao { Name = "teset" });
+            Assert.Equal(expected, actual);
+        }
 
         //DeleteHousingUnit
 
