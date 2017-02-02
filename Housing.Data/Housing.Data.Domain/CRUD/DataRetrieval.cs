@@ -126,7 +126,8 @@ namespace Housing.Data.Domain.CRUD
         public List<HousingUnitDao> GetUnitsByComplex(string complexName)
         {
             var result = new List<HousingUnitDao>();
-            var units = db.HousingUnits.ToList().Where(b => b.HousingComplex.Name.Equals(complexName));
+            var activeAssocHouse = db.HousingUnits.Where(m => m.Active == true).ToList();
+            var units = activeAssocHouse.Where(m => m.HousingComplex.Name.Equals(complexName));
             foreach (var item in units)
             {
                 if (item.Active)

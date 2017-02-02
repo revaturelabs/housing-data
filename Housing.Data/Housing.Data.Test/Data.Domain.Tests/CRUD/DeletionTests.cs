@@ -20,7 +20,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         public void Test_DeleteGender()
         {
             var expected = true;
-            var actual = ah.DeleteGender(new GenderDao { Name = "undefinedtest3" });
+            var actual = ah.DeleteGender(new GenderDao { Name = "undefinedtest4" });
             Assert.Equal(expected, actual);
         }
 

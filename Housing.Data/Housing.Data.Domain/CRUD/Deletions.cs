@@ -21,6 +21,7 @@ namespace Housing.Data.Domain.CRUD
         {
             Gender gender = mapper.MapToEntity(g);
             var toDelete = db.Genders.Where(m => m.GenderId == gender.GenderId).FirstOrDefault();
+
             db.Genders.Remove(toDelete);
             return db.SaveChanges() > 0;
         }
@@ -61,6 +62,7 @@ namespace Housing.Data.Domain.CRUD
         {
             HousingComplex h = mapper.MapToEntity(hc);
             var toDelete = db.HousingComplexes.Where(m => m.HousingComplexId == h.HousingComplexId).FirstOrDefault();
+
             db.HousingComplexes.Remove(toDelete);
             return db.SaveChanges() > 0;
         }

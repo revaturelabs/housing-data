@@ -45,6 +45,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
             HasCar = true,
             HasKeys = true
         };
+
         //[Fact]
         //public void Test_InsertAssociate()
         //{
@@ -52,7 +53,8 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         //    var actual = ah.InsertAssociate(associate);
         //}
         /*
-         Error happening 
+         
+            //Error happening 
         [Fact]
         public void Test_InsertAssociate()
         {
@@ -78,7 +80,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
 
         //InsertHousingUnit
         /*
-                 Error happening 
+                 //Error happening 
         [Fact]
         public void Test_InsertHousingUnit()
         {
