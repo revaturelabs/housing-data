@@ -16,8 +16,8 @@ namespace Housing.Data.Domain
     {
         public int HousingDataId { get; set; }
         public string HousingDataAltId { get; set; }
-        public int AssociateId { get; set; }
-        public int HousingUnitId { get; set; }
+        public Nullable<int> AssociateId { get; set; }
+        public Nullable<int> HousingUnitId { get; set; }
         public System.DateTime MoveInDate { get; set; }
         public System.DateTime MoveOutDate { get; set; }
         public bool Active { get; set; }

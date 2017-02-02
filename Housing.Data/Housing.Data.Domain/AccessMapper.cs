@@ -29,7 +29,13 @@ namespace Housing.Data.Domain
             genders = db.Genders.ToList();
             housingUnits = db.HousingUnits.ToList();
         }
-
+        public AccessMapper(HousingDB_DevEntities context)
+        {
+            db = context;
+            batches = db.Batches.ToList();
+            genders = db.Genders.ToList();
+            housingUnits = db.HousingUnits.ToList();
+        }
         /// <summary>
         /// Map HousingComplex entity object to HousingComplexDao
         /// </summary>
@@ -145,6 +151,10 @@ namespace Housing.Data.Domain
             else
             {
                 hu.Active = true;
+                hu.Gender = db.Genders.Where(m => m.Name.Equals(unitDao.GenderName)).FirstOrDefault();
+                hu.GenderId = hu.Gender.GenderId;
+                hu.HousingComplex = db.HousingComplexes.Where(m => m.Name.Equals(unitDao.HousingComplexName)).FirstOrDefault();
+                hu.HousingComplexId = hu.HousingComplex.HousingComplexId; 
             }
             return hu;
         }
@@ -158,6 +168,7 @@ namespace Housing.Data.Domain
         {
             var mapper = HousingDataMapper.CreateMapper();
             HousingDataDao dataDao = mapper.Map<HousingDataDao>(data);
+            dataDao.HousingUnitName = db.HousingUnits.Where(m => m.HousingUnitId == data.HousingUnitId).FirstOrDefault().HousingUnitName;
             return dataDao;
         }
 
@@ -219,7 +230,13 @@ namespace Housing.Data.Domain
             else
             {
                 hd.Active = true;
+                hd.Associate = db.Associates.Where(m => m.Email.Equals(dataDao.AssociateEmail)).FirstOrDefault();
+                hd.AssociateId = hd.Associate.AssociateId;
+                hd.HousingUnit = db.HousingUnits.Where(m => m.HousingUnitName.Equals(dataDao.HousingUnitName)).FirstOrDefault();
+                hd.HousingUnitId = hd.HousingUnit.HousingUnitId;
+                
             }
+            
             return hd;
         }
 
@@ -303,6 +320,11 @@ namespace Housing.Data.Domain
             else
             {
                 assoc.Active = true;
+                assoc.Batch = db.Batches.Where(m => m.Name.Equals(assocDao.BatchName)).FirstOrDefault();
+                assoc.BatchId = assoc.Batch.BatchId;
+                assoc.Gender = db.Genders.Where(m => m.Name.Equals(assocDao.GenderName)).FirstOrDefault();
+                assoc.GenderId = assoc.Gender.GenderId;
+
             }
             return assoc;
         }
