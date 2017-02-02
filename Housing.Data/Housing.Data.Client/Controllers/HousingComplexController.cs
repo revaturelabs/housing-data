@@ -13,6 +13,7 @@ namespace Housing.Data.Client.Controllers
     /// <summary>
     /// 
     /// </summary>
+   
     public class HousingComplexController : ApiController
     {
         private static AccessHelper helper = new AccessHelper();
@@ -33,9 +34,10 @@ namespace Housing.Data.Client.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public string Get(int id)
+        public HttpResponseMessage Get(string id)
         {
-            return "value";
+            var a = helper.GetHousingComplexes().Where(x => x.Name == id).First();
+            return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
         }
 
         // POST: api/HousingComplex
@@ -43,9 +45,8 @@ namespace Housing.Data.Client.Controllers
         /// 
         /// </summary>
         /// <param name="hc"></param>
-        /// <param name="value"></param>
         /// <returns></returns>
-        public bool Post(HousingComplexDao hc, [FromBody]string value)
+        public bool Post([FromBody]HousingComplexDao hc)
         {
             if (hc != null)
             {
@@ -68,11 +69,11 @@ namespace Housing.Data.Client.Controllers
         /// <param name="id"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public bool Put(string name, [FromBody]string value)
+        public bool Put(string id, [FromBody]string value)
         {
             try
             {
-                HousingComplexDao hc = helper.GetHousingComplexes().Where(b => b.Name == name).First();
+                HousingComplexDao hc = helper.GetHousingComplexes().Where(b => b.Name == id).First();
                 return helper.UpdateHousingComplex(hc);
             }
             catch (Exception)
@@ -87,11 +88,11 @@ namespace Housing.Data.Client.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public bool Delete(string name)
+        public bool Delete(string id)
         {
             try
             {
-                HousingComplexDao a = helper.GetHousingComplexes().Where(b => b.Name == name).First();
+                HousingComplexDao a = helper.GetHousingComplexes().Where(b => b.Name == id).First();
                 return helper.DeleteHousingComplex(a);
             }
             catch (Exception)

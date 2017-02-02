@@ -12,6 +12,7 @@ namespace Housing.Data.Client.Controllers
 {   /// <summary>
     /// 
     /// </summary>
+    
     public class AssociateController : ApiController
     {
         /// <summary>
@@ -35,19 +36,19 @@ namespace Housing.Data.Client.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // GET: api/Associate/5
-        public string Get(int id)
+        public HttpResponseMessage Get(string id)
         {
-            return "value";
+            var a = helper.GetAssociates().Where( x => x.Email == id).First();
+            return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="value"></param>
+        /// <param name="a"></param>       
         /// <returns></returns>
         // POST: api/Associate
-        public bool Post(AssociateDao a, [FromBody]string value)
+        public bool Post([FromBody]AssociateDao a)
         {
             if (a != null)
             {
@@ -67,15 +68,14 @@ namespace Housing.Data.Client.Controllers
         /// 
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="value"></param>
+        /// <param name="assoc"></param>
         /// <returns></returns>
         // PUT: api/Associate/5
-        public bool Put(string email, [FromBody]string value)
+        public bool Put(string id, [FromBody]AssociateDao assoc)
         {
             try
-            {
-                AssociateDao a = helper.GetAssociates().Where(b => b.Email == email).First();
-                return helper.UpdateAssociate(a);
+            {                
+                return helper.UpdateAssociate(assoc);
             }
             catch (Exception)
             {
@@ -89,11 +89,11 @@ namespace Housing.Data.Client.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // DELETE: api/Associate/5
-        public bool Delete(string email)
+        public bool Delete(string id)
         {
             try
             {
-                AssociateDao a = helper.GetAssociates().Where(b => b.Email == email).First();
+                AssociateDao a = helper.GetAssociates().Where(b => b.Email == id).First();
                 return helper.DeleteAssociate(a);
             }
             catch (Exception)
