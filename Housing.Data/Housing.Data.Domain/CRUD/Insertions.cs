@@ -126,7 +126,8 @@ namespace Housing.Data.Domain.CRUD
             var assoc = db.Associates.ToList().Where(m => m.Email.Equals(itm.Associate.Email)).FirstOrDefault();
 
             //get housingUnit object from db
-            var assocHouse = db.HousingUnits.ToList().Where(m => m.HousingComplex.Name.Equals(itm.HousingUnit.HousingComplex.Name)).FirstOrDefault();
+            var activeAssocHouse = db.HousingUnits.Where(m => m.Active == true).ToList();
+            var assocHouse = activeAssocHouse.Where(m =>m.HousingComplex.Name.Equals(itm.HousingUnit.HousingComplex.Name)).FirstOrDefault();
 
             //check gender match between Associate, Unit
             var genderMatch = assoc.Gender.Equals(assocHouse.Gender);

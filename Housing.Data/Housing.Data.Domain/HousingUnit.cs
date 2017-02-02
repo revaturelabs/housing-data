@@ -24,8 +24,8 @@ namespace Housing.Data.Domain
         public string HousingUnitName { get; set; }
         public string AptNumber { get; set; }
         public int MaxCapacity { get; set; }
-        public int GenderId { get; set; }
-        public int HousingComplexId { get; set; }
+        public Nullable<int> GenderId { get; set; }
+        public Nullable<int> HousingComplexId { get; set; }
         public bool Active { get; set; }
     
         public virtual Gender Gender { get; set; }
