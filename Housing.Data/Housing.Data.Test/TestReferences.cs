@@ -668,80 +668,15 @@ namespace Housing.Data.Test
         //using xunit
 
         #region revashare-db tests
-
+            /*
         private AccessHelper ah = new AccessHelper();
-
-        #region inserts tests
 
         [Fact]
         public void insertGenderTest()
         {
-            var actual = ah.InsertGender(new GenderDao { Name = "Pangender" });
+            var actual = ah.InsertGender(new GenderDao { Name = "Alien" });
             Assert.True(actual);
         }
-        [Fact]
-        public void insertBatchTest()
-        {
-            var actual = ah.InsertBatch(new BatchDao {  EndDate=DateTime.Now,
-                                                        Instructor ="test instructor",
-                                                        Name ="new test batch",
-                                                        StartDate=DateTime.Now,
-                                                        Technology ="test technology"});
-            Assert.True(actual);
-        }
-        [Fact]
-        public void insertAssocTest()
-        {
-            var assoc = new AssociateDao();
-            assoc.BatchName = "new test batch";
-            assoc.DateOfBirth = DateTime.MinValue;
-            assoc.Email = "a@b.c";
-            assoc.FirstName = "fname";
-            assoc.GenderName = "Pangender";
-            assoc.HasCar = true;
-            assoc.HasKeys = true;
-            assoc.LastName = "lname";
-            assoc.PhoneNumber = "123456789";
-            var actual = ah.InsertAssociate(assoc);
-            Assert.True(actual);
-        }
-        [Fact]
-        public void insertHousingDataTest()
-        {
-            var data = new HousingDataDao();
-            data.AssociateEmail = "a@b.c";
-            data.HousingDataAltId = "A123B456";
-            data.HousingUnitName = "test complex name 88888";
-            data.MoveInDate = DateTime.Now;
-            data.MoveOutDate = DateTime.Now;
-            var actual = ah.InsertHousingData(data);
-            Assert.True(actual);
-        }
-        [Fact]
-        public void insertComplexTest()
-        {
-            var complex = new HousingComplexDao();
-            complex.Address = "test address";
-            complex.Name = "test complex name";
-            complex.PhoneNumber = "9876543210"; 
-            var actual = ah.InsertHousingComplex(complex);
-            Assert.True(actual);
-        }
-        [Fact]
-        public void insertUnitTest()
-        {
-            var unit = new HousingUnitDao();
-            unit.AptNumber = "88888";
-            unit.GenderName = "Pangender";
-            unit.HousingComplexName = "test complex name";
-            unit.HousingUnitName = "test complex name 88888";
-            unit.MaxCapacity = 6;
-            var actual = ah.InsertHousingUnit(unit);
-            Assert.True(actual);
-        }
-        #endregion
-
-        #region get tests
 
         [Fact]
         public void GetGenderTest()
@@ -751,146 +686,13 @@ namespace Housing.Data.Test
         }
 
         [Fact]
-        public void GetBatchTest()
-        {
-            var actual = ah.GetBatches();
-            Assert.NotEmpty(actual);
-        }
-        [Fact]
-        public void GetAssociatesTest()
-        {
-            var actual = ah.GetAssociates();
-            Assert.NotEmpty(actual);
-        }
-        [Fact]
-        public void GetHousingDataTest()
-        {
-            var actual = ah.GetHousingData();
-            Assert.NotEmpty(actual);
-        }
-        [Fact]
-        public void GetComplexTest()
-        {
-            var actual = ah.GetHousingComplexes();
-            Assert.NotEmpty(actual);
-        }
-        [Fact]
-        public void GetHousingUnitsTest()
-        {
-            var actual = ah.GetHousingUnits();
-            Assert.NotEmpty(actual);
-        }
-
-        #endregion
-
-        #region deletes
-
-        [Fact]
         public void deleteGenderTest()
         {
-            var toDelete = ah.GetGenders().Where(m => m.Name.Equals("Pangender")).FirstOrDefault();
+            var toDelete = ah.GetGenders().Where(m => m.Name.Equals("Alien")).FirstOrDefault();
             var actual = ah.DeleteGender(toDelete);
             Assert.True(actual);
         }
-
-        [Fact]
-        public void deleteBatchTest()
-        {
-            var toDelete = ah.GetBatches().Where(m => m.Name.Equals("new test batch")).FirstOrDefault();
-            var actual = ah.DeleteBatch(toDelete);
-            Assert.True(actual);
-        }
-
-        [Fact]
-        public void deleteAssociateTest()
-        {
-            var toDelete = ah.GetAssociates().Where(m => m.Email.Equals("a@b.c")).FirstOrDefault();
-            var actual = ah.DeleteAssociate(toDelete);
-            Assert.True(actual);
-        }
-
-        [Fact]
-        public void deleteComplexTest()
-        {
-            var toDelete = ah.GetHousingComplexes().Where(m => m.Name.Equals("test complex name")).FirstOrDefault();
-            var actual = ah.DeleteHousingComplex(toDelete);
-            Assert.True(actual);
-        }
-
-        [Fact]
-        public void deleteUnitTest()
-        {
-            var toDelete = ah.GetHousingUnits().Where(m => m.HousingUnitName.Equals("test complex name 88888")).FirstOrDefault();
-            var actual = ah.DeleteHousingUnit(toDelete);
-            Assert.True(actual);
-        }
-
-        [Fact]
-        public void deleteDataTest()
-        {
-            var toDelete = ah.GetHousingData().Where(m => m.HousingDataAltId.Equals("A123B456")).FirstOrDefault();
-            var actual = ah.DeleteHousingData(toDelete);
-            Assert.True(actual);
-        }
-
-        #endregion
-
-        #region update tests
-
-        //[Fact]
-        //public void updateGenderTest()
-        //{
-        //    var toUpdate = ah.GetGenders().Where(m => m.Name.Equals("Pangender")).FirstOrDefault();            
-        //    var actual = ah.UpdateGender(toUpdate);
-        //    Assert.True(actual);
-        //}
-
-        [Fact]
-        public void updateBatchTest()
-        {
-            var toUpdate = ah.GetBatches().Where(m => m.Name.Equals("new test batch")).FirstOrDefault();
-            toUpdate.Instructor = "updated instructor";
-            var actual = ah.UpdateBatch(toUpdate);
-            Assert.True(actual);
-        }
-
-        [Fact]
-        public void updateAssociateTest()
-        {
-            var toUpdate = ah.GetAssociates().Where(m => m.Email.Equals("a@b.c")).FirstOrDefault();
-            toUpdate.FirstName = "updatedFName";
-            var actual = ah.UpdateAssociate(toUpdate);
-            Assert.True(actual);
-        }
-
-        [Fact]
-        public void updateComplexTest()
-        {
-            var toUpdate = ah.GetHousingComplexes().Where(m => m.Name.Equals("test complex name")).FirstOrDefault();
-            toUpdate.Address = "updated address";
-            var actual = ah.UpdateHousingComplex(toUpdate);
-            Assert.True(actual);
-        }
-
-        [Fact]
-        public void updateUnitTest()
-        {
-            var toUpdate = ah.GetHousingUnits().Where(m => m.HousingUnitName.Equals("test complex name 88888")).FirstOrDefault();
-            toUpdate.MaxCapacity = 12;
-            var actual = ah.UpdateHousingUnit(toUpdate);
-            Assert.True(actual);
-        }
-
-        [Fact]
-        public void updateDataTest()
-        {
-            var toUpdate = ah.GetHousingData().Where(m => m.HousingDataAltId.Equals("A123B456")).FirstOrDefault();
-            toUpdate.MoveOutDate=toUpdate.MoveOutDate.AddDays(500.00);
-            var actual = ah.UpdateHousingData(toUpdate);
-            Assert.True(actual);
-        }
-
-        #endregion
+        */
 
         /*
         #region Ride Tests
