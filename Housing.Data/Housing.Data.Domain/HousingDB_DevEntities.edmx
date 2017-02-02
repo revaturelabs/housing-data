@@ -12,8 +12,8 @@
           <Property Name="AssociateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="GenderId" Type="int" Nullable="false" />
-          <Property Name="BatchId" Type="int" Nullable="false" />
+          <Property Name="GenderId" Type="int" />
+          <Property Name="BatchId" Type="int" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="DateOfBirth" Type="date" Nullable="false" />
@@ -57,8 +57,8 @@
           </Key>
           <Property Name="HousingDataId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="HousingDataAltId" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="AssociateId" Type="int" Nullable="false" />
-          <Property Name="HousingUnitId" Type="int" Nullable="false" />
+          <Property Name="AssociateId" Type="int" />
+          <Property Name="HousingUnitId" Type="int" />
           <Property Name="MoveInDate" Type="date" Nullable="false" />
           <Property Name="MoveOutDate" Type="date" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
@@ -71,12 +71,12 @@
           <Property Name="HousingUnitName" Type="nvarchar" MaxLength="300" Nullable="false" />
           <Property Name="AptNumber" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="MaxCapacity" Type="int" Nullable="false" />
-          <Property Name="GenderId" Type="int" Nullable="false" />
-          <Property Name="HousingComplexId" Type="int" Nullable="false" />
+          <Property Name="GenderId" Type="int" />
+          <Property Name="HousingComplexId" Type="int" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Associate_Batch">
-          <End Role="Batch" Type="Self.Batch" Multiplicity="1" />
+          <End Role="Batch" Type="Self.Batch" Multiplicity="0..1" />
           <End Role="Associate" Type="Self.Associate" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Batch">
@@ -88,7 +88,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Associate_Gender">
-          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
           <End Role="Associate" Type="Self.Associate" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gender">
@@ -100,7 +100,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HousingData_Associate">
-          <End Role="Associate" Type="Self.Associate" Multiplicity="1" />
+          <End Role="Associate" Type="Self.Associate" Multiplicity="0..1" />
           <End Role="HousingData" Type="Self.HousingData" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Associate">
@@ -112,7 +112,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HousingData_HousingUnit">
-          <End Role="HousingUnit" Type="Self.HousingUnit" Multiplicity="1" />
+          <End Role="HousingUnit" Type="Self.HousingUnit" Multiplicity="0..1" />
           <End Role="HousingData" Type="Self.HousingData" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HousingUnit">
@@ -124,7 +124,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HousingUnit_Gender">
-          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
           <End Role="HousingUnit" Type="Self.HousingUnit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gender">
@@ -136,7 +136,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HousingUnit_HousingComplex">
-          <End Role="HousingComplex" Type="Self.HousingComplex" Multiplicity="1" />
+          <End Role="HousingComplex" Type="Self.HousingComplex" Multiplicity="0..1" />
           <End Role="HousingUnit" Type="Self.HousingUnit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HousingComplex">
@@ -154,8 +154,8 @@
               <RowType>
                 <Property Name="HousingDataId" Type="int" Nullable="false" />
                 <Property Name="HousingDataAltId" Type="nvarchar" MaxLength="255" Nullable="false" />
-                <Property Name="AssociateId" Type="int" Nullable="false" />
-                <Property Name="HousingUnitId" Type="int" Nullable="false" />
+                <Property Name="AssociateId" Type="int" />
+                <Property Name="HousingUnitId" Type="int" />
                 <Property Name="MoveInDate" Type="date" Nullable="false" />
                 <Property Name="MoveOutDate" Type="date" Nullable="false" />
                 <Property Name="Active" Type="bit" Nullable="false" />
@@ -172,8 +172,8 @@
                 <Property Name="HousingUnitName" Type="nvarchar" MaxLength="300" Nullable="false" />
                 <Property Name="AptNumber" Type="nvarchar" MaxLength="100" Nullable="false" />
                 <Property Name="MaxCapacity" Type="int" Nullable="false" />
-                <Property Name="GenderId" Type="int" Nullable="false" />
-                <Property Name="HousingComplexId" Type="int" Nullable="false" />
+                <Property Name="GenderId" Type="int" />
+                <Property Name="HousingComplexId" Type="int" />
                 <Property Name="Active" Type="bit" Nullable="false" />
               </RowType>
             </CollectionType>
@@ -276,8 +276,8 @@
           <Property Name="AssociateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="GenderId" Type="Int32" Nullable="false" />
-          <Property Name="BatchId" Type="Int32" Nullable="false" />
+          <Property Name="GenderId" Type="Int32" />
+          <Property Name="BatchId" Type="Int32" />
           <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
@@ -328,8 +328,8 @@
           </Key>
           <Property Name="HousingDataId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="HousingDataAltId" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AssociateId" Type="Int32" Nullable="false" />
-          <Property Name="HousingUnitId" Type="Int32" Nullable="false" />
+          <Property Name="AssociateId" Type="Int32" />
+          <Property Name="HousingUnitId" Type="Int32" />
           <Property Name="MoveInDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="MoveOutDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
@@ -344,15 +344,15 @@
           <Property Name="HousingUnitName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="AptNumber" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="MaxCapacity" Type="Int32" Nullable="false" />
-          <Property Name="GenderId" Type="Int32" Nullable="false" />
-          <Property Name="HousingComplexId" Type="Int32" Nullable="false" />
+          <Property Name="GenderId" Type="Int32" />
+          <Property Name="HousingComplexId" Type="Int32" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Gender" Relationship="HousingDB_DevModel.FK_HousingUnit_Gender" FromRole="HousingUnit" ToRole="Gender" />
           <NavigationProperty Name="HousingComplex" Relationship="HousingDB_DevModel.FK_HousingUnit_HousingComplex" FromRole="HousingUnit" ToRole="HousingComplex" />
           <NavigationProperty Name="HousingDatas" Relationship="HousingDB_DevModel.FK_HousingData_HousingUnit" FromRole="HousingUnit" ToRole="HousingData" />
         </EntityType>
         <Association Name="FK_Associate_Batch">
-          <End Type="HousingDB_DevModel.Batch" Role="Batch" Multiplicity="1" />
+          <End Type="HousingDB_DevModel.Batch" Role="Batch" Multiplicity="0..1" />
           <End Type="HousingDB_DevModel.Associate" Role="Associate" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Batch">
@@ -364,7 +364,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Associate_Gender">
-          <End Type="HousingDB_DevModel.Gender" Role="Gender" Multiplicity="1" />
+          <End Type="HousingDB_DevModel.Gender" Role="Gender" Multiplicity="0..1" />
           <End Type="HousingDB_DevModel.Associate" Role="Associate" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gender">
@@ -376,7 +376,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HousingData_Associate">
-          <End Type="HousingDB_DevModel.Associate" Role="Associate" Multiplicity="1" />
+          <End Type="HousingDB_DevModel.Associate" Role="Associate" Multiplicity="0..1" />
           <End Type="HousingDB_DevModel.HousingData" Role="HousingData" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Associate">
@@ -388,7 +388,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HousingUnit_Gender">
-          <End Type="HousingDB_DevModel.Gender" Role="Gender" Multiplicity="1" />
+          <End Type="HousingDB_DevModel.Gender" Role="Gender" Multiplicity="0..1" />
           <End Type="HousingDB_DevModel.HousingUnit" Role="HousingUnit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gender">
@@ -400,7 +400,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HousingUnit_HousingComplex">
-          <End Type="HousingDB_DevModel.HousingComplex" Role="HousingComplex" Multiplicity="1" />
+          <End Type="HousingDB_DevModel.HousingComplex" Role="HousingComplex" Multiplicity="0..1" />
           <End Type="HousingDB_DevModel.HousingUnit" Role="HousingUnit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HousingComplex">
@@ -412,7 +412,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HousingData_HousingUnit">
-          <End Type="HousingDB_DevModel.HousingUnit" Role="HousingUnit" Multiplicity="1" />
+          <End Type="HousingDB_DevModel.HousingUnit" Role="HousingUnit" Multiplicity="0..1" />
           <End Type="HousingDB_DevModel.HousingData" Role="HousingData" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HousingUnit">

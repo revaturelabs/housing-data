@@ -88,7 +88,8 @@ namespace Housing.Data.Domain.CRUD
         {
             HousingData d = mapper.MapToEntity(hd);
             var toDelete = db.HousingDatas.Where(m => m.HousingDataId == d.HousingDataId).FirstOrDefault();
-
+            toDelete.AssociateId = null;
+            toDelete.HousingUnitId = null;
             db.HousingDatas.Remove(toDelete);
             return db.SaveChanges() > 0;
         }

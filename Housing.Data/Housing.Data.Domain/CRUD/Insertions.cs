@@ -10,15 +10,16 @@ namespace Housing.Data.Domain.CRUD
     public partial class AccessHelper
     {
 
-        private readonly HousingDB_DevEntities db;
-        public static AccessMapper mapper = new AccessMapper();
+        private static readonly HousingDB_DevEntities db;
+        public static AccessMapper mapper;
 
         /// <summary>
         /// constructor
         /// </summary>
-        public AccessHelper()
+        static AccessHelper()
         {
             db = new HousingDB_DevEntities();
+            mapper = new AccessMapper(db);
         }
 
         #region insertions
@@ -125,7 +126,8 @@ namespace Housing.Data.Domain.CRUD
             var assoc = db.Associates.ToList().Where(m => m.Email.Equals(itm.Associate.Email)).FirstOrDefault();
 
             //get housingUnit object from db
-            var assocHouse = db.HousingUnits.ToList().Where(m => m.HousingComplex.Name.Equals(itm.HousingUnit.HousingComplex.Name)).FirstOrDefault();
+            var activeAssocHouse = db.HousingUnits.Where(m => m.Active == true).ToList();
+            var assocHouse = activeAssocHouse.Where(m =>m.HousingComplex.Name.Equals(itm.HousingUnit.HousingComplex.Name)).FirstOrDefault();
 
             //check gender match between Associate, Unit
             var genderMatch = assoc.Gender.Equals(assocHouse.Gender);
@@ -137,6 +139,8 @@ namespace Housing.Data.Domain.CRUD
             //continue insert if gender and capacity are OK
             if (genderMatch && (it.Count() < assocHouse.MaxCapacity))
             {
+                
+                
                 //insert into db
                 db.HousingDatas.Add(itm);
                 //return success or failure
