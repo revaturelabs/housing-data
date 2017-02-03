@@ -1,6 +1,7 @@
 ﻿using Housing.Data.Domain;
 using Housing.Data.Domain.CRUD;
 using Housing.Data.Domain.DataAccessObjects;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Housing.Data.Client.Controllers
     
     public class AssociateController : ApiController
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         /// <summary>
         /// 
         /// </summary>
@@ -27,6 +29,8 @@ namespace Housing.Data.Client.Controllers
         // GET: api/Associate
         public List<AssociateDao> Get()
         {
+            logger.Trace("testing get");
+            logger.Log(LogLevel.Trace, "update log from associate get");
             return helper.GetAssociates();
         }
 
@@ -38,7 +42,11 @@ namespace Housing.Data.Client.Controllers
         // GET: api/Associate/5
         public HttpResponseMessage Get(string id)
         {
+            logger.Trace("testing get id", id);
+            logger.Log(LogLevel.Trace, "update log from associate get using id");
             var a = helper.GetAssociates().Where( x => x.Email == id).First();
+            logger.Trace("testing values of a{0}", a);
+            logger.Log(LogLevel.Trace, "update log from associate get using id");
             return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
         }
 
@@ -50,17 +58,24 @@ namespace Housing.Data.Client.Controllers
         // POST: api/Associate
         public bool Post([FromBody]AssociateDao a)
         {
+            logger.ConditionalTrace(a = null);
+            logger.Log(LogLevel.Debug, "Checking if a{0} is null");
             if (a != null)
             {
                 try
                 {
+                    logger.Debug("trying to insert Associate, a {0}", a);
+                    logger.Log(LogLevel.Debug, "Entered try block");
                     return helper.InsertAssociate(a);
                 }
                 catch (Exception)
                 {
+                    logger.Debug("Failed to insert Associate, a {0}", a);
+                    logger.Log(LogLevel.Info, "Log info updated, a {0}", a);
                     return false;
                 }
             }
+            logger.Log(LogLevel.Info, "Log info updated, a {0}", a);
             return false;
         }
 
