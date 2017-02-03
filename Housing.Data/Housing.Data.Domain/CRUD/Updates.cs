@@ -17,22 +17,23 @@ namespace Housing.Data.Domain.CRUD
         /// </summary>
         /// <param name="assoc"></param>
         /// <returns>true if update successful</returns>
-        public bool UpdateAssociate(AssociateDao assoc)
+        public bool UpdateAssociate(string old, AssociateDao assoc)
         {
             try
             {
                 Associate asc = mapper.MapToEntity(assoc);
-                Associate old = db.Associates.FirstOrDefault(a => a.AssociateId == asc.AssociateId);
+                Associate oldAssoc = db.Associates.FirstOrDefault(a => a.Email.Equals(old));
 
                 if (old != null)
                 {
+                    asc.AssociateId = oldAssoc.AssociateId;
                     db.Entry(old).CurrentValues.SetValues(asc);
                     db.SaveChanges();
                     return true;
                 }
                 return false;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
@@ -43,21 +44,22 @@ namespace Housing.Data.Domain.CRUD
         /// </summary>
         /// <param name="hc"></param>
         /// <returns>true if update successful</returns>
-        public bool UpdateHousingComplex(HousingComplexDao hc)
+        public bool UpdateHousingComplex(string oldComplex, HousingComplexDao hc)
         {
             try
             {
                 HousingComplex plex = mapper.MapToEntity(hc);
-                HousingComplex old = db.HousingComplexes.FirstOrDefault(a => a.HousingComplexId == plex.HousingComplexId);
+                HousingComplex old = db.HousingComplexes.FirstOrDefault(a => a.Name.Equals(oldComplex));
                 if (old != null)
                 {
+                    plex.HousingComplexId = old.HousingComplexId;
                     db.Entry(old).CurrentValues.SetValues(plex);
                     db.SaveChanges();
                     return true;
                 }
                 return false;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
@@ -68,22 +70,23 @@ namespace Housing.Data.Domain.CRUD
         /// </summary>
         /// <param name="hu"></param>
         /// <returns>true if update successful</returns>
-        public bool UpdateHousingUnit(HousingUnitDao hu)
+        public bool UpdateHousingUnit(string oldUnit, HousingUnitDao hu)
         {
             try
             {
                 HousingUnit unit = mapper.MapToEntity(hu);
+                HousingUnit old = db.HousingUnits.FirstOrDefault(a => a.HousingUnitName.Equals(oldUnit));
 
-                HousingUnit old = db.HousingUnits.FirstOrDefault(a => a.HousingUnitId == unit.HousingUnitId);
                 if (old != null)
                 {
+                    unit.HousingUnitId = old.HousingUnitId;
                     db.Entry(old).CurrentValues.SetValues(unit);
                     db.SaveChanges();
                     return true;
                 }
                 return false;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
@@ -94,22 +97,23 @@ namespace Housing.Data.Domain.CRUD
         /// </summary>
         /// <param name="b"></param>
         /// <returns></returns>
-        public bool UpdateBatch(BatchDao b)
+        public bool UpdateBatch(string oldBatch, BatchDao b)
         {
             try
             {
                 Batch batch = mapper.MapToEntity(b);
+                Batch old = db.Batches.FirstOrDefault(a => a.Name.Equals(oldBatch));
 
-                Batch old = db.Batches.FirstOrDefault(a => a.BatchId == batch.BatchId);
                 if (old != null)
                 {
+                    batch.BatchId = old.BatchId;
                     db.Entry(old).CurrentValues.SetValues(batch);
                     db.SaveChanges();
                     return true;
                 }
                 return false;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
@@ -147,24 +151,23 @@ namespace Housing.Data.Domain.CRUD
         /// </summary>
         /// <param name="hd"></param>
         /// <returns>true if update successful</returns>
-        public bool UpdateHousingData(HousingDataDao hd)
+        public bool UpdateHousingData(string oldData, HousingDataDao hd)
         {
             try
             {
                 HousingData hde = mapper.MapToEntity(hd);
-                HousingData old = db.HousingDatas.FirstOrDefault(a => a.HousingDataId == hde.HousingDataId);
+                HousingData old = db.HousingDatas.FirstOrDefault(a => a.HousingDataAltId.Equals(oldData));
 
-                //awaiting updated HousingDataDao merge to fix this
-                //HousingData old = db.HousingDatas.FirstOrDefault(a => a.HousingUnit.AptNumber == hd.ApartmentNumber && a.Associate.Email == hd.AssociateEmail && a.HousingUnit.HousingComplex.Name == hd.ComplexName);
                 if (old != null)
                 {
+                    hde.HousingDataId = old.HousingDataId;
                     db.Entry(old).CurrentValues.SetValues(hde);
                     db.SaveChanges();
                     return true;
                 }
                 return false;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
