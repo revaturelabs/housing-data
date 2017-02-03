@@ -38,23 +38,43 @@ namespace Housing.Data.Client.Controllers
         /// <returns></returns>        
         public HttpResponseMessage Get(string id)
         {
-            var a = helper.GetGenders().Where(x => x.Name == id).First();
+            var a = helper.GetGenders().Where(x => x.Name == id).FirstOrDefault();
             return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
         }
 
         // POST: api/Gender
-        public void Post([FromBody]string value)
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody]GenderDao value)
         {
+            if (helper.InsertGender(value))
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            else
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            
         }
 
         // PUT: api/Gender/5
-        public void Put(int id, [FromBody]string value)
+        public HttpResponseMessage Put(string id, [FromBody]GenderDao value)
         {
+            if(helper.UpdateGender(id, value))
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            else
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         // DELETE: api/Gender/5
-        public void Delete(int id)
+        public HttpResponseMessage Delete(string id)
         {
+            if (helper.DeleteGender(helper.GetGenders().Where(m => m.Name.Equals(id)).FirstOrDefault()))
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            else
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
     }
 }

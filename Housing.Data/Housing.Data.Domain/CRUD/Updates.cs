@@ -120,22 +120,23 @@ namespace Housing.Data.Domain.CRUD
         /// </summary>
         /// <param name="g"></param>
         /// <returns></returns>
-        public bool UpdateGender(GenderDao g)
+        public bool UpdateGender(string oldId, GenderDao g)
         {
             try
             {
-                Gender gender = mapper.MapToEntity(g);
+                Gender newGender = mapper.MapToEntity(g);
 
-                Gender old = db.Genders.FirstOrDefault(a => a.GenderId == gender.GenderId);
+                Gender old = db.Genders.FirstOrDefault(a => a.Name.Equals(oldId));
                 if (old != null)
                 {
-                    db.Entry(old).CurrentValues.SetValues(gender);
+                    newGender.GenderId = old.GenderId;
+                    db.Entry(old).CurrentValues.SetValues(newGender);
                     db.SaveChanges();
                     return true;
                 }
                 return false;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
