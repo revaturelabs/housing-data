@@ -38,7 +38,7 @@ namespace Housing.Data.Client.Controllers
         // GET: api/Associate/5
         public HttpResponseMessage Get(string id)
         {
-            var a = helper.GetAssociates().Where( x => x.Email == id).First();
+            var a = helper.GetAssociates().FirstOrDefault( x => x.Email.Equals(id));
             return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
         }
 
@@ -48,20 +48,24 @@ namespace Housing.Data.Client.Controllers
         /// <param name="a"></param>       
         /// <returns></returns>
         // POST: api/Associate
-        public bool Post([FromBody]AssociateDao a)
+        public HttpResponseMessage Post([FromBody]AssociateDao a)
         {
             if (a != null)
             {
                 try
                 {
-                    return helper.InsertAssociate(a);
+                    if (helper.InsertAssociate(a))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    return false;
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
                 }
             }
-            return false;
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         /// <summary>
@@ -71,16 +75,24 @@ namespace Housing.Data.Client.Controllers
         /// <param name="assoc"></param>
         /// <returns></returns>
         // PUT: api/Associate/5
-        public bool Put(string id, [FromBody]AssociateDao assoc)
+        public HttpResponseMessage Put(string id, [FromBody]AssociateDao assoc)
         {
-            try
-            {                
-                return helper.UpdateAssociate(id, assoc);
-            }
-            catch (Exception)
+            if (assoc != null && !string.IsNullOrWhiteSpace(id))
             {
-                return false;
+                try
+                {
+                    if (helper.UpdateAssociate(id, assoc))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else return Request.CreateResponse(HttpStatusCode.NotModified);
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
             }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         /// <summary>
@@ -89,17 +101,24 @@ namespace Housing.Data.Client.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // DELETE: api/Associate/5
-        public bool Delete(string id)
+        public HttpResponseMessage Delete(string id)
         {
-            try
+            if (!string.IsNullOrWhiteSpace(id))
             {
-                AssociateDao a = helper.GetAssociates().Where(b => b.Email == id).First();
-                return helper.DeleteAssociate(a);
+                try
+                {
+                    if (helper.DeleteAssociate(helper.GetAssociates().FirstOrDefault(m => m.Email.Equals(id))))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else return Request.CreateResponse(HttpStatusCode.NotModified);
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
     }
 }
