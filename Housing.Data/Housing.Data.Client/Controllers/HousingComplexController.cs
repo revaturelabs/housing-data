@@ -74,7 +74,7 @@ namespace Housing.Data.Client.Controllers
             try
             {
                 HousingComplexDao hc = helper.GetHousingComplexes().Where(b => b.Name == id).First();
-                return helper.UpdateHousingComplex(hc);
+                return helper.UpdateHousingComplex(id, hc);
             }
             catch (Exception)
             {

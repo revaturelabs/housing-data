@@ -73,7 +73,7 @@ namespace Housing.Data.Client.Controllers
             try
             {
                 HousingDataDao a = helper.GetHousingData().Where(b => b.HousingDataAltId == id).First();
-                return helper.UpdateHousingData(a);
+                return helper.UpdateHousingData(id, a);
             }
             catch (Exception)
             {

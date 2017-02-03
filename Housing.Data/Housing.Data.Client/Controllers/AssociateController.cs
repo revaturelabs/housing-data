@@ -75,7 +75,7 @@ namespace Housing.Data.Client.Controllers
         {
             try
             {                
-                return helper.UpdateAssociate(assoc);
+                return helper.UpdateAssociate(id, assoc);
             }
             catch (Exception)
             {

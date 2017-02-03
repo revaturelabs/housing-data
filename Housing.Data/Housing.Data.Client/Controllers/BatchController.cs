@@ -35,10 +35,10 @@ namespace Housing.Data.Client.Controllers
         /// 
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>              
+        /// <returns></returns>                 
         public HttpResponseMessage Get(string id)
         {
-            var a = helper.GetBatches().Where( x => x.Name == id).First();
+            var a = helper.GetBatches().FirstOrDefault( x => x.Name == id);
             return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
         }
 
@@ -47,20 +47,25 @@ namespace Housing.Data.Client.Controllers
         /// 
         /// </summary>
         /// <param name="batch"></param>
-        public bool Post([FromBody]BatchDao batch)
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody]BatchDao batch)
         {
             if (batch != null)
             {
                 try
                 {
-                    return helper.InsertBatch(batch);
+                    if(helper.InsertBatch(batch))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    return false;
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
                 }
             }
-            return false;
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         // PUT: api/Batch/5
@@ -69,16 +74,25 @@ namespace Housing.Data.Client.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <param name="batch"></param>
-        public bool Put(string id, [FromBody]BatchDao batch)
+        [HttpPut]
+        public HttpResponseMessage Put(string id, [FromBody]BatchDao batch)
         {
-            try
-            {                
-                return helper.UpdateBatch(batch);
-            }
-            catch (Exception)
+            if (batch != null && !string.IsNullOrWhiteSpace(id))
             {
-                return false;
+                try
+                {
+                    if (helper.UpdateBatch(id, batch))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else return Request.CreateResponse(HttpStatusCode.NotModified);
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
             }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         // DELETE: api/Batch/5
@@ -86,17 +100,25 @@ namespace Housing.Data.Client.Controllers
         /// 
         /// </summary>
         /// <param name="id"></param>
-        public bool Delete(string id)
+        [HttpDelete]
+        public HttpResponseMessage Delete(string id)
         {
-            try
+            if (!string.IsNullOrWhiteSpace(id))
             {
-                BatchDao a = helper.GetBatches().Where(b => b.Name == id).First();
-                return helper.DeleteBatch(a);
+                try
+                {
+                    if (helper.DeleteBatch(helper.GetBatches().FirstOrDefault(m => m.Name.Equals(id))))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else return Request.CreateResponse(HttpStatusCode.NotModified);
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
     }
 }
