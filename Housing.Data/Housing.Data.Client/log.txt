@@ -1,0 +1,8 @@
+2017-02-03 16:01:31.2750|TRACE|Housing.Data.Client.Controllers.AssociateController|testing get
+2017-02-03 16:01:31.3571|TRACE|Housing.Data.Client.Controllers.AssociateController|update log from associate get
+2017-02-03 16:02:24.0937|TRACE|Housing.Data.Client.Controllers.AssociateController|testing get
+2017-02-03 16:02:24.0937|TRACE|Housing.Data.Client.Controllers.AssociateController|update log from associate get
+2017-02-03 16:02:42.5634|TRACE|Housing.Data.Client.Controllers.AssociateController|testing get id
+2017-02-03 16:02:42.5634|TRACE|Housing.Data.Client.Controllers.AssociateController|update log from associate get using id
+2017-02-03 16:02:42.7647|TRACE|Housing.Data.Client.Controllers.AssociateController|testing values of aHousing.Data.Domain.DataAccessObjects.AssociateDao
+2017-02-03 16:02:42.7647|TRACE|Housing.Data.Client.Controllers.AssociateController|update log from associate get using id
