@@ -10,93 +10,139 @@ using System.Web.Http;
 
 namespace Housing.Data.Client.Controllers
 {
+
     /// <summary>
-    /// 
+    /// Ctrl to access crud functions for batches.
     /// </summary>
-    
     public class BatchController : ApiController
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public static AccessHelper helper = new AccessHelper();
+    {        
+        private static AccessHelper helper = new AccessHelper();
+
+
         // GET: api/Batch
         /// <summary>
-        /// 
+        /// Returns a list of BatchDao's
         /// </summary>
-        /// <returns></returns>
-        public List<BatchDao> Get()
+        /// <returns>HttpStatusCode and json list</returns>
+        [HttpGet]
+        public HttpResponseMessage Get()
         {
-            return helper.GetBatches();
+            List<BatchDao> a;
+            try
+            {
+                if ((a = helper.GetBatches()) != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
+                }
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         // GET: api/Batch/5
         /// <summary>
-        /// 
+        /// Returns a batchDao with the specified Id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>              
+        /// <returns>HttpStatusCode and json object</returns>            
+        [HttpGet]
         public HttpResponseMessage Get(string id)
         {
-            var a = helper.GetBatches().Where( x => x.Name == id).First();
-            return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
+            BatchDao a;
+            try
+            {
+                if ((a = helper.GetBatches().FirstOrDefault(m => m.Name.Equals(id))) != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
+                }
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         // POST: api/Batch
         /// <summary>
-        /// 
+        /// Attempts to insert a batchDao and returns the status code
         /// </summary>
         /// <param name="batch"></param>
-        public bool Post([FromBody]BatchDao batch)
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody]BatchDao batch)
         {
             if (batch != null)
             {
                 try
                 {
-                    return helper.InsertBatch(batch);
+                    if (helper.InsertBatch(batch))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    return false;
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
                 }
             }
-            return false;
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         // PUT: api/Batch/5
         /// <summary>
-        /// 
+        /// Attempts to update a batchDao and returns a status code
         /// </summary>
         /// <param name="id"></param>
         /// <param name="batch"></param>
-        public bool Put(string id, [FromBody]BatchDao batch)
+        [HttpPut]
+        public HttpResponseMessage Put(string id, [FromBody]BatchDao batch)
         {
-            try
-            {                
-                return helper.UpdateBatch(batch);
-            }
-            catch (Exception)
+            if (batch != null && !string.IsNullOrWhiteSpace(id))
             {
-                return false;
+                try
+                {
+                    if (helper.UpdateBatch(id, batch))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else return Request.CreateResponse(HttpStatusCode.NotModified);
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
             }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         // DELETE: api/Batch/5
         /// <summary>
-        /// 
+        /// Attempts to delete a batchDao and returns a status code
         /// </summary>
         /// <param name="id"></param>
-        public bool Delete(string id)
+        [HttpDelete]
+        public HttpResponseMessage Delete(string id)
         {
-            try
+            if (!string.IsNullOrWhiteSpace(id))
             {
-                BatchDao a = helper.GetBatches().Where(b => b.Name == id).First();
-                return helper.DeleteBatch(a);
+                try
+                {
+                    if (helper.DeleteBatch(helper.GetBatches().FirstOrDefault(m => m.Name.Equals(id))))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else return Request.CreateResponse(HttpStatusCode.NotModified);
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
     }
 }

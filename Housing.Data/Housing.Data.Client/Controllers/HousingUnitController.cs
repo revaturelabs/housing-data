@@ -11,91 +11,138 @@ using System.Web.Http;
 namespace Housing.Data.Client.Controllers
 {
     /// <summary>
-    /// 
+    /// Ctrl for HousingUnit CRUD
     /// </summary>
    
     public class HousingUnitController : ApiController
     {
         private static AccessHelper helper = new AccessHelper();
+
         // GET: api/HousingUnit
         /// <summary>
-        /// 
+        /// Gets list of housingUnits
         /// </summary>
-        /// <returns></returns>
-        public List<HousingUnitDao> Get()
+        /// <returns>HttpStatusCode and json list</returns>
+        [HttpGet]
+        public HttpResponseMessage Get()
         {
-            return helper.GetHousingUnits();
+            List<HousingUnitDao> a;
+            try
+            {
+                if ((a = helper.GetHousingUnits()) != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
+                }
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         // GET: api/HousingUnit/5
         /// <summary>
-        /// 
+        /// Gets housingUnit with given id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>HttpStatusCode and json object</returns>
+        [HttpGet]
         public HttpResponseMessage Get(string id)
         {
-            List<HousingUnitDao> a = helper.GetUnitsByComplex(id);
-            return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
+            HousingUnitDao a;
+            try
+            {
+                if ((a = helper.GetHousingUnits().FirstOrDefault(m => m.HousingUnitName.Equals(id))) != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
+                }
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         // POST: api/HousingUnit
         /// <summary>
-        /// 
+        /// Attempts to insert housingUnitDao
         /// </summary>
         /// <param name="hu"></param>
-        /// <returns></returns>
-        public bool Post([FromBody]HousingUnitDao hu)
+        /// <returns>HttpStatusCode</returns>
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody]HousingUnitDao hu)
         {
             if (hu != null)
             {
                 try
                 {
-                    return helper.InsertHousingUnit(hu);
+                    if (helper.InsertHousingUnit(hu))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    return false;
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
                 }
             }
-            return false;
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         // PUT: api/HousingUnit/5
         /// <summary>
-        /// 
+        /// Attempts to update housingUnitDao with given id and value
         /// </summary>
         /// <param name="id"></param>
         /// <param name="hu"></param>
-        public bool Put(string id, [FromBody]HousingUnitDao hu)
+        [HttpPut]
+        public HttpResponseMessage Put(string id, [FromBody]HousingUnitDao hu)
         {
-            try
+            if (hu != null && !string.IsNullOrWhiteSpace(id))
             {
-                HousingUnitDao a = helper.GetHousingUnits().Where(b => b.HousingUnitName == id).First();
-                return helper.UpdateHousingUnit(a);
+                try
+                {
+                    if (helper.UpdateHousingUnit(id, hu))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else return Request.CreateResponse(HttpStatusCode.NotModified);
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         // DELETE: api/HousingUnit/5
         /// <summary>
-        /// 
+        /// Attempts to delete housingunit with given id
         /// </summary>
         /// <param name="id"></param>
-        public bool Delete(string id)
+        [HttpDelete]
+        public HttpResponseMessage Delete(string id)
         {
-            try
+            if (!string.IsNullOrWhiteSpace(id))
             {
-                HousingUnitDao a = helper.GetHousingUnits().Where(b => b.HousingUnitName == id).First();
-                return helper.DeleteHousingUnit(a);
+                try
+                {
+                    if (helper.DeleteHousingUnit(helper.GetHousingUnits().FirstOrDefault(m => m.HousingUnitName.Equals(id))))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else return Request.CreateResponse(HttpStatusCode.NotModified);
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
     }
 }

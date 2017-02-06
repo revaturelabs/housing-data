@@ -10,152 +10,223 @@ namespace Housing.Data.Domain.CRUD
     public partial class AccessHelper
     {
         #region data retrieval 
+
         /// <summary>
-        /// return active Associates as DAOs
+        /// gets active AssociateDao's
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List<AssociateDao></returns>
         public List<AssociateDao> GetAssociates()
         {
-            var associates = db.Associates.ToList();
-            var result = new List<AssociateDao>();
-            foreach (var item in associates)
+            try
             {
-                if (item.Active)
+                var associates = db.Associates.ToList();
+                var result = new List<AssociateDao>();
+                foreach (var item in associates)
                 {
-                    result.Add(mapper.MapToDao(item));
+                    if (item.Active)
+                    {
+                        result.Add(mapper.MapToDao(item));
+                    }
                 }
+                return result;
             }
-            return result;
+            catch (Exception e)
+            {
+
+                throw;
+            }
 
         }
 
         /// <summary>
-        /// return active Batches as DAOs
+        /// gets active BatchDAOs
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List<BatchDao></returns>
         public List<BatchDao> GetBatches()
         {
-            var batches = db.Batches.ToList();
-            var result = new List<BatchDao>();
-            foreach (var item in batches)
+            try
             {
-                if (item.Active)
+                var batches = db.Batches.ToList();
+                var result = new List<BatchDao>();
+                foreach (var item in batches)
                 {
-                    result.Add(mapper.MapToDao(item));
+                    if (item.Active)
+                    {
+                        result.Add(mapper.MapToDao(item));
+                    }
                 }
+                return result;
             }
-            return result;
+            catch (Exception e)
+            {
+
+                throw;
+            }
         }
 
         /// <summary>
-        /// return active Genders as DAOs
+        /// gets active GenderDAOs
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List<GenderDao></returns>
         public List<GenderDao> GetGenders()
         {
-            var genders = db.Genders.ToList();
-            var result = new List<GenderDao>();
-            foreach (var item in genders)
+            try
             {
-                if (item.Active)
+                var genders = db.Genders.ToList();
+                var result = new List<GenderDao>();
+                foreach (var item in genders)
                 {
-                    result.Add(mapper.MapToDao(item));
+                    if (item.Active)
+                    {
+                        result.Add(mapper.MapToDao(item));
+                    }
                 }
+                return result;
             }
-            return result;
+            catch (Exception e)
+            {
+
+                throw;
+            }
         }
 
         /// <summary>
-        /// return active HousingComplexes as DAOs
+        /// gets active HousingComplexDAOs
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List<HousingComplexDao></returns>
         public List<HousingComplexDao> GetHousingComplexes()
         {
-            var complexes = db.HousingComplexes.ToList();
-            var result = new List<HousingComplexDao>();
-            foreach (var item in complexes)
+            try
             {
-                if (item.Active)
+                var complexes = db.HousingComplexes.ToList();
+                var result = new List<HousingComplexDao>();
+                foreach (var item in complexes)
                 {
-                    result.Add(mapper.MapToDao(item));
+                    if (item.Active)
+                    {
+                        result.Add(mapper.MapToDao(item));
+                    }
                 }
+                return result;
             }
-            return result;
+            catch (Exception e)
+            {
+
+                throw;
+            }
         }
 
         /// <summary>
-        /// return active HousingUnits as DAOs
+        /// gets active HousingUnitDAOs
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List<HousingUnitDao></HousingUnit></returns>
         public List<HousingUnitDao> GetHousingUnits()
         {
-            var units = db.HousingUnits.ToList();
-            var result = new List<HousingUnitDao>();
-            foreach (var item in units)
+            try
             {
-                if (item.Active)
+                var units = db.HousingUnits.ToList();
+                var result = new List<HousingUnitDao>();
+                foreach (var item in units)
                 {
-                    result.Add(mapper.MapToDao(item));
+                    if (item.Active)
+                    {
+                        result.Add(mapper.MapToDao(item));
+                    }
                 }
+                return result;
             }
-            return result;
+            catch (Exception e)
+            {
+
+                throw;
+            }
         }
 
         /// <summary>
-        /// return active HousingData as DAOs
+        /// gets active HousingDataDAOs
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List<HousingDataDao></HousingDataDao></returns>
         public List<HousingDataDao> GetHousingData()
         {
-            var data = db.HousingDatas.ToList();
-            var result = new List<HousingDataDao>();
-            foreach (var item in data)
+            try
             {
-                if (item.Active)
+                var data = db.HousingDatas.ToList();
+                var result = new List<HousingDataDao>();
+                foreach (var item in data)
                 {
-                    result.Add(mapper.MapToDao(item));
+                    if (item.Active)
+                    {
+                        result.Add(mapper.MapToDao(item));
+                    }
                 }
+                return result;
             }
-            return result;
+            catch (Exception e)
+            {
+
+                throw;
+            }
         }
 
         /// <summary>
-        /// all active HousingUnits associated with given HousingComplexId
+        /// gets active HousingUnits with given HousingComplexName
         /// </summary>
-        /// <returns>List(HousingUnitDao)</returns>
+        /// <returns>List<HousingUnitDao></returns>
         public List<HousingUnitDao> GetUnitsByComplex(string complexName)
         {
-            var result = new List<HousingUnitDao>();
-            var activeAssocHouse = db.HousingUnits.Where(m => m.Active == true).ToList();
-            var units = activeAssocHouse.Where(m => m.HousingComplex.Name.Equals(complexName));
-            foreach (var item in units)
+            try
             {
-                if (item.Active)
-                {
-                    result.Add(new HousingUnitDao(item.AptNumber, item.HousingUnitName, item.MaxCapacity,
-                         mapper.genders.Find(g => g.GenderId == item.GenderId).Name, 
-                         mapper.housingUnits.Find(m => m.HousingComplex.Name.Equals(complexName)).HousingComplex.Name));
+                var result = new List<HousingUnitDao>();
+                if (complexName != null)
+                {                    
+                    var activeAssocHouse = db.HousingUnits.Where(m => m.Active == true).ToList();
+                    var units = activeAssocHouse.Where(m => m.HousingComplex.Name.Equals(complexName));
+                    foreach (var item in units)
+                    {
+                        if (item.Active)
+                        {
+                            result.Add(new HousingUnitDao(item.AptNumber, item.HousingUnitName, item.MaxCapacity,
+                                 mapper.genders.Find(g => g.GenderId == item.GenderId).Name,
+                                 mapper.housingUnits.Find(m => m.HousingComplex.Name.Equals(complexName)).HousingComplex.Name));
+                        }
+                    }                    
                 }
+                return result;
             }
-            return result;
+            catch (Exception e)
+            {
+
+                throw;
+            }
         }
 
         /// <summary>
-        /// all active HousingData associated with given HousingUnitId
+        /// gets active HousingData with given HousingUnitName
         /// </summary>
-        /// <returns>List(HousingDataDao)</returns>
+        /// <returns>List<HousingDataDao></returns>
         public List<HousingDataDao> GetDataByUnit(string housingUnitName)
         {
-            var result = new List<HousingDataDao>();
-            var data = db.HousingDatas.ToList().Where(x => x.HousingUnit.HousingUnitName.Equals(housingUnitName) );
-            foreach (var item in data)
+            try
             {
-                if (item.Active)
+                var result = new List<HousingDataDao>();
+                if (housingUnitName != null)
                 {
-                    result.Add(new HousingDataDao(item.Associate.Email, item.HousingUnit.HousingUnitName, item.MoveInDate, item.MoveOutDate, item.HousingDataAltId));
+                    var data = db.HousingDatas.ToList().Where(x => x.HousingUnit.HousingUnitName.Equals(housingUnitName));
+                    foreach (var item in data)
+                    {
+                        if (item.Active)
+                        {
+                            result.Add(new HousingDataDao(item.Associate.Email, item.HousingUnit.HousingUnitName, item.MoveInDate, item.MoveOutDate, item.HousingDataAltId));
+                        }
+                    }                    
                 }
+                return result;
             }
-            return result;
+            catch (Exception e)
+            {
+
+                throw;
+            }
         }
 
 
@@ -168,7 +239,9 @@ namespace Housing.Data.Domain.CRUD
             rand.NextBytes(buf);
             string res = String.Concat(buf.Select(x => x.ToString("X2")).ToArray());
             if (length % 2 == 0)
+            {
                 return res;
+            }                
             return res + rand.Next(16).ToString("X");
         }
 

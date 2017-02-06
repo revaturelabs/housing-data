@@ -13,87 +13,173 @@ namespace Housing.Data.Domain.CRUD
         #region deletions 
 
         /// <summary>
-        /// Delete Gender
+        /// Deletes a gender
         /// </summary>
         /// <param name="g"></param>
-        /// <returns></returns>
+        /// <returns>true if successful</returns>
         public bool DeleteGender(GenderDao g)
         {
-            Gender gender = mapper.MapToEntity(g);
-            var toDelete = db.Genders.Where(m => m.GenderId == gender.GenderId).FirstOrDefault();
+            try
+            {
+                if (g != null)
+                {
+                    Gender gender = mapper.MapToEntity(g);
+                    var toDelete = db.Genders.Where(m => m.GenderId == gender.GenderId).FirstOrDefault();
+                    db.Genders.Remove(toDelete);
+                    return db.SaveChanges() > 0; 
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
 
-            db.Genders.Remove(toDelete);
-            return db.SaveChanges() > 0;
+                throw;
+            }
         }
 
         /// <summary>
-        /// Delete batch
+        /// Delete a batch
         /// </summary>
         /// <param name="b"></param>
-        /// <returns></returns>
+        /// <returns>true if successful</returns>
         public bool DeleteBatch(BatchDao b)
         {
-            Batch batch = mapper.MapToEntity(b);
-            var toDelete = db.Batches.Where(m => m.BatchId == batch.BatchId).FirstOrDefault();
+            try
+            {
+                if (b != null)
+                {
+                    Batch batch = mapper.MapToEntity(b);
+                    var toDelete = db.Batches.Where(m => m.BatchId == batch.BatchId).FirstOrDefault();
+                    db.Batches.Remove(toDelete);
+                    return db.SaveChanges() > 0; 
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
 
-            db.Batches.Remove(toDelete);
-            return db.SaveChanges() > 0;
+                throw;
+            }
         }
         
         /// <summary>
-        /// delete Associate
+        /// delete an Associate
         /// </summary>
         /// <param name="assoc"></param>
         /// <returns>true if deletion successful</returns>
         public bool DeleteAssociate(AssociateDao assoc)
         {
-            Associate t = mapper.MapToEntity(assoc);
-            var toDelete = db.Associates.Where(m => m.AssociateId == t.AssociateId).FirstOrDefault();
-            db.Associates.Remove(toDelete);
-            return db.SaveChanges() > 0;
+            try
+            {
+                if (assoc != null)
+                {
+                    Associate t = mapper.MapToEntity(assoc);
+                    var toDelete = db.Associates.Where(m => m.AssociateId == t.AssociateId).FirstOrDefault();
+                    db.Associates.Remove(toDelete);
+                    return db.SaveChanges() > 0; 
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
         }
 
         /// <summary>
-        /// delete HousingComplex 
+        /// delete a HousingComplex 
         /// </summary>
         /// <param name="hc"></param>
         /// <returns>true if deletion successful</returns>
         public bool DeleteHousingComplex(HousingComplexDao hc)
         {
-            HousingComplex h = mapper.MapToEntity(hc);
-            var toDelete = db.HousingComplexes.Where(m => m.HousingComplexId == h.HousingComplexId).FirstOrDefault();
+            try
+            {
+                if (hc != null)
+                {
+                    HousingComplex h = mapper.MapToEntity(hc);
+                    var toDelete = db.HousingComplexes.Where(m => m.HousingComplexId == h.HousingComplexId).FirstOrDefault();
+                    db.HousingComplexes.Remove(toDelete);
+                    return db.SaveChanges() > 0; 
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
 
-            db.HousingComplexes.Remove(toDelete);
-            return db.SaveChanges() > 0;
+                throw;
+            }
         }
 
         /// <summary>
-        /// delete HousingUnit
+        /// delete a HousingUnit
         /// </summary>
         /// <param name="hu"></param>
         /// <returns>true if deletion successful</returns>
         public bool DeleteHousingUnit(HousingUnitDao hu)
         {
-            HousingUnit u = mapper.MapToEntity(hu);
-            var toDelete = db.HousingUnits.Where(m => m.HousingUnitId == u.HousingUnitId).FirstOrDefault();
+            try
+            {
+                if (hu != null)
+                {
+                    HousingUnit u = mapper.MapToEntity(hu);
+                    var toDelete = db.HousingUnits.Where(m => m.HousingUnitId == u.HousingUnitId).FirstOrDefault();
+                    db.HousingUnits.Remove(toDelete);
+                    return db.SaveChanges() > 0; 
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
 
-            db.HousingUnits.Remove(toDelete);
-            return db.SaveChanges() > 0;
+                throw;
+            }
         }
         
         /// <summary>
-        /// delete HousingData entry
+        /// delete a HousingData entry
         /// </summary>
         /// <param name="hd"></param>
         /// <returns>true if deletion successful</returns>
         public bool DeleteHousingData(HousingDataDao hd)
         {
-            HousingData d = mapper.MapToEntity(hd);
-            var toDelete = db.HousingDatas.Where(m => m.HousingDataId == d.HousingDataId).FirstOrDefault();
-            toDelete.AssociateId = null;
-            toDelete.HousingUnitId = null;
-            db.HousingDatas.Remove(toDelete);
-            return db.SaveChanges() > 0;
+            try
+            {
+                if (hd != null)
+                {
+                    HousingData d = mapper.MapToEntity(hd);
+                    var toDelete = db.HousingDatas.Where(m => m.HousingDataId == d.HousingDataId).FirstOrDefault();
+                    toDelete.AssociateId = null;
+                    toDelete.HousingUnitId = null;
+                    db.HousingDatas.Remove(toDelete);
+                    return db.SaveChanges() > 0; 
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
         }
     #endregion
   }

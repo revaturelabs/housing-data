@@ -11,7 +11,7 @@ using Housing.Data.Domain.CRUD;
 namespace Housing.Data.Client.Controllers
 {
     /// <summary>
-    /// 
+    /// Ctrl for HousingComplex CRUD
     /// </summary>
    
     public class HousingComplexController : ApiController
@@ -20,85 +20,132 @@ namespace Housing.Data.Client.Controllers
 
         // GET: api/HousingComplex
         /// <summary>
-        /// 
+        /// Gets a list of housingComplexes
         /// </summary>
-        /// <returns></returns>
-        public List<HousingComplexDao> Get()
+        /// <returns>HttpStatusCode and json list</returns>
+        [HttpGet]
+        public HttpResponseMessage Get()
         {
-            return helper.GetHousingComplexes();
+            List<HousingComplexDao> a;
+            try
+            {
+                if ((a = helper.GetHousingComplexes()) != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
+                }
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         // GET: api/HousingComplex/5
         /// <summary>
-        /// 
+        /// Gets a HousingComplexDao with given id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>HttpStatusCode and json object</returns>
+        [HttpGet]
         public HttpResponseMessage Get(string id)
         {
-            var a = helper.GetHousingComplexes().Where(x => x.Name == id).First();
-            return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
+            HousingComplexDao a;
+            try
+            {
+                if ((a = helper.GetHousingComplexes().FirstOrDefault(m => m.Name.Equals(id))) != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
+                }
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         // POST: api/HousingComplex
         /// <summary>
-        /// 
+        /// Attemps to insert HousingComplexDao
         /// </summary>
         /// <param name="hc"></param>
-        /// <returns></returns>
-        public bool Post([FromBody]HousingComplexDao hc)
+        /// <returns>HttpStatusCode</returns>
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody]HousingComplexDao hc)
         {
             if (hc != null)
             {
                 try
                 {
-                    return helper.InsertHousingComplex(hc);
+                    if (helper.InsertHousingComplex(hc))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    return false;
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
                 }
             }
-            return false;
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         // PUT: api/HousingComplex/5
         /// <summary>
-        /// 
+        /// Attemps to update HousingComplexDao with given id and value
         /// </summary>
         /// <param name="id"></param>
         /// <param name="value"></param>
-        /// <returns></returns>
-        public bool Put(string id, [FromBody]string value)
+        /// <returns>HttpStatusCode</returns>
+        [HttpPut]
+        public HttpResponseMessage Put(string id, [FromBody]HousingComplexDao value)
         {
-            try
+
+            if (value != null && !string.IsNullOrWhiteSpace(id))
             {
-                HousingComplexDao hc = helper.GetHousingComplexes().Where(b => b.Name == id).First();
-                return helper.UpdateHousingComplex(hc);
+                try
+                {
+                    if (helper.UpdateHousingComplex(id, value))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else return Request.CreateResponse(HttpStatusCode.NotModified);
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         // DELETE: api/HousingComplex/5
         /// <summary>
-        /// 
+        /// Attemps to delete HousingComplex with given id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
-        public bool Delete(string id)
+        /// <returns>HttpStatusCode</returns>
+        [HttpDelete]
+        public HttpResponseMessage Delete(string id)
         {
-            try
+            if (!string.IsNullOrWhiteSpace(id))
             {
-                HousingComplexDao a = helper.GetHousingComplexes().Where(b => b.Name == id).First();
-                return helper.DeleteHousingComplex(a);
+                try
+                {
+                    if (helper.DeleteHousingComplex(helper.GetHousingComplexes().FirstOrDefault(m => m.Name.Equals(id))))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else return Request.CreateResponse(HttpStatusCode.NotModified);
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
     }
 }
