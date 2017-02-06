@@ -177,16 +177,19 @@ namespace Housing.Data.Domain.CRUD
             try
             {
                 var result = new List<HousingUnitDao>();
-                var activeAssocHouse = db.HousingUnits.Where(m => m.Active == true).ToList();
-                var units = activeAssocHouse.Where(m => m.HousingComplex.Name.Equals(complexName));
-                foreach (var item in units)
-                {
-                    if (item.Active)
+                if (complexName != null)
+                {                    
+                    var activeAssocHouse = db.HousingUnits.Where(m => m.Active == true).ToList();
+                    var units = activeAssocHouse.Where(m => m.HousingComplex.Name.Equals(complexName));
+                    foreach (var item in units)
                     {
-                        result.Add(new HousingUnitDao(item.AptNumber, item.HousingUnitName, item.MaxCapacity,
-                             mapper.genders.Find(g => g.GenderId == item.GenderId).Name,
-                             mapper.housingUnits.Find(m => m.HousingComplex.Name.Equals(complexName)).HousingComplex.Name));
-                    }
+                        if (item.Active)
+                        {
+                            result.Add(new HousingUnitDao(item.AptNumber, item.HousingUnitName, item.MaxCapacity,
+                                 mapper.genders.Find(g => g.GenderId == item.GenderId).Name,
+                                 mapper.housingUnits.Find(m => m.HousingComplex.Name.Equals(complexName)).HousingComplex.Name));
+                        }
+                    }                    
                 }
                 return result;
             }
@@ -206,13 +209,16 @@ namespace Housing.Data.Domain.CRUD
             try
             {
                 var result = new List<HousingDataDao>();
-                var data = db.HousingDatas.ToList().Where(x => x.HousingUnit.HousingUnitName.Equals(housingUnitName));
-                foreach (var item in data)
+                if (housingUnitName != null)
                 {
-                    if (item.Active)
+                    var data = db.HousingDatas.ToList().Where(x => x.HousingUnit.HousingUnitName.Equals(housingUnitName));
+                    foreach (var item in data)
                     {
-                        result.Add(new HousingDataDao(item.Associate.Email, item.HousingUnit.HousingUnitName, item.MoveInDate, item.MoveOutDate, item.HousingDataAltId));
-                    }
+                        if (item.Active)
+                        {
+                            result.Add(new HousingDataDao(item.Associate.Email, item.HousingUnit.HousingUnitName, item.MoveInDate, item.MoveOutDate, item.HousingDataAltId));
+                        }
+                    }                    
                 }
                 return result;
             }
