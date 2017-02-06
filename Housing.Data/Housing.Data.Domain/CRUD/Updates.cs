@@ -27,7 +27,20 @@ namespace Housing.Data.Domain.CRUD
                 if (old != null)
                 {
                     asc.AssociateId = oldAssoc.AssociateId;
-                    db.Entry(old).CurrentValues.SetValues(asc);
+                    //asc.Active = oldAssoc.Active;
+                    //asc.Batch = oldAssoc.Batch;
+                    //asc.BatchId = oldAssoc.BatchId;
+                    //asc.DateOfBirth = oldAssoc.DateOfBirth;
+                    //asc.Email = oldAssoc.Email;
+                    //asc.FirstName = oldAssoc.FirstName;
+                    //asc.Gender = oldAssoc.Gender;
+                    //asc.GenderId = oldAssoc.GenderId;
+                    //asc.HasCar = oldAssoc.HasCar;
+                    //asc.HasKeys = oldAssoc.HasKeys;
+                    //asc.LastName = oldAssoc.LastName;
+                    //asc.PhoneNumber = oldAssoc.PhoneNumber;
+                    //db.Entry()
+                    db.Entry(oldAssoc).CurrentValues.SetValues(asc);
                     db.SaveChanges();
                     return true;
                 }

@@ -10,12 +10,12 @@
             <PropertyRef Name="AssociateId" />
           </Key>
           <Property Name="AssociateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="400" Nullable="false" />
           <Property Name="GenderId" Type="int" />
           <Property Name="BatchId" Type="int" />
-          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="400" Nullable="false" />
           <Property Name="DateOfBirth" Type="date" Nullable="false" />
           <Property Name="HasCar" Type="bit" Nullable="false" />
           <Property Name="HasKeys" Type="bit" Nullable="false" />
@@ -26,19 +26,19 @@
             <PropertyRef Name="BatchId" />
           </Key>
           <Property Name="BatchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Instructor" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="Instructor" Type="nvarchar" MaxLength="400" Nullable="false" />
           <Property Name="StartDate" Type="date" Nullable="false" />
           <Property Name="EndDate" Type="date" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
-          <Property Name="Technology" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Technology" Type="nvarchar" MaxLength="250" Nullable="false" />
         </EntityType>
         <EntityType Name="Gender">
           <Key>
             <PropertyRef Name="GenderId" />
           </Key>
           <Property Name="GenderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="400" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="HousingComplex">
@@ -46,8 +46,8 @@
             <PropertyRef Name="HousingComplexId" />
           </Key>
           <Property Name="HousingComplexId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="Address" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="350" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
@@ -56,7 +56,7 @@
             <PropertyRef Name="HousingDataId" />
           </Key>
           <Property Name="HousingDataId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="HousingDataAltId" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="HousingDataAltId" Type="nvarchar" MaxLength="400" Nullable="false" />
           <Property Name="AssociateId" Type="int" />
           <Property Name="HousingUnitId" Type="int" />
           <Property Name="MoveInDate" Type="date" Nullable="false" />
@@ -68,7 +68,7 @@
             <PropertyRef Name="HousingUnitId" />
           </Key>
           <Property Name="HousingUnitId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="HousingUnitName" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="HousingUnitName" Type="nvarchar" MaxLength="400" Nullable="false" />
           <Property Name="AptNumber" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="MaxCapacity" Type="int" Nullable="false" />
           <Property Name="GenderId" Type="int" />
@@ -153,7 +153,7 @@
             <CollectionType>
               <RowType>
                 <Property Name="HousingDataId" Type="int" Nullable="false" />
-                <Property Name="HousingDataAltId" Type="nvarchar" MaxLength="255" Nullable="false" />
+                <Property Name="HousingDataAltId" Type="nvarchar" MaxLength="400" Nullable="false" />
                 <Property Name="AssociateId" Type="int" />
                 <Property Name="HousingUnitId" Type="int" />
                 <Property Name="MoveInDate" Type="date" Nullable="false" />
@@ -169,7 +169,7 @@
             <CollectionType>
               <RowType>
                 <Property Name="HousingUnitId" Type="int" Nullable="false" />
-                <Property Name="HousingUnitName" Type="nvarchar" MaxLength="300" Nullable="false" />
+                <Property Name="HousingUnitName" Type="nvarchar" MaxLength="400" Nullable="false" />
                 <Property Name="AptNumber" Type="nvarchar" MaxLength="100" Nullable="false" />
                 <Property Name="MaxCapacity" Type="int" Nullable="false" />
                 <Property Name="GenderId" Type="int" />
@@ -274,12 +274,12 @@
             <PropertyRef Name="AssociateId" />
           </Key>
           <Property Name="AssociateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="GenderId" Type="Int32" />
           <Property Name="BatchId" Type="Int32" />
-          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="HasCar" Type="Boolean" Nullable="false" />
           <Property Name="HasKeys" Type="Boolean" Nullable="false" />
@@ -293,12 +293,12 @@
             <PropertyRef Name="BatchId" />
           </Key>
           <Property Name="BatchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Instructor" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="Instructor" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="Technology" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Technology" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Associates" Relationship="HousingDB_DevModel.FK_Associate_Batch" FromRole="Batch" ToRole="Associate" />
         </EntityType>
         <EntityType Name="Gender">
@@ -306,7 +306,7 @@
             <PropertyRef Name="GenderId" />
           </Key>
           <Property Name="GenderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Associates" Relationship="HousingDB_DevModel.FK_Associate_Gender" FromRole="Gender" ToRole="Associate" />
           <NavigationProperty Name="HousingUnits" Relationship="HousingDB_DevModel.FK_HousingUnit_Gender" FromRole="Gender" ToRole="HousingUnit" />
@@ -316,8 +316,8 @@
             <PropertyRef Name="HousingComplexId" />
           </Key>
           <Property Name="HousingComplexId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="HousingUnits" Relationship="HousingDB_DevModel.FK_HousingUnit_HousingComplex" FromRole="HousingComplex" ToRole="HousingUnit" />
@@ -327,7 +327,7 @@
             <PropertyRef Name="HousingDataId" />
           </Key>
           <Property Name="HousingDataId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HousingDataAltId" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="HousingDataAltId" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="AssociateId" Type="Int32" />
           <Property Name="HousingUnitId" Type="Int32" />
           <Property Name="MoveInDate" Type="DateTime" Nullable="false" Precision="0" />
@@ -341,7 +341,7 @@
             <PropertyRef Name="HousingUnitId" />
           </Key>
           <Property Name="HousingUnitId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HousingUnitName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="HousingUnitName" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="AptNumber" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="MaxCapacity" Type="Int32" Nullable="false" />
           <Property Name="GenderId" Type="Int32" />

@@ -21,7 +21,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         public void Test_InsertGender()
         {
             var expected = true;
-            var actual = ah.InsertGender(new GenderDao { Name = "undefinedtest4" });
+            var actual = ah.InsertGender(new GenderDao { Name = "random test gender" });
             Assert.Equal(expected, actual);
         }
 
