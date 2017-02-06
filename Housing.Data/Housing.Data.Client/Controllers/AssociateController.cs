@@ -9,45 +9,68 @@ using System.Net.Http;
 using System.Web.Http;
 
 namespace Housing.Data.Client.Controllers
-{   /// <summary>
-    /// 
+{
+    /// <summary>
+    /// Ctrl for Associate CRUD
     /// </summary>
-    
     public class AssociateController : ApiController
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public static AccessHelper helper = new AccessHelper();
+    {        
+        private static AccessHelper helper = new AccessHelper();
 
         /// <summary>
-        /// 
+        /// Gets list of associateDao's
         /// </summary>
-        /// <returns></returns>
+        /// <returns>HttpStatusCode and json list</returns>
         // GET: api/Associate
-        public List<AssociateDao> Get()
+        [HttpGet]
+        public HttpResponseMessage Get()
         {
-            return helper.GetAssociates();
+            List<AssociateDao> a;
+            try
+            {
+                if ((a = helper.GetAssociates()) != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
+                }
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         /// <summary>
-        /// 
+        /// Gets an associateDao with given id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>HttpStatusCode and json object</returns>
         // GET: api/Associate/5
+        [HttpGet]
         public HttpResponseMessage Get(string id)
         {
-            var a = helper.GetAssociates().FirstOrDefault( x => x.Email.Equals(id));
-            return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
+            AssociateDao a;
+            try
+            {
+                if ((a = helper.GetAssociates().FirstOrDefault(m => m.Email.Equals(id))) != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
+                }
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         /// <summary>
-        /// 
+        /// Attempts to insert associateDao
         /// </summary>
         /// <param name="a"></param>       
-        /// <returns></returns>
+        /// <returns>HttpStatusCode</returns>
         // POST: api/Associate
+        [HttpPost]
         public HttpResponseMessage Post([FromBody]AssociateDao a)
         {
             if (a != null)
@@ -69,12 +92,13 @@ namespace Housing.Data.Client.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Attempts to update associateDao with given id and value
         /// </summary>
         /// <param name="id"></param>
         /// <param name="assoc"></param>
-        /// <returns></returns>
+        /// <returns>HttpStatusCode</returns>
         // PUT: api/Associate/5
+        [HttpPut]
         public HttpResponseMessage Put(string id, [FromBody]AssociateDao assoc)
         {
             if (assoc != null && !string.IsNullOrWhiteSpace(id))
@@ -96,11 +120,12 @@ namespace Housing.Data.Client.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Attempts to delete associateDao with given id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>HttpStatusCode</returns>
         // DELETE: api/Associate/5
+        [HttpDelete]
         public HttpResponseMessage Delete(string id)
         {
             if (!string.IsNullOrWhiteSpace(id))

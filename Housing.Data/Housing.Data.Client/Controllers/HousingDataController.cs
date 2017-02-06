@@ -11,94 +11,141 @@ using Housing.Data.Domain.CRUD;
 namespace Housing.Data.Client.Controllers
 {
     /// <summary>
-    /// 
+    /// Ctrl for HousingData CRUD
     /// </summary>
     
     public class HousingDataController : ApiController
     {
         private static AccessHelper helper = new AccessHelper();
+
         // GET: api/HousingData
         /// <summary>
-        /// 
+        /// Gets list of HousingDataDao's
         /// </summary>
-        /// <returns></returns>
-        public List<HousingDataDao> Get()
+        /// <returns>HttpStatusCode and json list</returns>
+        [HttpGet]
+        public HttpResponseMessage Get()
         {
-            return helper.GetHousingData();
+            List<HousingDataDao> a;
+            try
+            {
+                if ((a = helper.GetHousingData()) != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
+                }
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         // GET: api/HousingData/5
         /// <summary>
-        /// 
+        /// Get HousingDataDao with given id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>HttpStatusCode and json objects</returns>
+        [HttpGet]
         public HttpResponseMessage Get(string id)
         {
-            List<HousingDataDao> a = helper.GetDataByUnit(id);
-            return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
+            HousingDataDao a;
+            try
+            {
+                if ((a = helper.GetHousingData().FirstOrDefault(m => m.HousingDataAltId.Equals(id))) != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
+                }
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         // POST: api/HousingData
         /// <summary>
-        /// 
+        /// Attempt to insert housingData
         /// </summary>
         /// <param name="hd"></param>
-        /// <returns></returns>
-        public bool Post([FromBody]HousingDataDao hd)
+        /// <returns>HttpStatusCode</returns>
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody]HousingDataDao hd)
         {
             if (hd != null)
             {
                 try
                 {
-                    return helper.InsertHousingData(hd);
+                    if (helper.InsertHousingData(hd))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    return false;
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
                 }
             }
-            return false;
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         // PUT: api/HousingData/5
         /// <summary>
-        /// 
+        /// Attempt to update housingData with given id and hd
         /// </summary>
         /// <param name="id"></param>
         /// <param name="hd"></param>
-        /// <returns></returns>
-        public bool Put(string id, [FromBody]HousingDataDao hd)
+        /// <returns>HttpStatusCode</returns>
+        [HttpPut]
+        public HttpResponseMessage Put(string id, [FromBody]HousingDataDao hd)
         {
-            try
+            if (hd != null && !string.IsNullOrWhiteSpace(id))
             {
-                HousingDataDao a = helper.GetHousingData().Where(b => b.HousingDataAltId == id).First();
-                return helper.UpdateHousingData(id, a);
+                try
+                {
+                    if (helper.UpdateHousingData(id, hd))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else return Request.CreateResponse(HttpStatusCode.NotModified);
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         // DELETE: api/HousingData/5
         /// <summary>
-        /// 
+        /// Attempt to delete housing data with given id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
-        public bool Delete(string id)
+        /// <returns>HttpStatusCode</returns>
+        [HttpDelete]
+        public HttpResponseMessage Delete(string id)
         {
 
-            try
+            if (!string.IsNullOrWhiteSpace(id))
             {
-                HousingDataDao a = helper.GetHousingData().Where(b => b.HousingDataAltId == id).First();
-                return helper.DeleteHousingData(a);
+                try
+                {
+                    if (helper.DeleteHousingData(helper.GetHousingData().FirstOrDefault(m => m.HousingDataAltId.Equals(id))))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else return Request.CreateResponse(HttpStatusCode.NotModified);
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
     }
 }
