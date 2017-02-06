@@ -14,7 +14,7 @@ namespace Housing.Data.Domain.CRUD
         public static AccessMapper mapper;
 
         /// <summary>
-        /// constructor
+        /// ctor for AccessHelper creates reference for db and mapper
         /// </summary>
         static AccessHelper()
         {
@@ -31,14 +31,29 @@ namespace Housing.Data.Domain.CRUD
         /// <returns>true if insertion successful</returns>
         public bool InsertGender(GenderDao gender)
         {
-            //map to EF object 
-            var itm = mapper.MapToEntity(gender);
-            //set Active bit to true 
-            itm.Active = true;
-            //insert into db
-            db.Genders.Add(itm);
-            //return success or failure
-            return db.SaveChanges() > 0;
+            try 
+            {
+                if (gender != null)
+                {
+                    //map to EF object 
+                    var itm = mapper.MapToEntity(gender);
+                    //set Active bit to true 
+                    itm.Active = true;
+                    //insert into db
+                    db.Genders.Add(itm);
+                    //return success or failure
+                    return db.SaveChanges() > 0;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -48,14 +63,29 @@ namespace Housing.Data.Domain.CRUD
         /// <returns>true if insertion successful</returns>
         public bool InsertBatch(BatchDao batch)
         {
-            //map to EF object 
-            var itm = mapper.MapToEntity(batch);
-            //set Active bit to true 
-            itm.Active = true;
-            //insert into db
-            db.Batches.Add(itm);
-            //return success or failure
-            return db.SaveChanges() > 0;
+            try
+            {
+                if (batch != null)
+                {
+                    //map to EF object 
+                    var itm = mapper.MapToEntity(batch);
+                    //set Active bit to true 
+                    itm.Active = true;
+                    //insert into db
+                    db.Batches.Add(itm);
+                    //return success or failure
+                    return db.SaveChanges() > 0; 
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -65,14 +95,28 @@ namespace Housing.Data.Domain.CRUD
         /// <returns>true if insertion successful</returns>
         public bool InsertAssociate(AssociateDao assoc)
         {
-            //map to EF object 
-            var itm = mapper.MapToEntity(assoc);
-            //set Active bit to true 
-            itm.Active = true;
-            //insert into db
-            db.Associates.Add(itm);
-            //return success or failure
-            return db.SaveChanges() > 0;
+            try
+            {
+                if (assoc != null)
+                {
+                    //map to EF object 
+                    var itm = mapper.MapToEntity(assoc);
+                    //set Active bit to true 
+                    itm.Active = true;
+                    //insert into db
+                    db.Associates.Add(itm);
+                    //return success or failure
+                    return db.SaveChanges() > 0; 
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         /// <summary>
@@ -82,14 +126,28 @@ namespace Housing.Data.Domain.CRUD
         /// <returns>true if insertion successful</returns>
         public bool InsertHousingComplex(HousingComplexDao hc)
         {
-            //map to EF object 
-            var itm = mapper.MapToEntity(hc);
-            //set Active bit to true 
-            itm.Active = true;
-            //insert into db
-            db.HousingComplexes.Add(itm);
-            //return success or failure
-            return db.SaveChanges() > 0;
+            try
+            {
+                if (hc != null)
+                {
+                    //map to EF object 
+                    var itm = mapper.MapToEntity(hc);
+                    //set Active bit to true 
+                    itm.Active = true;
+                    //insert into db
+                    db.HousingComplexes.Add(itm);
+                    //return success or failure
+                    return db.SaveChanges() > 0; 
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         /// <summary>
@@ -99,14 +157,28 @@ namespace Housing.Data.Domain.CRUD
         /// <returns>true if insertion successful</returns>
         public bool InsertHousingUnit(HousingUnitDao hu)
         {
-            //map to EF object 
-            var itm = mapper.MapToEntity(hu);
-            //set Active bit to true 
-            itm.Active = true;
-            //insert into db
-            db.HousingUnits.Add(itm);
-            //return success or failure
-            return db.SaveChanges() > 0;
+            try
+            {
+                if (hu != null)
+                {
+                    //map to EF object 
+                    var itm = mapper.MapToEntity(hu);
+                    //set Active bit to true 
+                    itm.Active = true;
+                    //insert into db
+                    db.HousingUnits.Add(itm);
+                    //return success or failure
+                    return db.SaveChanges() > 0; 
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         /// <summary>
@@ -116,39 +188,46 @@ namespace Housing.Data.Domain.CRUD
         /// <returns>true if insertion successful</returns>
         public bool InsertHousingData(HousingDataDao hd)
         {
-            //map to EF object 
-            var itm = mapper.MapToEntity(hd);
-
-            //set Active bit to true 
-            itm.Active = true;
-
-            //get associate object from db
-            var assoc = db.Associates.ToList().Where(m => m.Email.Equals(itm.Associate.Email)).FirstOrDefault();
-
-            //get housingUnit object from db
-            var activeAssocHouse = db.HousingUnits.Where(m => m.Active == true).ToList();
-            var assocHouse = activeAssocHouse.Where(m =>m.HousingComplex.Name.Equals(itm.HousingUnit.HousingComplex.Name)).FirstOrDefault();
-
-            //check gender match between Associate, Unit
-            var genderMatch = assoc.Gender.Equals(assocHouse.Gender);
-
-            //check that Unit occupancy is not exceeded
-            //get number of assoc assigned to unit
-            var it = db.HousingData_By_Unit(assocHouse.HousingUnitId);
-
-            //continue insert if gender and capacity are OK
-            if (genderMatch && (it.Count() < assocHouse.MaxCapacity))
+            try
             {
-                
-                
-                //insert into db
-                db.HousingDatas.Add(itm);
-                //return success or failure
-                return db.SaveChanges() > 0;
+                if (hd != null)
+                {
+                    //map to EF object 
+                    var itm = mapper.MapToEntity(hd);
+                    //set Active bit to true 
+                    itm.Active = true;
+                    //get associate object from db
+                    var assoc = db.Associates.ToList().Where(m => m.Email.Equals(itm.Associate.Email)).FirstOrDefault();
+                    //get housingUnit object from db
+                    var activeAssocHouse = db.HousingUnits.Where(m => m.Active == true).ToList();
+                    var assocHouse = activeAssocHouse.Where(m => m.HousingComplex.Name.Equals(itm.HousingUnit.HousingComplex.Name)).FirstOrDefault();
+                    //check gender match between Associate, Unit
+                    var genderMatch = assoc.Gender.Equals(assocHouse.Gender);
+                    //check that Unit occupancy is not exceeded
+                    //get number of assoc assigned to unit
+                    var it = db.HousingData_By_Unit(assocHouse.HousingUnitId);
+                    //continue insert if gender and capacity are OK
+                    if (genderMatch && (it.Count() < assocHouse.MaxCapacity))
+                    {
+                        //insert into db
+                        db.HousingDatas.Add(itm);
+                        //return success or failure
+                        return db.SaveChanges() > 0;
+                    }
+                    //return false if else
+                    else
+                        return false; 
+                }
+                else
+                {
+                    return false;
+                }
             }
-            //return false if else
-            else
-                return false;
+            catch (Exception e)
+            {
+
+                throw;
+            }
 
         }
 

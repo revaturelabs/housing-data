@@ -21,25 +21,13 @@ namespace Housing.Data.Domain.CRUD
         {
             try
             {
-                Associate asc = mapper.MapToEntity(assoc);
-                Associate oldAssoc = db.Associates.FirstOrDefault(a => a.Email.Equals(old));
-
-                if (old != null)
+                Associate asc;
+                Associate oldAssoc;
+                if (!string.IsNullOrWhiteSpace(old) && assoc != null)
                 {
-                    asc.AssociateId = oldAssoc.AssociateId;
-                    //asc.Active = oldAssoc.Active;
-                    //asc.Batch = oldAssoc.Batch;
-                    //asc.BatchId = oldAssoc.BatchId;
-                    //asc.DateOfBirth = oldAssoc.DateOfBirth;
-                    //asc.Email = oldAssoc.Email;
-                    //asc.FirstName = oldAssoc.FirstName;
-                    //asc.Gender = oldAssoc.Gender;
-                    //asc.GenderId = oldAssoc.GenderId;
-                    //asc.HasCar = oldAssoc.HasCar;
-                    //asc.HasKeys = oldAssoc.HasKeys;
-                    //asc.LastName = oldAssoc.LastName;
-                    //asc.PhoneNumber = oldAssoc.PhoneNumber;
-                    //db.Entry()
+                    asc = mapper.MapToEntity(assoc);
+                    oldAssoc = db.Associates.FirstOrDefault(a => a.Email.Equals(old));
+                    asc.AssociateId = oldAssoc.AssociateId;                    
                     db.Entry(oldAssoc).CurrentValues.SetValues(asc);
                     db.SaveChanges();
                     return true;
@@ -60,11 +48,11 @@ namespace Housing.Data.Domain.CRUD
         public bool UpdateHousingComplex(string oldComplex, HousingComplexDao hc)
         {
             try
-            {
-                HousingComplex plex = mapper.MapToEntity(hc);
-                HousingComplex old = db.HousingComplexes.FirstOrDefault(a => a.Name.Equals(oldComplex));
-                if (old != null)
+            {                
+                if (!string.IsNullOrWhiteSpace(oldComplex) && hc != null)
                 {
+                    HousingComplex plex = mapper.MapToEntity(hc);
+                    HousingComplex old = db.HousingComplexes.FirstOrDefault(a => a.Name.Equals(oldComplex));
                     plex.HousingComplexId = old.HousingComplexId;
                     db.Entry(old).CurrentValues.SetValues(plex);
                     db.SaveChanges();
@@ -87,11 +75,10 @@ namespace Housing.Data.Domain.CRUD
         {
             try
             {
-                HousingUnit unit = mapper.MapToEntity(hu);
-                HousingUnit old = db.HousingUnits.FirstOrDefault(a => a.HousingUnitName.Equals(oldUnit));
-
-                if (old != null)
+                if (!string.IsNullOrWhiteSpace(oldUnit) && hu != null)
                 {
+                    HousingUnit unit = mapper.MapToEntity(hu);
+                    HousingUnit old = db.HousingUnits.FirstOrDefault(a => a.HousingUnitName.Equals(oldUnit));
                     unit.HousingUnitId = old.HousingUnitId;
                     db.Entry(old).CurrentValues.SetValues(unit);
                     db.SaveChanges();
@@ -114,11 +101,10 @@ namespace Housing.Data.Domain.CRUD
         {
             try
             {
-                Batch batch = mapper.MapToEntity(b);
-                Batch old = db.Batches.FirstOrDefault(a => a.Name.Equals(oldBatch));
-
-                if (old != null)
+                if (!string.IsNullOrWhiteSpace(oldBatch) && b != null)
                 {
+                    Batch batch = mapper.MapToEntity(b);
+                    Batch old = db.Batches.FirstOrDefault(a => a.Name.Equals(oldBatch));
                     batch.BatchId = old.BatchId;
                     db.Entry(old).CurrentValues.SetValues(batch);
                     db.SaveChanges();
@@ -140,12 +126,11 @@ namespace Housing.Data.Domain.CRUD
         public bool UpdateGender(string oldId, GenderDao g)
         {
             try
-            {
-                Gender newGender = mapper.MapToEntity(g);
-
-                Gender old = db.Genders.FirstOrDefault(a => a.Name.Equals(oldId));
-                if (old != null)
+            {                
+                if (!string.IsNullOrWhiteSpace(oldId) && g != null)
                 {
+                    Gender newGender = mapper.MapToEntity(g);
+                    Gender old = db.Genders.FirstOrDefault(a => a.Name.Equals(oldId));
                     newGender.GenderId = old.GenderId;
                     db.Entry(old).CurrentValues.SetValues(newGender);
                     db.SaveChanges();
@@ -168,11 +153,10 @@ namespace Housing.Data.Domain.CRUD
         {
             try
             {
-                HousingData hde = mapper.MapToEntity(hd);
-                HousingData old = db.HousingDatas.FirstOrDefault(a => a.HousingDataAltId.Equals(oldData));
-
-                if (old != null)
+                if (!string.IsNullOrWhiteSpace(oldData) && hd != null)
                 {
+                    HousingData hde = mapper.MapToEntity(hd);
+                    HousingData old = db.HousingDatas.FirstOrDefault(a => a.HousingDataAltId.Equals(oldData));
                     hde.HousingDataId = old.HousingDataId;
                     db.Entry(old).CurrentValues.SetValues(hde);
                     db.SaveChanges();
