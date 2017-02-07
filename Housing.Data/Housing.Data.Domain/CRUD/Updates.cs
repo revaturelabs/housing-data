@@ -12,6 +12,59 @@ namespace Housing.Data.Domain.CRUD
 
         #region updates
 
+
+        /// <summary>
+        /// Update Gender entry
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        public bool UpdateGender(string oldId, GenderDao g)
+        {
+            try
+            {                
+                if (!string.IsNullOrWhiteSpace(oldId) && g != null)
+                {
+                    Gender newGender = mapper.MapToEntity(g);
+                    Gender old = db.Genders.FirstOrDefault(a => a.Name.Equals(oldId));
+                    newGender.GenderId = old.GenderId;
+                    db.Entry(old).CurrentValues.SetValues(newGender);
+                    db.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// update batch entry
+        /// </summary>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public bool UpdateBatch(string oldBatch, BatchDao b)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(oldBatch) && b != null)
+                {
+                    Batch batch = mapper.MapToEntity(b);
+                    Batch old = db.Batches.FirstOrDefault(a => a.Name.Equals(oldBatch));
+                    batch.BatchId = old.BatchId;
+                    db.Entry(old).CurrentValues.SetValues(batch);
+                    db.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        
         /// <summary>
         /// update Associate
         /// </summary>
@@ -91,59 +144,7 @@ namespace Housing.Data.Domain.CRUD
                 return false;
             }
         }
-
-        /// <summary>
-        /// update batch entry
-        /// </summary>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public bool UpdateBatch(string oldBatch, BatchDao b)
-        {
-            try
-            {
-                if (!string.IsNullOrWhiteSpace(oldBatch) && b != null)
-                {
-                    Batch batch = mapper.MapToEntity(b);
-                    Batch old = db.Batches.FirstOrDefault(a => a.Name.Equals(oldBatch));
-                    batch.BatchId = old.BatchId;
-                    db.Entry(old).CurrentValues.SetValues(batch);
-                    db.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Update Gender entry
-        /// </summary>
-        /// <param name="g"></param>
-        /// <returns></returns>
-        public bool UpdateGender(string oldId, GenderDao g)
-        {
-            try
-            {                
-                if (!string.IsNullOrWhiteSpace(oldId) && g != null)
-                {
-                    Gender newGender = mapper.MapToEntity(g);
-                    Gender old = db.Genders.FirstOrDefault(a => a.Name.Equals(oldId));
-                    newGender.GenderId = old.GenderId;
-                    db.Entry(old).CurrentValues.SetValues(newGender);
-                    db.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-        }
-
+        
         /// <summary>
         /// update HousingData entry
         /// </summary>
