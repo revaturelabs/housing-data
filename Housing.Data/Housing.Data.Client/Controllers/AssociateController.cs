@@ -1,6 +1,7 @@
 ﻿using Housing.Data.Domain;
 using Housing.Data.Domain.CRUD;
 using Housing.Data.Domain.DataAccessObjects;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace Housing.Data.Client.Controllers
     public class AssociateController : ApiController
     {        
         private static AccessHelper helper = new AccessHelper();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// Gets list of associateDao's
@@ -28,14 +30,22 @@ namespace Housing.Data.Client.Controllers
             List<AssociateDao> a;
             try
             {
+                logger.Trace("testing get");
+                logger.Log(LogLevel.Trace, "update log from associate get");
                 if ((a = helper.GetAssociates()) != null)
                 {
+                    logger.Trace("testing get");
+                    logger.Log(LogLevel.Trace, "update log from associate get");
                     return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
                 }
+                logger.Error("Error occured in Associate controller");
+                logger.Log(LogLevel.Error, "Retrieval of Associate failed, a{0} ");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
             catch (Exception e)
             {
+                logger.Error(e, "Error occured in Associate controller");
+                logger.Log(LogLevel.Error, "Retrieval of Associate failed, a{0} ");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
         }
@@ -52,14 +62,22 @@ namespace Housing.Data.Client.Controllers
             AssociateDao a;
             try
             {
+                logger.Trace("testing get id", id.ToString());
+                logger.Log(LogLevel.Trace, "from associate get using id");
                 if ((a = helper.GetAssociates().FirstOrDefault(m => m.Email.Equals(id))) != null)
                 {
+                    logger.Trace("testing values of a{0} ", a.Email);
+                    logger.Log(LogLevel.Trace, "associate get using id");
                     return Request.CreateResponse(HttpStatusCode.OK, a, "application/json");
                 }
+                logger.Error("Error occured in Associate controller");
+                logger.Log(LogLevel.Error, "Retrieval of Associate failed, a{0} ", a.Email);
                 return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
             catch (Exception e)
             {
+                logger.Error(e, "Error occured in Associate controller");
+                logger.Log(LogLevel.Error, "Retrieval of Associate failed ");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
         }
@@ -79,15 +97,26 @@ namespace Housing.Data.Client.Controllers
                 {
                     if (helper.InsertAssociate(a))
                     {
+                        logger.Debug("trying to insert Associate, a{0} ", a);
+                        logger.Log(LogLevel.Debug, "Entered try block");
                         return Request.CreateResponse(HttpStatusCode.OK);
                     }
-                    else return Request.CreateResponse(HttpStatusCode.NotModified);
+                    else
+                    {
+                        logger.Error("Error occured in Associate controller");
+                        logger.Log(LogLevel.Error, "Insert of Associate failed, a{0} ", a);
+                        return Request.CreateResponse(HttpStatusCode.NotModified);
+                    }
                 }
                 catch (Exception e)
                 {
+                    logger.Error(e, "Error occured in Associate controller");
+                    logger.Log(LogLevel.Error, "Insert of Associate failed, a{0} ", a);
                     return Request.CreateResponse(HttpStatusCode.InternalServerError);
                 }
             }
+            logger.Error("Error occured in Associate controller");
+            logger.Log(LogLevel.Error, "Insert of Associate failed, a{0} ", a);
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
@@ -107,12 +136,21 @@ namespace Housing.Data.Client.Controllers
                 {
                     if (helper.UpdateAssociate(id, assoc))
                     {
+                        logger.Debug("trying to update Associate, assoc{0} ", assoc);
+                        logger.Log(LogLevel.Debug, "Entered try block updating Associate");
                         return Request.CreateResponse(HttpStatusCode.OK);
                     }
-                    else return Request.CreateResponse(HttpStatusCode.NotModified);
+                    else
+                    {
+                        logger.Error("Error occured in Associate controller");
+                        logger.Log(LogLevel.Error, "Edit of Associate failed, assoc{0} ", assoc);
+                        return Request.CreateResponse(HttpStatusCode.NotModified);
+                    }
                 }
                 catch (Exception e)
                 {
+                    logger.Error(e, "Error occured in Associate Controller");
+                    logger.Log(LogLevel.Error, "Edit of Associate failed, a{0} ", assoc);
                     return Request.CreateResponse(HttpStatusCode.InternalServerError);
                 }
             }
@@ -134,15 +172,27 @@ namespace Housing.Data.Client.Controllers
                 {
                     if (helper.DeleteAssociate(helper.GetAssociates().FirstOrDefault(m => m.Email.Equals(id))))
                     {
+                        logger.Debug("trying to delete Associate ");
+                        logger.Log(LogLevel.Debug, "Entered try block deleting Associate");
                         return Request.CreateResponse(HttpStatusCode.OK);
                     }
-                    else return Request.CreateResponse(HttpStatusCode.NotModified);
+                    else
+                    {
+                        logger.Error("trying to delete Associate ");
+                        logger.Log(LogLevel.Error, "Deletion of Associate did not occur");
+                        return Request.CreateResponse(HttpStatusCode.NotModified);
+                    }
                 }
                 catch (Exception e)
                 {
+
+                    logger.Error(e,"Error occured in Associate Controller ");
+                    logger.Log(LogLevel.Error, "Failed to Delete Associate");
                     return Request.CreateResponse(HttpStatusCode.InternalServerError);
                 }
             }
+            logger.Error("Error occured in Associate Controller ");
+            logger.Log(LogLevel.Error, "Failed to Delete Associate");
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
     }
