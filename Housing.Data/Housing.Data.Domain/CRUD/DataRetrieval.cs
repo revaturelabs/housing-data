@@ -1,4 +1,5 @@
 ﻿using Housing.Data.Domain.DataAccessObjects;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace Housing.Data.Domain.CRUD
 {
     public partial class AccessHelper
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         #region data retrieval 
 
         /// <summary>
@@ -19,12 +22,16 @@ namespace Housing.Data.Domain.CRUD
         {
             try
             {
+                logger.Debug("testing get associate in Data Access");
+                logger.Log(LogLevel.Debug, "update log from associate get");
                 var associates = db.Associates.ToList();
                 var result = new List<AssociateDao>();
                 foreach (var item in associates)
                 {
                     if (item.Active)
                     {
+                        logger.Debug("testing get associate list in Data Access, item{0} ", item.Email);
+                        logger.Log(LogLevel.Debug, "update log from associate get");
                         result.Add(mapper.MapToDao(item));
                     }
                 }
@@ -32,7 +39,8 @@ namespace Housing.Data.Domain.CRUD
             }
             catch (Exception e)
             {
-
+                logger.Error(e, "Error occured in get Associate crud");
+                logger.Log(LogLevel.Error, "Retrieval of Associate failed, a{0} ");
                 throw;
             }
 
@@ -52,6 +60,8 @@ namespace Housing.Data.Domain.CRUD
                 {
                     if (item.Active)
                     {
+                        logger.Debug("testing get Batch list in Data Access, item{0} ", item.Name);
+                        logger.Log(LogLevel.Debug, "update log from batches get");
                         result.Add(mapper.MapToDao(item));
                     }
                 }
@@ -59,7 +69,8 @@ namespace Housing.Data.Domain.CRUD
             }
             catch (Exception e)
             {
-
+                logger.Error(e, "Error occured in get Batches crud");
+                logger.Log(LogLevel.Error, "Retrieval of Batches failed, a{0} ");
                 throw;
             }
         }
@@ -78,6 +89,8 @@ namespace Housing.Data.Domain.CRUD
                 {
                     if (item.Active)
                     {
+                        logger.Debug("testing get gender list in Data Access, item{0} ", item.Name);
+                        logger.Log(LogLevel.Debug, "update log from genders get");
                         result.Add(mapper.MapToDao(item));
                     }
                 }
@@ -85,7 +98,8 @@ namespace Housing.Data.Domain.CRUD
             }
             catch (Exception e)
             {
-
+                logger.Error(e, "Error occured in get Batches crud");
+                logger.Log(LogLevel.Error, "Retrieval of Batches failed, a{0} ");
                 throw;
             }
         }
@@ -104,6 +118,8 @@ namespace Housing.Data.Domain.CRUD
                 {
                     if (item.Active)
                     {
+                        logger.Debug("testing get complex list in Data Access, item{0} ", item.Name);
+                        logger.Log(LogLevel.Debug, "update log from housingcomplex get");
                         result.Add(mapper.MapToDao(item));
                     }
                 }
@@ -111,7 +127,8 @@ namespace Housing.Data.Domain.CRUD
             }
             catch (Exception e)
             {
-
+                logger.Error(e, "Error occured in get Housing complex crud");
+                logger.Log(LogLevel.Error, "Retrieval of housing complex failed, a{0} ");
                 throw;
             }
         }
@@ -130,6 +147,8 @@ namespace Housing.Data.Domain.CRUD
                 {
                     if (item.Active)
                     {
+                        logger.Debug("testing get housing unit list in Data Access, item{0} ", item.HousingUnitName);
+                        logger.Log(LogLevel.Debug, "update log from housing units get");
                         result.Add(mapper.MapToDao(item));
                     }
                 }
@@ -137,7 +156,8 @@ namespace Housing.Data.Domain.CRUD
             }
             catch (Exception e)
             {
-
+                logger.Error(e, "Error occured in get Housing units crud");
+                logger.Log(LogLevel.Error, "Retrieval of housing units failed, a{0} ");
                 throw;
             }
         }
@@ -156,6 +176,8 @@ namespace Housing.Data.Domain.CRUD
                 {
                     if (item.Active)
                     {
+                        logger.Debug("testing get housing data list in Data Access, item{0} ", item.HousingDataAltId);
+                        logger.Log(LogLevel.Debug, "update log from housing data get");
                         result.Add(mapper.MapToDao(item));
                     }
                 }
@@ -163,7 +185,8 @@ namespace Housing.Data.Domain.CRUD
             }
             catch (Exception e)
             {
-
+                logger.Error(e, "Error occured in get Housing data crud");
+                logger.Log(LogLevel.Error, "Retrieval of housing data failed, a{0} ");
                 throw;
             }
         }
@@ -185,6 +208,8 @@ namespace Housing.Data.Domain.CRUD
                     {
                         if (item.Active)
                         {
+                            logger.Debug("testing get housing unit by complex list in Data Access, item{0} ", item.AptNumber, "item{1} ",item.HousingUnitName);
+                            logger.Log(LogLevel.Debug, "update log from housing data get");
                             result.Add(new HousingUnitDao(item.AptNumber, item.HousingUnitName, item.MaxCapacity,
                                  mapper.genders.Find(g => g.GenderId == item.GenderId).Name,
                                  mapper.housingUnits.Find(m => m.HousingComplex.Name.Equals(complexName)).HousingComplex.Name));
@@ -195,7 +220,8 @@ namespace Housing.Data.Domain.CRUD
             }
             catch (Exception e)
             {
-
+                logger.Error(e, "Error occured in get Housing unit by complex list crud");
+                logger.Log(LogLevel.Error, "Retrieval of housing unit by complex list failed, a{0} ");
                 throw;
             }
         }
@@ -216,6 +242,8 @@ namespace Housing.Data.Domain.CRUD
                     {
                         if (item.Active)
                         {
+                            logger.Debug("testing get housing data by unit list in Data Access, item{0} ", item.HousingUnit.HousingUnitName);
+                            logger.Log(LogLevel.Debug, "update log from housing data by unit get");
                             result.Add(new HousingDataDao(item.Associate.Email, item.HousingUnit.HousingUnitName, item.MoveInDate, item.MoveOutDate, item.HousingDataAltId));
                         }
                     }                    
@@ -224,7 +252,8 @@ namespace Housing.Data.Domain.CRUD
             }
             catch (Exception e)
             {
-
+                logger.Error(e, "Error occured in get Housing data by unit crud");
+                logger.Log(LogLevel.Error, "Retrieval of housing data by unit failed, a{0} ");
                 throw;
             }
         }
