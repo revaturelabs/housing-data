@@ -20,7 +20,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
 
 
         [Fact]
-        public void Test_DeleteGender()
+        public void Test_DeleteGender() 
         {
             var expected = true;
             var actual = ah.DeleteGender(new GenderDao { Name = "random test gender" });
@@ -38,7 +38,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
 
         //DeleteAssociate
         [Fact]
-        public void Test_DeleteAssociate()
+        public void Test_DeleteAssociate()      //errors
         {
             var expected = true;
             var actual = ah.DeleteAssociate(new AssociateDao { FirstName = "Test1" });
