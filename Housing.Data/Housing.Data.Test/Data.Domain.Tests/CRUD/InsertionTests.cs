@@ -34,7 +34,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         }
 
         [Fact]
-        public void Test_InsertAssociate()
+        public void Test_InsertAssociate()  
         {
             DateTime theDate = DateTime.Now;
             var expected = true;
@@ -53,30 +53,27 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
             Assert.Equal(expected, actual);
         }
 
-        //InsertHousingUnit
-        /*
+        //InsertHousingUnit     housing unit name
+        
                  //Error happening 
         [Fact]
         public void Test_InsertHousingUnit()
         {
             var expected = true;
-            var actual = ah.InsertHousingUnit(new HousingUnitDao
-            { HousingUnitName="Test", HousingComplexName="Test", AptNumber="1999" });
+            var actual = ah.InsertHousingUnit(new HousingUnitDao { HousingUnitName="Test",
+                AptNumber = "1800", MaxCapacity = 5, GenderName = "Female", HousingComplexName = "Test" });
             Assert.Equal(expected, actual);
         }
-
-    */
-        //InsertHousingData
-        /*
+                       
             //Error happening 
         [Fact]
         public void Test_InsertHousingData()
         {
             var expected = true;
             var actual = ah.InsertHousingData(new HousingDataDao
-            { HousingUnitName = "Camden Dulles Station 1409", HousingDataAltId="q24tqgag", AssociateEmail="something" });
+            { HousingDataAltId="q24tqgag", AssociateEmail = "stuff", HousingUnitName = "Test" });
             Assert.Equal(expected, actual);
         }
-        */
+        
     }
 }

@@ -16,11 +16,10 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         // Every Delete function changes the active bit to 0 and does not remove from database.
         // It does however add a long string at the end of the name,
         // to allow the insert tests to add the same name again.        
-
-
+        
 
         [Fact]
-        public void Test_DeleteGender() 
+        public void Test_DeleteGender()
         {
             var expected = true;
             var actual = ah.DeleteGender(new GenderDao { Name = "random test gender" });
@@ -35,13 +34,11 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
             Assert.Equal(expected, actual);
         }
 
-
-        //DeleteAssociate
         [Fact]
-        public void Test_DeleteAssociate()      //errors
+        public void Test_DeleteAssociate()      
         {
             var expected = true;
-            var actual = ah.DeleteAssociate(new AssociateDao { FirstName = "Test1" });
+            var actual = ah.DeleteAssociate(new AssociateDao { Email = "stuff" });
             Assert.Equal(expected, actual);
         }
 
@@ -54,8 +51,22 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
             Assert.Equal(expected, actual);
         }
 
-        //DeleteHousingUnit
+        [Fact]
+        public void Test_DeleteHousingUnit()
+        {
+            var expected = true;
+            var actual = ah.DeleteHousingUnit(new HousingUnitDao { HousingUnitName = "Test", AptNumber = "1800",
+                MaxCapacity = 5, GenderName = "Female", HousingComplexName = "Test" });
+            Assert.Equal(expected, actual);
+        }
 
-        //DeleteHousingData
+        [Fact]
+        public void Test_DeleteHousingData()
+        {
+            var expected = true;
+            var actual = ah.DeleteHousingData(new HousingDataDao { HousingDataAltId = "q24tqgag",
+                AssociateEmail = "stuff", HousingUnitName = "Test" });
+            Assert.Equal(expected, actual);
+        }
     }
 }
