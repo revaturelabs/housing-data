@@ -205,7 +205,7 @@ namespace Housing.Data.Domain.CRUD
                     var genderMatch = assoc.Gender.Equals(assocHouse.Gender);
                     //check that Unit occupancy is not exceeded
                     //get number of assoc assigned to unit
-                    var it = db.HousingData_By_Unit(assocHouse.HousingUnitId);
+                    var it = db.HousingData_By_Unit(assocHouse.HousingUnitId).Where(m => m.Active==true);
                     //continue insert if gender and capacity are OK
                     if (genderMatch && (it.Count() < assocHouse.MaxCapacity))
                     {

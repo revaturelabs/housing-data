@@ -234,7 +234,11 @@ namespace Housing.Data.Domain
                 hd.AssociateId = hd.Associate.AssociateId;
                 hd.HousingUnit = db.HousingUnits.Where(m => m.HousingUnitName.Equals(dataDao.HousingUnitName)).FirstOrDefault();
                 hd.HousingUnitId = hd.HousingUnit.HousingUnitId;
-                
+                hd.HousingDataAltId = CRUD.AccessHelper.GetRandomHexNumber();  //gets random hex number of length 8
+                while (db.HousingDatas.Where(m => m.HousingDataAltId.Equals(hd.HousingDataAltId)).Count() > 0)
+                {
+                    hd.HousingDataAltId = CRUD.AccessHelper.GetRandomHexNumber();  //repeat random number generation until unique
+                }
             }
             
             return hd;
