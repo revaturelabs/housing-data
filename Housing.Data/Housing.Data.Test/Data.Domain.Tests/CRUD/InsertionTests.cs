@@ -53,25 +53,23 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
             Assert.Equal(expected, actual);
         }
 
-        //InsertHousingUnit     housing unit name
-        
-                 //Error happening 
+
         [Fact]
         public void Test_InsertHousingUnit()
         {
             var expected = true;
-            var actual = ah.InsertHousingUnit(new HousingUnitDao { HousingUnitName="Test",
+            var actual = ah.InsertHousingUnit(new HousingUnitDao { HousingUnitName="Test22",
                 AptNumber = "1800", MaxCapacity = 5, GenderName = "Female", HousingComplexName = "Test" });
             Assert.Equal(expected, actual);
         }
                        
-            //Error happening 
+         
         [Fact]
-        public void Test_InsertHousingData()
+        public void Test_InsertHousingData()     // Assert.Equal() Failure // It is getting false for some reason
         {
             var expected = true;
             var actual = ah.InsertHousingData(new HousingDataDao
-            { HousingDataAltId="q24tqgag", AssociateEmail = "stuff", HousingUnitName = "Test" });
+            { HousingDataAltId="q24tqgag1", AssociateEmail = "spacequeen@gmail.com", HousingUnitName = "Camden Dulles Station 1409" });
             Assert.Equal(expected, actual);
         }
         
