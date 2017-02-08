@@ -245,6 +245,8 @@ namespace Housing.Data.Domain.CRUD
             return res + rand.Next(16).ToString("X");
         }
 
+
+
         #endregion
     }
 }
