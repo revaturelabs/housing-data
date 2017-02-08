@@ -21,7 +21,7 @@ namespace Housing.Data.Domain.CRUD
         public bool UpdateGender(string oldId, GenderDao g)
         {
             try
-            {                
+            {
                 if (!string.IsNullOrWhiteSpace(oldId) && g != null)
                 {
                     Gender newGender = mapper.MapToEntity(g);
@@ -118,7 +118,7 @@ namespace Housing.Data.Domain.CRUD
         public bool UpdateHousingComplex(string oldComplex, HousingComplexDao hc)
         {
             try
-            {                
+            {
                 if (!string.IsNullOrWhiteSpace(oldComplex) && hc != null)
                 {
                     HousingComplex plex = mapper.MapToEntity(hc);
