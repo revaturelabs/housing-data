@@ -212,7 +212,7 @@ namespace Housing.Data.Domain.CRUD
                 var result = new List<HousingUnitDao>();
                 if (complexName != null)
                 {                    
-                    var activeAssocHouse = db.HousingUnits.Where(m => m.Active == true).ToList();
+                    var activeAssocHouse = db.HousingUnits.Where(m => m.Active == true && m.HousingComplex!=null).ToList();
                     var units = activeAssocHouse.Where(m => m.HousingComplex.Name.Equals(complexName));
                     foreach (var item in units)
                     {
@@ -287,6 +287,8 @@ namespace Housing.Data.Domain.CRUD
             }                
             return res + rand.Next(16).ToString("X");
         }
+
+
 
         #endregion
     }
