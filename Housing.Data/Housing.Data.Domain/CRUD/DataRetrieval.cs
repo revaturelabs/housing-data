@@ -15,21 +15,23 @@ namespace Housing.Data.Domain.CRUD
         #region data retrieval 
 
         /// <summary>
-        /// gets active GenderDAOs
+        /// gets active AssociateDao's
         /// </summary>
-        /// <returns>List<GenderDao></returns>
-        public List<GenderDao> GetGenders()
+        /// <returns>List<AssociateDao></returns>
+        public List<AssociateDao> GetAssociates()
         {
             try
             {
-                var genders = db.Genders.ToList();
-                var result = new List<GenderDao>();
-                foreach (var item in genders)
+                logger.Debug("testing get associate in Data Access");
+                logger.Log(LogLevel.Debug, "update log from associate get");
+                var associates = db.Associates.ToList();
+                var result = new List<AssociateDao>();
+                foreach (var item in associates)
                 {
                     if (item.Active)
                     {
-                        logger.Debug("testing get gender list in Data Access, item{0} ", item.Name);
-                        logger.Log(LogLevel.Debug, "update log from genders get");
+                        logger.Debug("testing get associate list in Data Access, item{0} ", item.Email);
+                        logger.Log(LogLevel.Debug, "update log from associate get");
                         result.Add(mapper.MapToDao(item));
                     }
                 }
@@ -37,10 +39,11 @@ namespace Housing.Data.Domain.CRUD
             }
             catch (Exception e)
             {
-                logger.Error(e, "Error occured in get Batches crud");
-                logger.Log(LogLevel.Error, "Retrieval of Batches failed, a{0} ");
+                logger.Error(e, "Error occured in get Associate crud");
+                logger.Log(LogLevel.Error, "Retrieval of Associate failed, a{0} ");
                 throw;
             }
+
         }
 
         /// <summary>
@@ -71,24 +74,23 @@ namespace Housing.Data.Domain.CRUD
                 throw;
             }
         }
+
         /// <summary>
-        /// gets active AssociateDao's
+        /// gets active GenderDAOs
         /// </summary>
-        /// <returns>List<AssociateDao></returns>
-        public List<AssociateDao> GetAssociates()
+        /// <returns>List<GenderDao></returns>
+        public List<GenderDao> GetGenders()
         {
             try
             {
-                logger.Debug("testing get associate in Data Access");
-                logger.Log(LogLevel.Debug, "update log from associate get");
-                var associates = db.Associates.ToList();
-                var result = new List<AssociateDao>();
-                foreach (var item in associates)
+                var genders = db.Genders.ToList();
+                var result = new List<GenderDao>();
+                foreach (var item in genders)
                 {
                     if (item.Active)
                     {
-                        logger.Debug("testing get associate list in Data Access, item{0} ", item.Email);
-                        logger.Log(LogLevel.Debug, "update log from associate get");
+                        logger.Debug("testing get gender list in Data Access, item{0} ", item.Name);
+                        logger.Log(LogLevel.Debug, "update log from genders get");
                         result.Add(mapper.MapToDao(item));
                     }
                 }
@@ -96,11 +98,10 @@ namespace Housing.Data.Domain.CRUD
             }
             catch (Exception e)
             {
-                logger.Error(e, "Error occured in get Associate crud");
-                logger.Log(LogLevel.Error, "Retrieval of Associate failed, a{0} ");
+                logger.Error(e, "Error occured in get Batches crud");
+                logger.Log(LogLevel.Error, "Retrieval of Batches failed, a{0} ");
                 throw;
             }
-
         }
 
         /// <summary>
@@ -200,20 +201,20 @@ namespace Housing.Data.Domain.CRUD
             {
                 var result = new List<HousingUnitDao>();
                 if (complexName != null)
-                {
-                    var activeAssocHouse = db.HousingUnits.Where(m => m.Active == true).ToList();
+                {                    
+                    var activeAssocHouse = db.HousingUnits.Where(m => m.Active == true && m.HousingComplex!=null).ToList();
                     var units = activeAssocHouse.Where(m => m.HousingComplex.Name.Equals(complexName));
                     foreach (var item in units)
                     {
                         if (item.Active)
                         {
-                            logger.Debug("testing get housing unit by complex list in Data Access, item{0} ", item.AptNumber, "item{1} ", item.HousingUnitName);
+                            logger.Debug("testing get housing unit by complex list in Data Access, item{0} ", item.AptNumber, "item{1} ",item.HousingUnitName);
                             logger.Log(LogLevel.Debug, "update log from housing data get");
                             result.Add(new HousingUnitDao(item.AptNumber, item.HousingUnitName, item.MaxCapacity,
                                  mapper.genders.Find(g => g.GenderId == item.GenderId).Name,
                                  mapper.housingUnits.Find(m => m.HousingComplex.Name.Equals(complexName)).HousingComplex.Name));
                         }
-                    }
+                    }                    
                 }
                 return result;
             }
@@ -245,7 +246,7 @@ namespace Housing.Data.Domain.CRUD
                             logger.Log(LogLevel.Debug, "update log from housing data by unit get");
                             result.Add(new HousingDataDao(item.Associate.Email, item.HousingUnit.HousingUnitName, item.MoveInDate, item.MoveOutDate, item.HousingDataAltId));
                         }
-                    }
+                    }                    
                 }
                 return result;
             }
@@ -269,7 +270,7 @@ namespace Housing.Data.Domain.CRUD
             if (length % 2 == 0)
             {
                 return res;
-            }
+            }                
             return res + rand.Next(16).ToString("X");
         }
 
