@@ -65,6 +65,8 @@ namespace Housing.Data.Domain.CRUD
                         result.Add(mapper.MapToDao(item));
                     }
                 }
+                logger.Info("Batches retrieved");
+                logger.Log(LogLevel.Info, "Retrieval of Batches suceeded, a{0} ");
                 return result;
             }
             catch (Exception e)
@@ -94,6 +96,8 @@ namespace Housing.Data.Domain.CRUD
                         result.Add(mapper.MapToDao(item));
                     }
                 }
+                logger.Info("Genders get suceeded");
+                logger.Log(LogLevel.Info, "Retrieval of Genders suceeded, a{0} ");
                 return result;
             }
             catch (Exception e)
@@ -123,6 +127,8 @@ namespace Housing.Data.Domain.CRUD
                         result.Add(mapper.MapToDao(item));
                     }
                 }
+                logger.Info("Housing complex gotten");
+                logger.Log(LogLevel.Info, "Retrieval of housing complex suceeded, a{0} ");
                 return result;
             }
             catch (Exception e)
@@ -152,6 +158,8 @@ namespace Housing.Data.Domain.CRUD
                         result.Add(mapper.MapToDao(item));
                     }
                 }
+                logger.Info("Housing units gotten");
+                logger.Log(LogLevel.Info, "Retrieval of housing units suceeded, a{0} ");
                 return result;
             }
             catch (Exception e)
@@ -181,6 +189,8 @@ namespace Housing.Data.Domain.CRUD
                         result.Add(mapper.MapToDao(item));
                     }
                 }
+                logger.Info("housing data list gotten");
+                logger.Log(LogLevel.Info, "Retrieval of housing data suceeded");
                 return result;
             }
             catch (Exception e)
@@ -216,6 +226,8 @@ namespace Housing.Data.Domain.CRUD
                         }
                     }                    
                 }
+                logger.Info("Housing unit by complex list gotten");
+                logger.Log(LogLevel.Info, "Retrieval of housing unit by complex list suceeded");
                 return result;
             }
             catch (Exception e)
@@ -248,6 +260,8 @@ namespace Housing.Data.Domain.CRUD
                         }
                     }                    
                 }
+                logger.Info("Housing data by unit gotten");
+                logger.Log(LogLevel.Info, "Retrieval of housing data by unit suceeded");
                 return result;
             }
             catch (Exception e)
