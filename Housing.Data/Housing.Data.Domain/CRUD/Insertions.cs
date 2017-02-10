@@ -32,7 +32,7 @@ namespace Housing.Data.Domain.CRUD
         /// <returns>true if insertion successful</returns>
         public bool InsertGender(GenderDao gender)
         {
-            try 
+            try
             {
                 if (gender != null)
                 {
@@ -82,7 +82,7 @@ namespace Housing.Data.Domain.CRUD
                     //insert into db
                     db.Batches.Add(itm);
                     //return success or failure
-                    return db.SaveChanges() > 0; 
+                    return db.SaveChanges() > 0;
                 }
                 else
                 {
@@ -119,7 +119,7 @@ namespace Housing.Data.Domain.CRUD
                     //insert into db
                     db.Associates.Add(itm);
                     //return success or failure
-                    return db.SaveChanges() > 0; 
+                    return db.SaveChanges() > 0;
                 }
                 else
                 {
@@ -156,7 +156,7 @@ namespace Housing.Data.Domain.CRUD
                     //insert into db
                     db.HousingComplexes.Add(itm);
                     //return success or failure
-                    return db.SaveChanges() > 0; 
+                    return db.SaveChanges() > 0;
                 }
                 else
                 {
@@ -193,7 +193,7 @@ namespace Housing.Data.Domain.CRUD
                     //insert into db
                     db.HousingUnits.Add(itm);
                     //return success or failure
-                    return db.SaveChanges() > 0; 
+                    return db.SaveChanges() > 0;
                 }
                 else
                 {
@@ -234,7 +234,7 @@ namespace Housing.Data.Domain.CRUD
                     var genderMatch = assoc.Gender.Equals(assocHouse.Gender);
                     //check that Unit occupancy is not exceeded
                     //get number of assoc assigned to unit
-                    var it = db.HousingData_By_Unit(assocHouse.HousingUnitId).Where(m => m.Active==true);
+                    var it = db.HousingData_By_Unit(assocHouse.HousingUnitId).Where(m => m.Active == true);
                     //continue insert if gender and capacity are OK
                     if (genderMatch && (it.Count() < assocHouse.MaxCapacity))
                     {
@@ -249,7 +249,7 @@ namespace Housing.Data.Domain.CRUD
                     else
                         logger.Error("Error occured in insert housing data crud");
                     logger.Log(LogLevel.Error, "Insert of housing data failed, hd{0} ", hd.HousingUnitName);
-                    return false; 
+                    return false;
                 }
                 else
                 {
