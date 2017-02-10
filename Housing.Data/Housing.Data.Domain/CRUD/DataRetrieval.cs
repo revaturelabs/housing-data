@@ -14,24 +14,23 @@ namespace Housing.Data.Domain.CRUD
 
         #region data retrieval 
 
+
         /// <summary>
-        /// gets active AssociateDao's
+        /// gets active GenderDAOs
         /// </summary>
-        /// <returns>List<AssociateDao></returns>
-        public List<AssociateDao> GetAssociates()
+        /// <returns>List<GenderDao></returns>
+        public List<GenderDao> GetGenders()
         {
             try
             {
-                logger.Debug("testing get associate in Data Access");
-                logger.Log(LogLevel.Debug, "update log from associate get");
-                var associates = db.Associates.ToList();
-                var result = new List<AssociateDao>();
-                foreach (var item in associates)
+                var genders = db.Genders.ToList();
+                var result = new List<GenderDao>();
+                foreach (var item in genders)
                 {
                     if (item.Active)
                     {
-                        logger.Debug("testing get associate list in Data Access, item{0} ", item.Email);
-                        logger.Log(LogLevel.Debug, "update log from associate get");
+                        logger.Debug("testing get gender list in Data Access, item{0} ", item.Name);
+                        logger.Log(LogLevel.Debug, "update log from genders get");
                         result.Add(mapper.MapToDao(item));
                     }
                 }
@@ -39,11 +38,10 @@ namespace Housing.Data.Domain.CRUD
             }
             catch (Exception e)
             {
-                logger.Error(e, "Error occured in get Associate crud");
-                logger.Log(LogLevel.Error, "Retrieval of Associate failed, a{0} ");
+                logger.Error(e, "Error occured in get Batches crud");
+                logger.Log(LogLevel.Error, "Retrieval of Batches failed, a{0} ");
                 throw;
             }
-
         }
 
         /// <summary>
@@ -78,21 +76,23 @@ namespace Housing.Data.Domain.CRUD
         }
 
         /// <summary>
-        /// gets active GenderDAOs
+        /// gets active AssociateDao's
         /// </summary>
-        /// <returns>List<GenderDao></returns>
-        public List<GenderDao> GetGenders()
+        /// <returns>List<AssociateDao></returns>
+        public List<AssociateDao> GetAssociates()
         {
             try
             {
-                var genders = db.Genders.ToList();
-                var result = new List<GenderDao>();
-                foreach (var item in genders)
+                logger.Debug("testing get associate in Data Access");
+                logger.Log(LogLevel.Debug, "update log from associate get");
+                var associates = db.Associates.ToList();
+                var result = new List<AssociateDao>();
+                foreach (var item in associates)
                 {
                     if (item.Active)
                     {
-                        logger.Debug("testing get gender list in Data Access, item{0} ", item.Name);
-                        logger.Log(LogLevel.Debug, "update log from genders get");
+                        logger.Debug("testing get associate list in Data Access, item{0} ", item.Email);
+                        logger.Log(LogLevel.Debug, "update log from associate get");
                         result.Add(mapper.MapToDao(item));
                     }
                 }
@@ -102,10 +102,11 @@ namespace Housing.Data.Domain.CRUD
             }
             catch (Exception e)
             {
-                logger.Error(e, "Error occured in get Batches crud");
-                logger.Log(LogLevel.Error, "Retrieval of Batches failed, a{0} ");
+                logger.Error(e, "Error occured in get Associate crud");
+                logger.Log(LogLevel.Error, "Retrieval of Associate failed, a{0} ");
                 throw;
             }
+
         }
 
         /// <summary>

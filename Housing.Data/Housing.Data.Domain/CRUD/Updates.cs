@@ -14,6 +14,69 @@ namespace Housing.Data.Domain.CRUD
         #region updates
 
         /// <summary>
+        /// Update Gender entry
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        public bool UpdateGender(string oldId, GenderDao g)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(oldId) && g != null)
+                {
+                    Gender newGender = mapper.MapToEntity(g);
+                    Gender old = db.Genders.FirstOrDefault(a => a.Name.Equals(oldId));
+                    newGender.GenderId = old.GenderId;
+                    logger.Debug("testing update gender list in Data Access, item{0} ", newGender.Name);
+                    logger.Log(LogLevel.Debug, "update log from genders update");
+                    db.Entry(old).CurrentValues.SetValues(newGender);
+                    db.SaveChanges();
+                    return true;
+                }
+                logger.Error("Error occured in update gender crud");
+                logger.Log(LogLevel.Error, "Update of gender failed, gender{0} ", g.Name);
+                return false;
+            }
+            catch (Exception e)
+            {
+                logger.Error(e, "Error occured in Update gender crud");
+                logger.Log(LogLevel.Error, "Update of gender failed, g{0} ");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// update batch entry
+        /// </summary>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public bool UpdateBatch(string oldBatch, BatchDao b)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(oldBatch) && b != null)
+                {
+                    Batch batch = mapper.MapToEntity(b);
+                    Batch old = db.Batches.FirstOrDefault(a => a.Name.Equals(oldBatch));
+                    batch.BatchId = old.BatchId;
+                    logger.Debug("testing update Batch list in Data Access, batch{0} ", batch.Name);
+                    logger.Log(LogLevel.Debug, "update log from batches update");
+                    db.Entry(old).CurrentValues.SetValues(batch);
+                    db.SaveChanges();
+                    return true;
+                }
+                logger.Error("Error occured in insert batch crud");
+                logger.Log(LogLevel.Error, "Insertion of batch failed, batch{0} ", b.Name);
+                return false;
+            }
+            catch (Exception e)
+            {
+                logger.Error(e, "Error occured in Insert batch crud");
+                logger.Log(LogLevel.Error, "Insert of batch failed, b{0} ");
+                return false;
+            }
+        }
+        /// <summary>
         /// update Associate
         /// </summary>
         /// <param name="assoc"></param>
@@ -55,7 +118,7 @@ namespace Housing.Data.Domain.CRUD
         public bool UpdateHousingComplex(string oldComplex, HousingComplexDao hc)
         {
             try
-            {                
+            {
                 if (!string.IsNullOrWhiteSpace(oldComplex) && hc != null)
                 {
                     HousingComplex plex = mapper.MapToEntity(hc);
@@ -107,70 +170,6 @@ namespace Housing.Data.Domain.CRUD
             {
                 logger.Error(e, "Error occured in update housing unit crud");
                 logger.Log(LogLevel.Error, "Update of housing unit failed, hu{0} ");
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// update batch entry
-        /// </summary>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public bool UpdateBatch(string oldBatch, BatchDao b)
-        {
-            try
-            {
-                if (!string.IsNullOrWhiteSpace(oldBatch) && b != null)
-                {
-                    Batch batch = mapper.MapToEntity(b);
-                    Batch old = db.Batches.FirstOrDefault(a => a.Name.Equals(oldBatch));
-                    batch.BatchId = old.BatchId;
-                    logger.Debug("testing update Batch list in Data Access, batch{0} ", batch.Name);
-                    logger.Log(LogLevel.Debug, "update log from batches update");
-                    db.Entry(old).CurrentValues.SetValues(batch);
-                    db.SaveChanges();
-                    return true;
-                }
-                logger.Error("Error occured in insert batch crud");
-                logger.Log(LogLevel.Error, "Insertion of batch failed, batch{0} ", b.Name);
-                return false;
-            }
-            catch (Exception e)
-            {
-                logger.Error(e, "Error occured in Insert batch crud");
-                logger.Log(LogLevel.Error, "Insert of batch failed, b{0} ");
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Update Gender entry
-        /// </summary>
-        /// <param name="g"></param>
-        /// <returns></returns>
-        public bool UpdateGender(string oldId, GenderDao g)
-        {
-            try
-            {                
-                if (!string.IsNullOrWhiteSpace(oldId) && g != null)
-                {
-                    Gender newGender = mapper.MapToEntity(g);
-                    Gender old = db.Genders.FirstOrDefault(a => a.Name.Equals(oldId));
-                    newGender.GenderId = old.GenderId;
-                    logger.Debug("testing update gender list in Data Access, item{0} ", newGender.Name);
-                    logger.Log(LogLevel.Debug, "update log from genders update");
-                    db.Entry(old).CurrentValues.SetValues(newGender);
-                    db.SaveChanges();
-                    return true;
-                }
-                logger.Error("Error occured in update gender crud");
-                logger.Log(LogLevel.Error, "Update of gender failed, gender{0} ", g.Name);
-                return false;
-            }
-            catch (Exception e)
-            {
-                logger.Error(e, "Error occured in Update gender crud");
-                logger.Log(LogLevel.Error, "Update of gender failed, g{0} ");
                 return false;
             }
         }
