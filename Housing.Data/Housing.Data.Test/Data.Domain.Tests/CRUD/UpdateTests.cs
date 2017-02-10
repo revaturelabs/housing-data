@@ -17,12 +17,11 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         public void Test_UpdateGender()
         {
             var expected = true;
-            var oldId = "random test gender";
-            var actual = ah.UpdateGender(oldId, new GenderDao { Name = "UPDATE random test gender" });
+            var oldId = "UPDATE random test gender";
+            var actual = ah.UpdateGender(oldId, new GenderDao { Name = "UPDATE2 random test gender" });
             Assert.Equal(expected, actual);
         }
-
-        /*
+                      
         
         [Fact]
         public void Test_UpdateBatch()      // Assert.Equal() Failure // It is getting false for some reason
@@ -32,7 +31,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
             var actual = ah.UpdateBatch(oldId, new BatchDao { Name = "UPDATE Test1" });
             Assert.Equal(expected, actual);
         }
-        
+      
         
         [Fact]
         public void Test_UpdateAssociate()      // Assert.Equal() Failure // It is getting false for some reason
@@ -64,7 +63,6 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         }
         
 
-
         [Fact]
         public void Test_UpdateHousingData()
         {
@@ -72,8 +70,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
             var oldId = "random test gender";
             var actual = ah.UpdateHousingData(oldId, new HousingDataDao { });
             Assert.Equal(expected, actual);
-        }
-        */
+        } 
 
     }
 }

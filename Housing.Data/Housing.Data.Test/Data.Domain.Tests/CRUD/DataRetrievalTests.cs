@@ -66,7 +66,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         }
         
         [Fact]
-        public void Test_GetUnitsByComplexName()    //error
+        public void Test_GetUnitsByComplexName()    
         {
             AccessHelper db = new AccessHelper();
             string Name = "Camden Dulles Station";
