@@ -134,10 +134,12 @@ namespace Housing.Data.Client.Controllers
             {
                 try
                 {
+                    logger.Debug("trying to update Associate, assoc {0} ", assoc);
+                    logger.Log(LogLevel.Debug, "Entered try block updating Associate");
                     if (helper.UpdateAssociate(id, assoc))
                     {
-                        logger.Debug("trying to update Associate, assoc{0} ", assoc);
-                        logger.Log(LogLevel.Debug, "Entered try block updating Associate");
+                        logger.Debug("Updating Associate, assoc {0} ", assoc);
+                        logger.Log(LogLevel.Debug, "Associate Updated");
                         return Request.CreateResponse(HttpStatusCode.OK);
                     }
                     else
@@ -154,6 +156,8 @@ namespace Housing.Data.Client.Controllers
                     return Request.CreateResponse(HttpStatusCode.InternalServerError);
                 }
             }
+            logger.Error("Error occured in Associate Controller");
+            logger.Log(LogLevel.Error, "Edit of Associate failed, null or whitespace a{0} ", assoc);
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
@@ -170,10 +174,12 @@ namespace Housing.Data.Client.Controllers
             {
                 try
                 {
+                    logger.Debug("trying to delete Associate ");
+                    logger.Log(LogLevel.Debug, "Entered try block deleting Associate");
                     if (helper.DeleteAssociate(helper.GetAssociates().FirstOrDefault(m => m.Email.Equals(id))))
-                    {
-                        logger.Debug("trying to delete Associate ");
-                        logger.Log(LogLevel.Debug, "Entered try block deleting Associate");
+                    {                 
+                        logger.Debug("Deleting Associate ");
+                        logger.Log(LogLevel.Debug, "Associate Deleted");
                         return Request.CreateResponse(HttpStatusCode.OK);
                     }
                     else
@@ -185,7 +191,6 @@ namespace Housing.Data.Client.Controllers
                 }
                 catch (Exception e)
                 {
-
                     logger.Error(e,"Error occured in Associate Controller ");
                     logger.Log(LogLevel.Error, "Failed to Delete Associate");
                     return Request.CreateResponse(HttpStatusCode.InternalServerError);
