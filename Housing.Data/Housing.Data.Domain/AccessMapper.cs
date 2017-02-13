@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Housing.Data.Domain.DataAccessObjects;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Housing.Data.Domain
 {
     public class AccessMapper
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         private readonly MapperConfiguration HousingComplexMapper = new MapperConfiguration(c => c.CreateMap<HousingComplex, HousingComplexDao>().ReverseMap());
         private readonly MapperConfiguration HousingUnitMapper = new MapperConfiguration(u => u.CreateMap<HousingUnit, HousingUnitDao>().ReverseMap());
         private readonly MapperConfiguration HousingDataMapper = new MapperConfiguration(d => d.CreateMap<HousingData, HousingDataDao>().ReverseMap());
@@ -47,11 +49,19 @@ namespace Housing.Data.Domain
             HousingComplexDao comDao;
             if(com!=null)
             {
+                logger.Trace("testing map housing complex coming in from db, com{0}", com.Name.ToString());
+                logger.Log(LogLevel.Trace, "Log housing complex mapping from db");
                 comDao = mapper.Map<HousingComplexDao>(com);
+                logger.Trace("testing map housing complex to dao, comDao{0}", comDao.Name.ToString());
+                logger.Log(LogLevel.Trace, "Log housing complex mapping to dao");
             }
             else
             {
+                logger.Trace("testing map a new housing complex coming in from db, com{0}", com.Name.ToString());
+                logger.Log(LogLevel.Trace, "Log a new housing complex mapping from db");
                 comDao = new HousingComplexDao();
+                logger.Trace("testing map a new housing complex to dao, comDao{0}", comDao.Name.ToString());
+                logger.Log(LogLevel.Trace, "Log a new housing complex mapping to dao");
             }
             return comDao;
         }
@@ -69,12 +79,18 @@ namespace Housing.Data.Domain
             var mapper = HousingComplexMapper.CreateMapper();
             if (comDao != null)
             {
+                logger.Trace("testing mapping a housing complex from dao, comDao{0}", comDao.Name.ToString());
+                logger.Log(LogLevel.Trace, "Log housing complex mapping from dao");
                 com = mapper.Map<HousingComplex>(comDao);
+                logger.Trace("testing map housing complex from dao to the db, com{0}", com.Name.ToString());
+                logger.Log(LogLevel.Trace, "Log housing complex mapping to db");
             }
             //get original object from db
             if (!string.IsNullOrWhiteSpace(comDao.Name))
             {
                 fromDB = db.HousingComplexes.Where(m => m.Name.Equals(comDao.Name)).FirstOrDefault();
+                logger.Trace("Getting housing complex from db, fromDB{0}", fromDB.Name.ToString());
+                logger.Log(LogLevel.Trace, "Log getting housing complex mapping from db");
             }
             //if db object exist then use existing object and map properties sent from dao-ignore name
             if (fromDB != null)
@@ -83,17 +99,24 @@ namespace Housing.Data.Domain
                 if (!string.IsNullOrWhiteSpace(comDao.Address))
                 {
                     com.Address = comDao.Address;
-                    
+                    logger.Trace("testing mapping a housing complex that aleady exist to db, com{0}", com.Name);
+                    logger.Log(LogLevel.Trace, "housing complex mapping to db");
                 }
                 if(!string.IsNullOrWhiteSpace(comDao.PhoneNumber))
                 {
+                    logger.Trace("testing mapping a housing complex that already exist to db, comDao{0}", comDao.PhoneNumber.ToString());
+                    logger.Log(LogLevel.Trace, "creating new housing complex mapping to db");
                     com.PhoneNumber = comDao.PhoneNumber;
+                    logger.Trace("testing mapping a housing complex that already exist to db, com{0}", com.PhoneNumber.ToString());
+                    logger.Log(LogLevel.Trace, "creating new housing complex mapping to db");
                 }
             }
             //if db object does not exist use automapper version of object and set active to true            
             else
-            {
+            {                
                 com.Active = true;
+                logger.Trace("testing mapping a housing complex that doesn't exist to db, com{0}", com.Active.ToString());
+                logger.Log(LogLevel.Trace, "creating new housing complex mapping to db");
             }
             return com;
         }
@@ -109,6 +132,8 @@ namespace Housing.Data.Domain
             var mapper = HousingUnitMapper.CreateMapper();
             HousingUnitDao unitDao = mapper.Map<HousingUnitDao>(unit);
             unitDao.GenderName = unit.Gender.Name;
+            logger.Info("map housingunitdao");
+            logger.Log(LogLevel.Info, "unitDao{0}", unitDao.ToString());
             return unitDao;
         }
 
@@ -124,13 +149,17 @@ namespace Housing.Data.Domain
             //use automapper to map matching properties
             var mapper = HousingUnitMapper.CreateMapper();
             if (unitDao != null)
-            {
+            {                
                 hu = mapper.Map<HousingUnit>(unitDao);
+                logger.Info("map housingunitdao");
+                logger.Log(LogLevel.Info, "unitDao{0}", hu.HousingUnitId.ToString());
             }
             //get original object from db
             if (!string.IsNullOrWhiteSpace(unitDao.HousingUnitName))
             {
                 fromDB = db.HousingUnits.Where(m => m.HousingUnitName.Equals(unitDao.HousingUnitName)).FirstOrDefault();
+                logger.Info("map housingunitdao");
+                logger.Log(LogLevel.Info, "fromDB{0}", fromDB.HousingUnitId.ToString());
             }
             //if db object exist then use existing object and map properties sent from dao-ignore housingUnitName
             if (fromDB != null)
@@ -144,7 +173,8 @@ namespace Housing.Data.Domain
                     hu.HousingComplex = db.HousingComplexes.Where(m => m.Name.Equals(unitDao.HousingComplexName)).FirstOrDefault();
                     hu.HousingComplexId = hu.HousingComplex.HousingComplexId;
                     hu.MaxCapacity = unitDao.MaxCapacity;
-                    
+                    logger.Info("map housingunitdao");
+                    logger.Log(LogLevel.Info, "hu{0}", hu.HousingComplexId.ToString());
                 }
             }
             //if db object does not exist use automapper version of object and set active to true            
