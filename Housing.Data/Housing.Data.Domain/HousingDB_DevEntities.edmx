@@ -19,6 +19,7 @@
           <Property Name="DateOfBirth" Type="date" Nullable="false" />
           <Property Name="HasCar" Type="bit" Nullable="false" />
           <Property Name="HasKeys" Type="bit" Nullable="false" />
+          <Property Name="NeedsHousing" Type="bit" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Batch">
@@ -73,6 +74,7 @@
           <Property Name="MaxCapacity" Type="int" Nullable="false" />
           <Property Name="GenderId" Type="int" />
           <Property Name="HousingComplexId" Type="int" />
+          <Property Name="LeaseEndDate" Type="date" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Associate_Batch">
@@ -174,6 +176,7 @@
                 <Property Name="MaxCapacity" Type="int" Nullable="false" />
                 <Property Name="GenderId" Type="int" />
                 <Property Name="HousingComplexId" Type="int" />
+                <Property Name="LeaseEndDate" Type="date" Nullable="false" />
                 <Property Name="Active" Type="bit" Nullable="false" />
               </RowType>
             </CollectionType>
@@ -283,6 +286,7 @@
           <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="HasCar" Type="Boolean" Nullable="false" />
           <Property Name="HasKeys" Type="Boolean" Nullable="false" />
+          <Property Name="NeedsHousing" Type="Boolean" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Batch" Relationship="HousingDB_DevModel.FK_Associate_Batch" FromRole="Associate" ToRole="Batch" />
           <NavigationProperty Name="Gender" Relationship="HousingDB_DevModel.FK_Associate_Gender" FromRole="Associate" ToRole="Gender" />
@@ -346,6 +350,7 @@
           <Property Name="MaxCapacity" Type="Int32" Nullable="false" />
           <Property Name="GenderId" Type="Int32" />
           <Property Name="HousingComplexId" Type="Int32" />
+          <Property Name="LeaseEndDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Gender" Relationship="HousingDB_DevModel.FK_HousingUnit_Gender" FromRole="HousingUnit" ToRole="Gender" />
           <NavigationProperty Name="HousingComplex" Relationship="HousingDB_DevModel.FK_HousingUnit_HousingComplex" FromRole="HousingUnit" ToRole="HousingComplex" />
@@ -457,6 +462,7 @@
             <EntityTypeMapping TypeName="HousingDB_DevModel.Associate">
               <MappingFragment StoreEntitySet="Associate">
                 <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="NeedsHousing" ColumnName="NeedsHousing" />
                 <ScalarProperty Name="HasKeys" ColumnName="HasKeys" />
                 <ScalarProperty Name="HasCar" ColumnName="HasCar" />
                 <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
@@ -520,6 +526,7 @@
             <EntityTypeMapping TypeName="HousingDB_DevModel.HousingUnit">
               <MappingFragment StoreEntitySet="HousingUnit">
                 <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="LeaseEndDate" ColumnName="LeaseEndDate" />
                 <ScalarProperty Name="HousingComplexId" ColumnName="HousingComplexId" />
                 <ScalarProperty Name="GenderId" ColumnName="GenderId" />
                 <ScalarProperty Name="MaxCapacity" ColumnName="MaxCapacity" />

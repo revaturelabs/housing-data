@@ -26,6 +26,7 @@ namespace Housing.Data.Domain
         public int MaxCapacity { get; set; }
         public Nullable<int> GenderId { get; set; }
         public Nullable<int> HousingComplexId { get; set; }
+        public System.DateTime LeaseEndDate { get; set; }
         public bool Active { get; set; }
     
         public virtual Gender Gender { get; set; }

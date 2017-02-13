@@ -25,6 +25,7 @@ namespace Housing.Data.Domain.DataAccessObjects
         public int MaxCapacity { get; set; }
         public string GenderName { get; set; }
         public string HousingComplexName { get; set; }
-  
+        public System.DateTime LeaseEndDate { get; set; }
+
     }
 }

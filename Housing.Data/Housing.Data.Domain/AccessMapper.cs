@@ -144,6 +144,7 @@ namespace Housing.Data.Domain
                     hu.HousingComplex = db.HousingComplexes.Where(m => m.Name.Equals(unitDao.HousingComplexName)).FirstOrDefault();
                     hu.HousingComplexId = hu.HousingComplex.HousingComplexId;
                     hu.MaxCapacity = unitDao.MaxCapacity;
+                    hu.LeaseEndDate = unitDao.LeaseEndDate;
                     
                 }
             }
@@ -318,6 +319,7 @@ namespace Housing.Data.Domain
                     {
                         assoc.PhoneNumber = assocDao.PhoneNumber; 
                     }
+                    assoc.NeedsHousing = assocDao.NeedsHousing;
                 }               
             }
             //if db object does not exist use automapper version of object and set active to true            
