@@ -27,8 +27,10 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         public void Test_UpdateBatch()      // Assert.Equal() Failure // It is getting false for some reason
         {
             var expected = true;
-            var oldId = "Test1";
-            var actual = ah.UpdateBatch(oldId, new BatchDao { Name = "UPDATE Test1" });
+            var old = ah.GetBatches().Find(m => m.Name.Equals("Test1"));
+            var oldId = old.Name;
+            old.Name = "Update Test1";
+            var actual = ah.UpdateBatch(oldId, old);
             Assert.Equal(expected, actual);
         }
       
