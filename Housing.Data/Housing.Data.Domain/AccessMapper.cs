@@ -89,7 +89,6 @@ namespace Housing.Data.Domain
             if (!string.IsNullOrWhiteSpace(comDao.Name))
             {
                 fromDB = db.HousingComplexes.Where(m => m.Name.Equals(comDao.Name)).FirstOrDefault();
-                logger.Trace("Getting housing complex from db, fromDB{0}", fromDB.Name.ToString());
                 logger.Log(LogLevel.Trace, "Log getting housing complex mapping from db");
             }
             //if db object exist then use existing object and map properties sent from dao-ignore name
@@ -159,7 +158,6 @@ namespace Housing.Data.Domain
             {
                 fromDB = db.HousingUnits.Where(m => m.HousingUnitName.Equals(unitDao.HousingUnitName)).FirstOrDefault();
                 logger.Info("map housingunitdao");
-                logger.Log(LogLevel.Info, "fromDB{0}", fromDB.HousingUnitId.ToString());
             }
             //if db object exist then use existing object and map properties sent from dao-ignore housingUnitName
             if (fromDB != null)
@@ -238,7 +236,6 @@ namespace Housing.Data.Domain
             {
                 fromDB = db.HousingDatas.Where(m => m.HousingDataAltId.Equals(dataDao.HousingDataAltId)).FirstOrDefault();
                 logger.Info("map housingdatadao id");
-                logger.Log(LogLevel.Info, "fromDB{0}", fromDB.HousingDataAltId.ToString());
             }
             //if db object exist then use existing object and map properties sent from dao-ignore housingDataAltId
             if (fromDB != null)
@@ -345,7 +342,6 @@ namespace Housing.Data.Domain
             {
                 fromDB = db.Associates.Where(m => m.Email.Equals(assocDao.Email)).FirstOrDefault();
                 logger.Info("map associate email");
-                logger.Log(LogLevel.Info, "fromDB{0}", fromDB.Email.ToString());
             }
             //if db object exist then use existing object and map properties sent from dao-ignore email
             if (fromDB != null)
@@ -458,7 +454,6 @@ namespace Housing.Data.Domain
             {
                 fromDB = db.Batches.Where(m => m.Name.Equals(batchDao.Name)).FirstOrDefault();
                 logger.Info("map batch name");
-                logger.Log(LogLevel.Info, "fromDB{0}", fromDB.Name.ToString());
             }
             //if db object exist then use existing object and map properties sent from dao-ignore name
             if (fromDB != null)
@@ -530,7 +525,6 @@ namespace Housing.Data.Domain
             {
                 fromDB = db.Genders.Where(m => m.Name.Equals(genDao.Name)).FirstOrDefault();
                 logger.Info("map gender name");
-                logger.Log(LogLevel.Info, "fromDB{0}", fromDB.Name.ToString());
             }
             //if db object exist then use existing object and map properties sent from dao
             if (fromDB != null)
