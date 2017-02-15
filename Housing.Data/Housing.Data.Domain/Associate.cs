@@ -30,6 +30,7 @@ namespace Housing.Data.Domain
         public System.DateTime DateOfBirth { get; set; }
         public bool HasCar { get; set; }
         public bool HasKeys { get; set; }
+        public bool NeedsHousing { get; set; }
         public bool Active { get; set; }
     
         public virtual Batch Batch { get; set; }

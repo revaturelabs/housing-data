@@ -181,6 +181,8 @@ namespace Housing.Data.Domain
                     hu.MaxCapacity = unitDao.MaxCapacity;
                     logger.Info("map housingunitdao max capacity");
                     logger.Log(LogLevel.Info, "hu{0}", hu.MaxCapacity.ToString());
+                    hu.LeaseEndDate = unitDao.LeaseEndDate;
+                    
                 }
             }
             //if db object does not exist use automapper version of object and set active to true            
@@ -402,6 +404,7 @@ namespace Housing.Data.Domain
                         logger.Info("map associate phone number");
                         logger.Log(LogLevel.Info, "assoc{0}", assoc.PhoneNumber.ToString());
                     }
+                    assoc.NeedsHousing = assocDao.NeedsHousing;
                 }               
             }
             //if db object does not exist use automapper version of object and set active to true            
