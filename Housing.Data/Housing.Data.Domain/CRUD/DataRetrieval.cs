@@ -5,13 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Housing.Data.Domain.Helper;
 
 namespace Housing.Data.Domain.CRUD
 {
     public partial class AccessHelper
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
 
+
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+        //EF ef = new EF();
         #region data retrieval 
 
 
@@ -23,7 +26,7 @@ namespace Housing.Data.Domain.CRUD
         {
             try
             {
-                var genders = db.Genders.ToList();
+                var genders = ef.GetGenders().ToList();
                 var result = new List<GenderDao>();
                 foreach (var item in genders)
                 {
@@ -52,7 +55,7 @@ namespace Housing.Data.Domain.CRUD
         {
             try
             {
-                var batches = db.Batches.ToList();
+                var batches = ef.GetBatches().ToList();
                 var result = new List<BatchDao>();
                 foreach (var item in batches)
                 {
@@ -85,7 +88,7 @@ namespace Housing.Data.Domain.CRUD
             {
                 logger.Debug("testing get associate in Data Access");
                 logger.Log(LogLevel.Debug, "update log from associate get");
-                var associates = db.Associates.ToList();
+                var associates =ef.GetAssociates().ToList();
                 var result = new List<AssociateDao>();
                 foreach (var item in associates)
                 {
@@ -117,7 +120,7 @@ namespace Housing.Data.Domain.CRUD
         {
             try
             {
-                var complexes = db.HousingComplexes.ToList();
+                var complexes = ef.GetHousingComplexes().ToList();
                 var result = new List<HousingComplexDao>();
                 foreach (var item in complexes)
                 {
@@ -148,7 +151,7 @@ namespace Housing.Data.Domain.CRUD
         {
             try
             {
-                var units = db.HousingUnits.ToList();
+                var units = ef.GetHousingUnits().ToList();
                 var result = new List<HousingUnitDao>();
                 foreach (var item in units)
                 {
@@ -179,7 +182,7 @@ namespace Housing.Data.Domain.CRUD
         {
             try
             {
-                var data = db.HousingDatas.ToList();
+                var data = ef.GetHousingData().ToList();
                 var result = new List<HousingDataDao>();
                 foreach (var item in data)
                 {
@@ -213,7 +216,7 @@ namespace Housing.Data.Domain.CRUD
                 var result = new List<HousingUnitDao>();
                 if (complexName != null)
                 {                    
-                    var activeAssocHouse = db.HousingUnits.Where(m => m.Active == true && m.HousingComplex!=null).ToList();
+                    var activeAssocHouse = ef.GetHousingUnits().Where(m => m.Active == true && m.HousingComplex!=null).ToList();
                     var units = activeAssocHouse.Where(m => m.HousingComplex.Name.Equals(complexName));
                     foreach (var item in units)
                     {
@@ -250,7 +253,7 @@ namespace Housing.Data.Domain.CRUD
                 var result = new List<HousingDataDao>();
                 if (housingUnitName != null)
                 {
-                    var data = db.HousingDatas.ToList().Where(x => x.HousingUnit.HousingUnitName.Equals(housingUnitName));
+                    var data = ef.GetHousingData().ToList().Where(x => x.HousingUnit.HousingUnitName.Equals(housingUnitName));
                     foreach (var item in data)
                     {
                         if (item.Active)
