@@ -5,23 +5,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NLog;
+using Housing.Data.Domain.Helper;
 
 namespace Housing.Data.Domain.CRUD
 {
     public partial class AccessHelper
     {
 
-        private static readonly HousingDB_DevEntities db;
+        private  readonly HousingDB_DevEntities db;
         public static AccessMapper mapper;
-
+        private IEF ef;
         /// <summary>
         /// ctor for AccessHelper creates reference for db and mapper
         /// </summary>
-        static AccessHelper()
+        public AccessHelper()
         {
             db = new HousingDB_DevEntities();
+            EF ef = new EF();
             mapper = new AccessMapper(db);
         }
+        public AccessHelper(IEF ief)
+        {
+            this.ef = ief;
+        }
+
 
         #region insertions
 
