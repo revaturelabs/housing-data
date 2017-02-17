@@ -234,9 +234,9 @@ namespace Housing.Data.Domain.CRUD
                     var genderMatch = assoc.Gender.Equals(assocHouse.Gender);
                     //check that Unit occupancy is not exceeded
                     //get number of assoc assigned to unit
-                    var it = db.HousingData_By_Unit(assocHouse.HousingUnitId).Where(m => m.Active == true);
+                    var dataReturnedByStoredProcedure = db.HousingData_By_Unit(assocHouse.HousingUnitId).Where(m => m.Active == true);
                     //continue insert if gender and capacity are OK
-                    if (genderMatch && (it.Count() < assocHouse.MaxCapacity))
+                    if (genderMatch && (dataReturnedByStoredProcedure.Count() < assocHouse.MaxCapacity))
                     {
                         logger.Debug("testing insert housing data by unit list in Data Access, itm{0} ", itm.HousingUnit.HousingUnitName);
                         logger.Log(LogLevel.Debug, "update log from housing data by unit insert");
