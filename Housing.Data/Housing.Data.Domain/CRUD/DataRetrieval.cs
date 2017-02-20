@@ -188,7 +188,7 @@ namespace Housing.Data.Domain.CRUD
                 {
                     if (item.Active)
                     {
-                        logger.Debug("testing get housing data list in Data Access, item{0} ", item.HousingDataAltId);
+                        logger.Debug("testing get housing data list in Data Access, item{0} ", item?.HousingDataAltId ?? null);
                         logger.Log(LogLevel.Debug, "update log from housing data get");
                         result.Add(mapper.MapToDao(item));
                     }
