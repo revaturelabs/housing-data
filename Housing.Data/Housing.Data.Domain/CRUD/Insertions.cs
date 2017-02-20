@@ -19,12 +19,14 @@ namespace Housing.Data.Domain.CRUD
         /// ctor for AccessHelper creates reference for db and mapper
         /// </summary>
         public AccessHelper()
-        {            
+        {
+            db = new HousingDB_DevEntities();
             EF ef = new EF();
             mapper = new AccessMapper(db);
         }
         public AccessHelper(IEF ief)
         {
+            mapper = new AccessMapper(db = new HousingDB_DevEntities());
             this.ef = ief;
         }
 
