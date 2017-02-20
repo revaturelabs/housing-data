@@ -33,13 +33,13 @@ namespace Housing.Data.Domain.CRUD
                     
                 }
                 logger.Error("Error occured in update gender crud");
-                logger.Log(LogLevel.Error, "Update of gender failed, gender{0} ", g.Name);
+                logger.Log(LogLevel.Error, "Update of gender failed, object was null");
                 return false;
             }
             catch (Exception e)
             {
                 logger.Error(e, "Error occured in Update gender crud");
-                logger.Log(LogLevel.Error, "Update of gender failed, g{0} ");
+                logger.Log(LogLevel.Error, "Update of gender failed, exception occurred");
                 return false;
             }
         }
@@ -63,13 +63,13 @@ namespace Housing.Data.Domain.CRUD
                     return ef.DeleteBatch(batch);                   
                 }
                 logger.Error("Error occured in insert batch crud");
-                logger.Log(LogLevel.Error, "Insertion of batch failed, batch{0} ", b.Name);
+                logger.Log(LogLevel.Error, "Insertion of batch failed, object was null");
                 return false;
             }
             catch (Exception e)
             {
                 logger.Error(e, "Error occured in Insert batch crud");
-                logger.Log(LogLevel.Error, "Insert of batch failed, b{0} ");
+                logger.Log(LogLevel.Error, "Insert of batch failed, exception occurred");
                 return false;
             }
         }
@@ -94,13 +94,13 @@ namespace Housing.Data.Domain.CRUD
                     return ef.UpdateAssociate(oldAssoc, asc);                    
                 }
                 logger.Error("Error occured in update associate crud");
-                logger.Log(LogLevel.Error, "Update of associate failed, assoc{0} ", assoc.Email);
+                logger.Log(LogLevel.Error, "Update of associate failed, object was null");
                 return false;
             }
             catch (Exception e)
             {
                 logger.Error(e, "Error occured in Update associate crud");
-                logger.Log(LogLevel.Error, "Update of associate failed, assoc{0} ");
+                logger.Log(LogLevel.Error, "Update of associate failed, exception occurred");
                 return false;
             }
         }
@@ -124,13 +124,13 @@ namespace Housing.Data.Domain.CRUD
                     return ef.UpdateHousingComplex(old, plex);                    
                 }
                 logger.Error("Error occured in update housing complex crud");
-                logger.Log(LogLevel.Error, "Update of complex failed, hc{0} ", hc.Name);
+                logger.Log(LogLevel.Error, "Update of complex failed, object was null");
                 return false;
             }
             catch (Exception e)
             {
                 logger.Error(e, "Error occured in update housing complex crud");
-                logger.Log(LogLevel.Error, "Update of housing complex failed, hc{0} ");
+                logger.Log(LogLevel.Error, "Update of housing complex failed, exception occurred");
                 return false;
             }
         }
@@ -154,13 +154,13 @@ namespace Housing.Data.Domain.CRUD
                     return ef.UpdateHousingUnit(old, unit);                    
                 }
                 logger.Error("Error occured in update housing unit crud");
-                logger.Log(LogLevel.Error, "Update of housing unit failed, hu{0} ", hu.HousingUnitName);
+                logger.Log(LogLevel.Error, "Update of housing unit failed, object was null");
                 return false;
             }
             catch (Exception e)
             {
                 logger.Error(e, "Error occured in update housing unit crud");
-                logger.Log(LogLevel.Error, "Update of housing unit failed, hu{0} ");
+                logger.Log(LogLevel.Error, "Update of housing unit failed, exception occurred");
                 return false;
             }
         }
@@ -184,17 +184,16 @@ namespace Housing.Data.Domain.CRUD
                     return ef.UpdateHousingData(old,hde);                   
                 }
                 logger.Error("Error occured in update housing data crud");
-                logger.Log(LogLevel.Error, "Update of housing data failed, hd{0} ", hd.HousingUnitName);
+                logger.Log(LogLevel.Error, "Update of housing data failed,object was null");
                 return false;
             }
             catch (Exception e)
             {
                 logger.Error(e, "Error occured in update housing data crud");
-                logger.Log(LogLevel.Error, "Update of housing data failed, hd{0} ");
+                logger.Log(LogLevel.Error, "Update of housing data failed, exception occurred");
                 return false;
             }
         }
-
         #endregion
     }
 }
