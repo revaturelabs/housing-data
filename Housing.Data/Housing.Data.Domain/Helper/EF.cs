@@ -9,6 +9,9 @@ namespace Housing.Data.Domain.Helper
 {
     public class EF : IEF
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private static readonly HousingDB_DevEntities db;
 
         bool IEF.DeleteAssociate(AssociateDao assoc)
