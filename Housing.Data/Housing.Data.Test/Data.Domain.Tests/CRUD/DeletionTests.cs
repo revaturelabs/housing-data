@@ -1,4 +1,5 @@
-﻿using Housing.Data.Domain.DataAccessObjects;
+﻿using Housing.Data.Domain;
+using Housing.Data.Domain.DataAccessObjects;
 using Housing.Data.Domain.Helper;
 using Moq;
 using System;
@@ -15,22 +16,18 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         private Housing.Data.Domain.AccessMapper map = new Housing.Data.Domain.AccessMapper();
         private Housing.Data.Domain.CRUD.AccessHelper ah = new Housing.Data.Domain.CRUD.AccessHelper();
 
-        // Every Delete function changes the active bit to 0 and does not remove from database.
-        // It does however add a long string at the end of the name,
-        // to allow the insert tests to add the same name again.        
-        
-
         [Fact]
         public void Test_DeleteGender()
         {
             var mock = new Mock<IEF>();
 
-            var itemToDelete = new List<GenderDao>();
+            var itemToDelete = new List<Gender>();
 
             mock
-                .Setup(i => i.DeleteGender(It.IsAny<GenderDao>()))
-                .Callback((GenderDao item) => itemToDelete.Remove(item));
-            Assert.NotNull(itemToDelete);            
+                .Setup(i => i.DeleteGender(It.IsAny<Gender>()))
+                .Callback((Gender item) => itemToDelete.Remove(item));
+            Assert.NotNull(itemToDelete);
+            mock.Verify(m => m.DeleteGender(It.IsAny<Gender>()), Times.Once());
         }
 
         [Fact]
@@ -38,25 +35,27 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         {
             var mock = new Mock<IEF>();
 
-            var itemToDelete = new List<BatchDao>();
+            var itemToDelete = new List<Batch>();
 
             mock
-                .Setup(i => i.DeleteBatch(It.IsAny<BatchDao>()))
-                .Callback((BatchDao item) => itemToDelete.Remove(item));
+                .Setup(i => i.DeleteBatch(It.IsAny<Batch>()))
+                .Callback((Batch item) => itemToDelete.Remove(item));
             Assert.NotNull(itemToDelete);
+            mock.Verify(m => m.DeleteBatch(It.IsAny<Batch>()), Times.Once());
         }
 
         [Fact]
-        public void Test_DeleteAssociate()      
+        public void Test_DeleteAssociate()
         {
             var mock = new Mock<IEF>();
 
-            var itemToDelete = new List<AssociateDao>();
+            var itemToDelete = new List<Associate>();
 
             mock
-                .Setup(i => i.DeleteAssociate(It.IsAny<AssociateDao>()))
-                .Callback((AssociateDao item) => itemToDelete.Remove(item));
+                .Setup(i => i.DeleteAssociate(It.IsAny<Associate>()))
+                .Callback((Associate item) => itemToDelete.Remove(item));
             Assert.NotNull(itemToDelete);
+            mock.Verify(m => m.DeleteAssociate(It.IsAny<Associate>()), Times.Once());
         }
 
 
@@ -65,12 +64,13 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         {
             var mock = new Mock<IEF>();
 
-            var itemToDelete = new List<HousingComplexDao>();
+            var itemToDelete = new List<HousingComplex>();
 
             mock
-                .Setup(i => i.DeleteHousingComplex(It.IsAny<HousingComplexDao>()))
-                .Callback((HousingComplexDao item) => itemToDelete.Remove(item));
+                .Setup(i => i.DeleteHousingComplex(It.IsAny<HousingComplex>()))
+                .Callback((HousingComplex item) => itemToDelete.Remove(item));
             Assert.NotNull(itemToDelete);
+            mock.Verify(m => m.DeleteHousingComplex(It.IsAny<HousingComplex>()), Times.Once());
         }
 
         [Fact]
@@ -78,12 +78,13 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         {
             var mock = new Mock<IEF>();
 
-            var itemToDelete = new List<HousingUnitDao>();
+            var itemToDelete = new List<HousingUnit>();
 
             mock
-                .Setup(i => i.DeleteHousingUnit(It.IsAny<HousingUnitDao>()))
-                .Callback((HousingUnitDao item) => itemToDelete.Remove(item));
+                .Setup(i => i.DeleteHousingUnit(It.IsAny<HousingUnit>()))
+                .Callback((HousingUnit item) => itemToDelete.Remove(item));
             Assert.NotNull(itemToDelete);
+            mock.Verify(m => m.DeleteHousingUnit(It.IsAny<HousingUnit>()), Times.Once());
         }
 
         [Fact]
@@ -91,12 +92,13 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         {
             var mock = new Mock<IEF>();
 
-            var itemToDelete = new List<HousingDataDao>();
+            var itemToDelete = new List<HousingData>();
 
             mock
-                .Setup(i => i.DeleteHousingData(It.IsAny<HousingDataDao>()))
-                .Callback((HousingDataDao item) => itemToDelete.Remove(item));
+                .Setup(i => i.DeleteHousingData(It.IsAny<HousingData>()))
+                .Callback((HousingData item) => itemToDelete.Remove(item));
             Assert.NotNull(itemToDelete);
+            mock.Verify(m => m.DeleteHousingData(It.IsAny<HousingData>()), Times.Once());
         }
     }
 }

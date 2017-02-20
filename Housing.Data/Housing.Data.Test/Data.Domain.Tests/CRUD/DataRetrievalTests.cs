@@ -16,8 +16,6 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
     public class DataRetrievalTests
     {
         
-        
-
         [Fact]
         public void Test_GetAssociates()
         {
@@ -28,8 +26,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
             Assert.NotNull(associates);
             mock.Verify(m => m.GetAssociates(), Times.Once);
         }
-
-
+        
         [Fact]
         public void Test_GetBatches()
         {
