@@ -14,35 +14,48 @@ namespace Housing.Data.Domain.Helper
         /// </summary>
         private static readonly HousingDB_DevEntities db;
 
-        bool IEF.DeleteAssociate(AssociateDao assoc)
+
+        #region Deletes
+
+        public bool DeleteAssociate(Associate assoc)
         {
-            throw new NotImplementedException();
+            db.Associates.Remove(assoc);
+            return db.SaveChanges() > 0;
         }
 
-        bool IEF.DeleteBatch(BatchDao b)
+        public bool DeleteBatch(Batch b)
         {
-            throw new NotImplementedException();
+            db.Batches.Remove(b);
+            return db.SaveChanges() > 0;
         }
 
-        bool IEF.DeleteGender(GenderDao g)
+        public bool DeleteGender(Gender g)
         {
-            throw new NotImplementedException();
+            db.Genders.Remove(g);
+            return db.SaveChanges() > 0;
         }
 
-        bool IEF.DeleteHousingComplex(HousingComplexDao hc)
+        public bool DeleteHousingComplex(HousingComplex hc)
         {
-            throw new NotImplementedException();
+            db.HousingComplexes.Remove(hc);
+            return db.SaveChanges() > 0;
         }
 
-        bool IEF.DeleteHousingData(HousingDataDao hd)
+        public bool DeleteHousingData(HousingData hd)
         {
-            throw new NotImplementedException();
+            db.HousingDatas.Remove(hd);
+            return db.SaveChanges() > 0;
         }
 
-        bool IEF.DeleteHousingUnit(HousingUnitDao hu)
+        public bool DeleteHousingUnit(HousingUnit hu)
         {
-            throw new NotImplementedException();
+            db.HousingUnits.Remove(hu);
+            return db.SaveChanges() > 0;
         }
+
+        #endregion
+
+        #region Gets
 
         public List<Associate> GetAssociates()
         {
@@ -54,10 +67,10 @@ namespace Housing.Data.Domain.Helper
             return db.Batches.ToList();
         }
 
-        //public List<HousingData> GetDataByUnit(string housingUnitName)
-        //{
-        //    return db.HousingData_By_Unit(housingUnitName);
-        //}
+        public IQueryable<HousingData_By_Unit_Result> GetDataByUnit(int housingUnitName)
+        {
+            return db.HousingData_By_Unit(housingUnitName);
+        }
 
         public List<Gender> GetGenders()
         {
@@ -84,64 +97,82 @@ namespace Housing.Data.Domain.Helper
         //    throw new NotImplementedException();
         //}
 
-        bool IEF.InsertAssociate(AssociateDao assoc)
+        #endregion
+
+        #region Inserts
+
+        public bool InsertAssociate(Associate assoc)
         {
-            throw new NotImplementedException();
+            db.Associates.Add(assoc);
+            return db.SaveChanges() > 0;
         }
 
-        bool IEF.InsertBatch(BatchDao batch)
+        public bool InsertBatch(Batch batch)
         {
-            throw new NotImplementedException();
+            db.Batches.Add(batch);
+            return db.SaveChanges() > 0;
         }
 
-        bool IEF.InsertGender(GenderDao gender)
+        public bool InsertGender(Gender gender)
         {
-            throw new NotImplementedException();
+            db.Genders.Add(gender);
+            return db.SaveChanges() > 0;
         }
 
-        bool IEF.InsertHousingComplex(HousingComplexDao hc)
+        public bool InsertHousingComplex(HousingComplex hc)
         {
-            throw new NotImplementedException();
+            db.HousingComplexes.Add(hc);
+            return db.SaveChanges() > 0;
         }
 
-        bool IEF.InsertHousingData(HousingDataDao hd)
+        public bool InsertHousingData(HousingData hd)
         {
-            throw new NotImplementedException();
+            db.HousingDatas.Add(hd);
+            return db.SaveChanges() > 0;
         }
 
-        bool IEF.InsertHousingUnit(HousingUnitDao hu)
+        public bool InsertHousingUnit(HousingUnit hu)
         {
-            throw new NotImplementedException();
+            db.HousingUnits.Add(hu);
+            return db.SaveChanges() > 0;
         }
 
-        bool IEF.UpdateAssociate(string old, AssociateDao assoc)
+        #endregion
+
+        public bool UpdateAssociate(Associate old, Associate assoc)
         {
-            throw new NotImplementedException();
+            db.Entry(old).CurrentValues.SetValues(assoc);
+            return db.SaveChanges() > 0;
         }
 
-        bool IEF.UpdateBatch(string oldBatch, BatchDao b)
+        public bool UpdateBatch(Batch old, Batch b)
         {
-            throw new NotImplementedException();
+            db.Entry(old).CurrentValues.SetValues(b);
+            return db.SaveChanges() > 0;            
         }
 
-        bool IEF.UpdateGender(string oldId, GenderDao g)
+        public bool UpdateGender(Gender old, Gender g)
         {
-            throw new NotImplementedException();
+            db.Entry(old).CurrentValues.SetValues(g);
+            return db.SaveChanges() > 0;
         }
 
-        bool IEF.UpdateHousingComplex(string oldComplex, HousingComplexDao hc)
+        public bool UpdateHousingComplex(HousingComplex old, HousingComplex hc)
         {
-            throw new NotImplementedException();
+            db.Entry(old).CurrentValues.SetValues(hc);
+            return db.SaveChanges() > 0;
         }
 
-        bool IEF.UpdateHousingData(string oldData, HousingDataDao hd)
+        public bool UpdateHousingData(HousingData old, HousingData hd)
         {
-            throw new NotImplementedException();
+            db.Entry(old).CurrentValues.SetValues(hd);          
+            return db.SaveChanges() > 0;
         }
 
-        bool IEF.UpdateHousingUnit(string oldUnit, HousingUnitDao hu)
+        bool IEF.UpdateHousingUnit(HousingUnit old, HousingUnit hu)
         {
-            throw new NotImplementedException();
+            db.Entry(old).CurrentValues.SetValues(hu);            
+            return db.SaveChanges() > 0;
         }
     }
 }

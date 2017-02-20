@@ -16,30 +16,28 @@ namespace Housing.Data.Domain.Helper
         List<HousingUnit> GetHousingUnits();
         List<HousingData> GetHousingData();
         //List<HousingUnit> GetUnitsByComplex(string complexName);
-        //List<HousingData> GetDataByUnit(string housingUnitName);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="g"></param>
-        /// <returns></returns>
-        bool DeleteGender(GenderDao g);
-        bool DeleteBatch(BatchDao b);
-        bool DeleteAssociate(AssociateDao assoc);
-        bool DeleteHousingComplex(HousingComplexDao hc);
-        bool DeleteHousingUnit(HousingUnitDao hu);
-        bool DeleteHousingData(HousingDataDao hd);
-        bool InsertGender(GenderDao gender);
-        bool InsertBatch(BatchDao batch);
-        bool InsertAssociate(AssociateDao assoc);
-        bool InsertHousingComplex(HousingComplexDao hc);
-        bool InsertHousingUnit(HousingUnitDao hu);
-        bool InsertHousingData(HousingDataDao hd);
-        bool UpdateGender(string oldId, GenderDao g);
-        bool UpdateBatch(string oldBatch, BatchDao b);
-        bool UpdateAssociate(string old, AssociateDao assoc);
-        bool UpdateHousingComplex(string oldComplex, HousingComplexDao hc);
-        bool UpdateHousingUnit(string oldUnit, HousingUnitDao hu);
-        bool UpdateHousingData(string oldData, HousingDataDao hd);
+        IQueryable<HousingData_By_Unit_Result> GetDataByUnit(int housingUnitName);
+      
+        bool DeleteGender(Gender g);
+        bool DeleteBatch(Batch b);
+        bool DeleteAssociate(Associate assoc);
+        bool DeleteHousingComplex(HousingComplex hc);
+        bool DeleteHousingUnit(HousingUnit hu);
+        bool DeleteHousingData(HousingData hd);
+
+        bool InsertGender(Gender gender);
+        bool InsertBatch(Batch batch);
+        bool InsertAssociate(Associate assoc);
+        bool InsertHousingComplex(HousingComplex hc);
+        bool InsertHousingUnit(HousingUnit hu);
+        bool InsertHousingData(HousingData hd);
+
+        bool UpdateGender(Gender old, Gender g);
+        bool UpdateBatch(Batch old, Batch b);
+        bool UpdateAssociate(Associate old, Associate assoc);
+        bool UpdateHousingComplex(HousingComplex old, HousingComplex hc);
+        bool UpdateHousingUnit(HousingUnit old, HousingUnit hu);
+        bool UpdateHousingData(HousingData old, HousingData hd);
 
 
     }

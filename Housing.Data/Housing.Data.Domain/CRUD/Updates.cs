@@ -25,13 +25,12 @@ namespace Housing.Data.Domain.CRUD
                 if (!string.IsNullOrWhiteSpace(oldId) && g != null)
                 {
                     Gender newGender = mapper.MapToEntity(g);
-                    Gender old = db.Genders.FirstOrDefault(a => a.Name.Equals(oldId));
+                    Gender old = ef.GetGenders().FirstOrDefault(a => a.Name.Equals(oldId));
                     newGender.GenderId = old.GenderId;
                     logger.Debug("testing update gender list in Data Access, item{0} ", newGender.Name);
                     logger.Log(LogLevel.Debug, "update log from genders update");
-                    db.Entry(old).CurrentValues.SetValues(newGender);
-                    db.SaveChanges();
-                    return true;
+                    return ef.UpdateGender(old, newGender);                  
+                    
                 }
                 logger.Error("Error occured in update gender crud");
                 logger.Log(LogLevel.Error, "Update of gender failed, gender{0} ", g.Name);
@@ -57,13 +56,11 @@ namespace Housing.Data.Domain.CRUD
                 if (!string.IsNullOrWhiteSpace(oldBatch) && b != null)
                 {
                     Batch batch = mapper.MapToEntity(b);
-                    Batch old = db.Batches.FirstOrDefault(a => a.Name.Equals(oldBatch));
+                    Batch old = ef.GetBatches().FirstOrDefault(a => a.Name.Equals(oldBatch));
                     batch.BatchId = old.BatchId;
                     logger.Debug("testing update Batch list in Data Access, batch{0} ", batch.Name);
                     logger.Log(LogLevel.Debug, "update log from batches update");
-                    db.Entry(old).CurrentValues.SetValues(batch);
-                    db.SaveChanges();
-                    return true;
+                    return ef.DeleteBatch(batch);                   
                 }
                 logger.Error("Error occured in insert batch crud");
                 logger.Log(LogLevel.Error, "Insertion of batch failed, batch{0} ", b.Name);
@@ -90,13 +87,11 @@ namespace Housing.Data.Domain.CRUD
                 if (!string.IsNullOrWhiteSpace(old) && assoc != null)
                 {
                     asc = mapper.MapToEntity(assoc);
-                    oldAssoc = db.Associates.FirstOrDefault(a => a.Email.Equals(old));
+                    oldAssoc = ef.GetAssociates().FirstOrDefault(a => a.Email.Equals(old));
                     asc.AssociateId = oldAssoc.AssociateId;
                     logger.Debug("testing update associate list in Data Access, asc{0} ", asc.Email);
                     logger.Log(LogLevel.Debug, "update log from associate update");
-                    db.Entry(oldAssoc).CurrentValues.SetValues(asc);
-                    db.SaveChanges();
-                    return true;
+                    return ef.UpdateAssociate(oldAssoc, asc);                    
                 }
                 logger.Error("Error occured in update associate crud");
                 logger.Log(LogLevel.Error, "Update of associate failed, assoc{0} ", assoc.Email);
@@ -122,13 +117,11 @@ namespace Housing.Data.Domain.CRUD
                 if (!string.IsNullOrWhiteSpace(oldComplex) && hc != null)
                 {
                     HousingComplex plex = mapper.MapToEntity(hc);
-                    HousingComplex old = db.HousingComplexes.FirstOrDefault(a => a.Name.Equals(oldComplex));
+                    HousingComplex old = ef.GetHousingComplexes().FirstOrDefault(a => a.Name.Equals(oldComplex));
                     plex.HousingComplexId = old.HousingComplexId;
                     logger.Debug("testing update Housing Complex list in Data Access, plex{0} ", plex.Name);
                     logger.Log(LogLevel.Debug, "update log from housing complex update");
-                    db.Entry(old).CurrentValues.SetValues(plex);
-                    db.SaveChanges();
-                    return true;
+                    return ef.UpdateHousingComplex(old, plex);                    
                 }
                 logger.Error("Error occured in update housing complex crud");
                 logger.Log(LogLevel.Error, "Update of complex failed, hc{0} ", hc.Name);
@@ -154,13 +147,11 @@ namespace Housing.Data.Domain.CRUD
                 if (!string.IsNullOrWhiteSpace(oldUnit) && hu != null)
                 {
                     HousingUnit unit = mapper.MapToEntity(hu);
-                    HousingUnit old = db.HousingUnits.FirstOrDefault(a => a.HousingUnitName.Equals(oldUnit));
+                    HousingUnit old = ef.GetHousingUnits().FirstOrDefault(a => a.HousingUnitName.Equals(oldUnit));
                     unit.HousingUnitId = old.HousingUnitId;
                     logger.Debug("testing update housing unit list in Data Access, unit{0} ", unit.HousingUnitName);
                     logger.Log(LogLevel.Debug, "update log from housing unit update");
-                    db.Entry(old).CurrentValues.SetValues(unit);
-                    db.SaveChanges();
-                    return true;
+                    return ef.UpdateHousingUnit(old, unit);                    
                 }
                 logger.Error("Error occured in update housing unit crud");
                 logger.Log(LogLevel.Error, "Update of housing unit failed, hu{0} ", hu.HousingUnitName);
@@ -186,13 +177,11 @@ namespace Housing.Data.Domain.CRUD
                 if (!string.IsNullOrWhiteSpace(oldData) && hd != null)
                 {
                     HousingData hde = mapper.MapToEntity(hd);
-                    HousingData old = db.HousingDatas.FirstOrDefault(a => a.HousingDataAltId.Equals(oldData));
+                    HousingData old = ef.GetHousingData().FirstOrDefault(a => a.HousingDataAltId.Equals(oldData));
                     hde.HousingDataId = old.HousingDataId;
                     logger.Debug("testing update housing data list in Data Access, hde{0} ", hde.HousingUnit.HousingUnitName);
                     logger.Log(LogLevel.Debug, "update log from housing data update");
-                    db.Entry(old).CurrentValues.SetValues(hde);
-                    db.SaveChanges();
-                    return true;
+                    return ef.UpdateHousingData(old,hde);                   
                 }
                 logger.Error("Error occured in update housing data crud");
                 logger.Log(LogLevel.Error, "Update of housing data failed, hd{0} ", hd.HousingUnitName);
