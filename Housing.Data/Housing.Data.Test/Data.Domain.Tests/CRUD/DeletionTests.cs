@@ -23,74 +23,80 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         [Fact]
         public void Test_DeleteGender()
         {
-            var myRepositoryMock = new Mock<IEF>();
+            var mock = new Mock<IEF>();
 
             var itemToDelete = new List<GenderDao>();
 
-            myRepositoryMock
+            mock
                 .Setup(i => i.DeleteGender(It.IsAny<GenderDao>()))
                 .Callback((GenderDao item) => itemToDelete.Remove(item));
+            Assert.NotNull(itemToDelete);            
         }
 
         [Fact]
         public void Test_DeleteBatch()
         {
-            var myRepositoryMock = new Mock<IEF>();
+            var mock = new Mock<IEF>();
 
             var itemToDelete = new List<BatchDao>();
 
-            myRepositoryMock
+            mock
                 .Setup(i => i.DeleteBatch(It.IsAny<BatchDao>()))
                 .Callback((BatchDao item) => itemToDelete.Remove(item));
+            Assert.NotNull(itemToDelete);
         }
 
         [Fact]
         public void Test_DeleteAssociate()      
         {
-            var myRepositoryMock = new Mock<IEF>();
+            var mock = new Mock<IEF>();
 
             var itemToDelete = new List<AssociateDao>();
 
-            myRepositoryMock
+            mock
                 .Setup(i => i.DeleteAssociate(It.IsAny<AssociateDao>()))
                 .Callback((AssociateDao item) => itemToDelete.Remove(item));
+            Assert.NotNull(itemToDelete);
         }
 
 
         [Fact]
         public void Test_DeleteHousingComplex()
         {
-            var myRepositoryMock = new Mock<IEF>();
+            var mock = new Mock<IEF>();
 
             var itemToDelete = new List<HousingComplexDao>();
 
-            myRepositoryMock
+            mock
                 .Setup(i => i.DeleteHousingComplex(It.IsAny<HousingComplexDao>()))
                 .Callback((HousingComplexDao item) => itemToDelete.Remove(item));
+            Assert.NotNull(itemToDelete);
         }
 
         [Fact]
         public void Test_DeleteHousingUnit()
         {
-            var myRepositoryMock = new Mock<IEF>();
+            var mock = new Mock<IEF>();
 
             var itemToDelete = new List<HousingUnitDao>();
 
-            myRepositoryMock
+            mock
                 .Setup(i => i.DeleteHousingUnit(It.IsAny<HousingUnitDao>()))
                 .Callback((HousingUnitDao item) => itemToDelete.Remove(item));
+            Assert.NotNull(itemToDelete);
         }
 
         [Fact]
         public void Test_DeleteHousingData()
         {
-            var myRepositoryMock = new Mock<IEF>();
+            var mock = new Mock<IEF>();
 
             var itemToDelete = new List<HousingDataDao>();
 
-            myRepositoryMock
+            mock
                 .Setup(i => i.DeleteHousingData(It.IsAny<HousingDataDao>()))
                 .Callback((HousingDataDao item) => itemToDelete.Remove(item));
+            Assert.NotNull(itemToDelete);
         }
     }
 }

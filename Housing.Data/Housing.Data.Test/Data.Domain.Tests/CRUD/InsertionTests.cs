@@ -24,76 +24,81 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         [Fact]
         public void Test_InsertGender()
         {
-            var myRepositoryMock = new Mock<IEF>();
+            var mock = new Mock<IEF>();
 
             var itemsInserted = new List<GenderDao>();
 
-            myRepositoryMock
+            mock
                 .Setup(i => i.InsertGender(It.IsAny<GenderDao>()))
                 .Callback((GenderDao item) => itemsInserted.Add(item));
+            Assert.NotNull(itemsInserted);
         }
 
         [Fact]
         public void Test_InsertBatch()
         {
-            var myRepositoryMock = new Mock<IEF>();
+            var mock = new Mock<IEF>();
 
             var itemsInserted = new List<BatchDao>();
 
-            myRepositoryMock
+            mock
                 .Setup(i => i.InsertBatch(It.IsAny<BatchDao>()))
                 .Callback((BatchDao item) => itemsInserted.Add(item));
+            Assert.NotNull(itemsInserted);
         }
 
         [Fact]
         public void Test_InsertAssociate()
         {
-            var myRepositoryMock = new Mock<IEF>();
+            var mock = new Mock<IEF>();
 
             var itemsInserted = new List<AssociateDao>();
 
-            myRepositoryMock
+            mock
                 .Setup(i => i.InsertAssociate(It.IsAny<AssociateDao>()))
                 .Callback((AssociateDao item) => itemsInserted.Add(item));
+            Assert.NotNull(itemsInserted);
         }
 
         [Fact]
         public void Test_InsertHousingComplex()
         {
-            var myRepositoryMock = new Mock<IEF>();
+            var mock = new Mock<IEF>();
 
             var itemsInserted = new List<HousingComplexDao>();
 
-            myRepositoryMock
+            mock
                 .Setup(i => i.InsertHousingComplex(It.IsAny<HousingComplexDao>()))
                 .Callback((HousingComplexDao item) => itemsInserted.Add(item));
+            Assert.NotNull(itemsInserted);
         }
 
 
         [Fact]
         public void Test_InsertHousingUnit()
         {
-            var myRepositoryMock = new Mock<IEF>();
+            var mock = new Mock<IEF>();
 
             var itemsInserted = new List<HousingUnitDao>();
 
-            myRepositoryMock
+            mock
                 .Setup(i => i.InsertHousingUnit(It.IsAny<HousingUnitDao>()))
                 .Callback((HousingUnitDao item) => itemsInserted.Add(item));
+            Assert.NotNull(itemsInserted);
         }
 
 
         [Fact]
         public void Test_InsertHousingData()
         {
-            var myRepositoryMock = new Mock<IEF>();
+            var mock = new Mock<IEF>();
 
             var itemsInserted = new List<HousingDataDao>();
 
-            myRepositoryMock
+            mock
                 .Setup(i => i.InsertHousingData(It.IsAny<HousingDataDao>()))
                 .Callback((HousingDataDao item) => itemsInserted.Add(item));
+            Assert.NotNull(itemsInserted);
         }
-
     }
 }
