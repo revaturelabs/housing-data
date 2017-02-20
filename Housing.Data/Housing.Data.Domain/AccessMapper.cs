@@ -49,18 +49,18 @@ namespace Housing.Data.Domain
             HousingComplexDao comDao;
             if(com!=null)
             {
-                logger.Trace("testing map housing complex coming in from db, com{0}", com.Name.ToString());
+                logger.Trace("testing map housing complex coming in from db, com{0}", com?.Name?.ToString());
                 logger.Log(LogLevel.Trace, "Log housing complex mapping from db");
                 comDao = mapper.Map<HousingComplexDao>(com);
-                logger.Trace("testing map housing complex to dao, comDao{0}", comDao.Name.ToString());
+                logger.Trace("testing map housing complex to dao, comDao{0}", comDao?.Name?.ToString());
                 logger.Log(LogLevel.Trace, "Log housing complex mapping to dao");
             }
             else
             {
-                logger.Trace("testing map a new housing complex coming in from db, com{0}", com.Name.ToString());
+                logger.Trace("testing map a new housing complex coming in from db, com{0}", com?.Name?.ToString());
                 logger.Log(LogLevel.Trace, "Log a new housing complex mapping from db");
                 comDao = new HousingComplexDao();
-                logger.Trace("testing map a new housing complex to dao, comDao{0}", comDao.Name.ToString());
+                logger.Trace("testing map a new housing complex to dao, comDao{0}", comDao?.Name?.ToString());
                 logger.Log(LogLevel.Trace, "Log a new housing complex mapping to dao");
             }
             return comDao;
@@ -79,17 +79,17 @@ namespace Housing.Data.Domain
             var mapper = HousingComplexMapper.CreateMapper();
             if (comDao != null)
             {
-                logger.Trace("testing mapping a housing complex from dao, comDao{0}", comDao.Name.ToString());
+                logger.Trace("testing mapping a housing complex from dao, comDao{0}", comDao.Name?.ToString());
                 logger.Log(LogLevel.Trace, "Log housing complex mapping from dao");
                 com = mapper.Map<HousingComplex>(comDao);
-                logger.Trace("testing map housing complex from dao to the db, com{0}", com.Name.ToString());
+                logger.Trace("testing map housing complex from dao to the db, com{0}", com.Name?.ToString());
                 logger.Log(LogLevel.Trace, "Log housing complex mapping to db");
             }
             //get original object from db
             if (!string.IsNullOrWhiteSpace(comDao.Name))
             {
                 fromDB = db.HousingComplexes.Where(m => m.Name.Equals(comDao.Name)).FirstOrDefault();
-                logger.Trace("Getting housing complex from db, fromDB{0}", fromDB.Name.ToString());
+                logger.Trace("Getting housing complex from db, fromDB{0}", fromDB?.Name?.ToString());
                 logger.Log(LogLevel.Trace, "Log getting housing complex mapping from db");
             }
             //if db object exist then use existing object and map properties sent from dao-ignore name
@@ -99,15 +99,15 @@ namespace Housing.Data.Domain
                 if (!string.IsNullOrWhiteSpace(comDao.Address))
                 {
                     com.Address = comDao.Address;
-                    logger.Trace("testing mapping a housing complex that aleady exist to db, com{0}", com.Name);
+                    logger.Trace("testing mapping a housing complex that aleady exist to db, com{0}", com?.Name);
                     logger.Log(LogLevel.Trace, "housing complex mapping to db");
                 }
                 if(!string.IsNullOrWhiteSpace(comDao.PhoneNumber))
                 {
-                    logger.Trace("testing mapping a housing complex that already exist to db, comDao{0}", comDao.PhoneNumber.ToString());
+                    logger.Trace("testing mapping a housing complex that already exist to db, comDao{0}", comDao?.PhoneNumber?.ToString());
                     logger.Log(LogLevel.Trace, "creating new housing complex mapping to db");
                     com.PhoneNumber = comDao.PhoneNumber;
-                    logger.Trace("testing mapping a housing complex that already exist to db, com{0}", com.PhoneNumber.ToString());
+                    logger.Trace("testing mapping a housing complex that already exist to db, com{0}", com?.PhoneNumber?.ToString());
                     logger.Log(LogLevel.Trace, "creating new housing complex mapping to db");
                 }
             }
@@ -115,7 +115,7 @@ namespace Housing.Data.Domain
             else
             {                
                 com.Active = true;
-                logger.Trace("testing mapping a housing complex that doesn't exist to db, com{0}", com.Active.ToString());
+                logger.Trace("testing mapping a housing complex that doesn't exist to db, com{0}", com?.Active.ToString());
                 logger.Log(LogLevel.Trace, "creating new housing complex mapping to db");
             }
             return com;
@@ -133,7 +133,7 @@ namespace Housing.Data.Domain
             HousingUnitDao unitDao = mapper.Map<HousingUnitDao>(unit);
             unitDao.GenderName = unit.Gender.Name;
             logger.Info("map housingunitdao");
-            logger.Log(LogLevel.Info, "unitDao{0}", unitDao.ToString());
+            logger.Log(LogLevel.Info, "unitDao{0}", unitDao?.ToString());
             return unitDao;
         }
 
@@ -159,7 +159,7 @@ namespace Housing.Data.Domain
             {
                 fromDB = db.HousingUnits.Where(m => m.HousingUnitName.Equals(unitDao.HousingUnitName)).FirstOrDefault();
                 logger.Info("map housingunitdao");
-                logger.Log(LogLevel.Info, "fromDB{0}", fromDB.HousingUnitId.ToString());
+                logger.Log(LogLevel.Info, "fromDB{0}", fromDB?.HousingUnitId.ToString());
             }
             //if db object exist then use existing object and map properties sent from dao-ignore housingUnitName
             if (fromDB != null)
@@ -169,18 +169,18 @@ namespace Housing.Data.Domain
                 {
                     hu.AptNumber = unitDao.AptNumber;
                     logger.Info("map complex apartment number");
-                    logger.Log(LogLevel.Info, "hu{0}", hu.AptNumber.ToString());
+                    logger.Log(LogLevel.Info, "hu{0}", hu?.AptNumber?.ToString());
                     hu.Gender = db.Genders.Where(m => m.Name.Equals(unitDao.GenderName)).FirstOrDefault();
                     logger.Info("map gender name");
-                    logger.Log(LogLevel.Info, "hu{0}", hu.Gender.Name.ToString());
+                    logger.Log(LogLevel.Info, "hu{0}", hu?.Gender?.Name?.ToString());
                     hu.GenderId = hu.Gender.GenderId;
                     hu.HousingComplex = db.HousingComplexes.Where(m => m.Name.Equals(unitDao.HousingComplexName)).FirstOrDefault();
                     logger.Info("map complex name");
-                    logger.Log(LogLevel.Info, "hu{0}", hu.HousingComplex.Name.ToString());
+                    logger.Log(LogLevel.Info, "hu{0}", hu?.HousingComplex?.Name?.ToString());
                     hu.HousingComplexId = hu.HousingComplex.HousingComplexId;
                     hu.MaxCapacity = unitDao.MaxCapacity;
                     logger.Info("map housingunitdao max capacity");
-                    logger.Log(LogLevel.Info, "hu{0}", hu.MaxCapacity.ToString());
+                    logger.Log(LogLevel.Info, "hu{0}", hu?.MaxCapacity.ToString());
                     hu.LeaseEndDate = unitDao.LeaseEndDate;
                     
                 }
@@ -191,17 +191,17 @@ namespace Housing.Data.Domain
                 hu.Active = true;
                 hu.Gender = db.Genders.Where(m => m.Name.Equals(unitDao.GenderName)).FirstOrDefault();
                 logger.Info("map gender name");
-                logger.Log(LogLevel.Info, "hu{0}", hu.Gender.Name.ToString());
+                logger.Log(LogLevel.Info, "hu{0}", hu.Gender?.Name?.ToString());
                 hu.GenderId = hu.Gender.GenderId;
                 hu.HousingComplex = db.HousingComplexes.Where(m => m.Name.Equals(unitDao.HousingComplexName)).FirstOrDefault();
                 logger.Info("map complex name");
-                logger.Log(LogLevel.Info, "hu{0}", hu.HousingComplex.Name.ToString());
+                logger.Log(LogLevel.Info, "hu{0}", hu?.HousingComplex?.Name?.ToString());
                 hu.HousingComplexId = hu.HousingComplex.HousingComplexId;
                 logger.Info("map housingunitdao for new complex");
-                logger.Log(LogLevel.Info, "hu{0}", hu.HousingComplexId.ToString());
+                logger.Log(LogLevel.Info, "hu{0}", hu?.HousingComplexId?.ToString());
             }
             logger.Info("map housingunitdao");
-            logger.Log(LogLevel.Info, "hu{0}", hu.HousingComplexId.ToString());
+            logger.Log(LogLevel.Info, "hu{0}", hu?.HousingComplexId?.ToString());
             return hu;
         }
 
@@ -214,7 +214,11 @@ namespace Housing.Data.Domain
         {
             var mapper = HousingDataMapper.CreateMapper();
             HousingDataDao dataDao = mapper.Map<HousingDataDao>(data);
-            dataDao.HousingUnitName = db.HousingUnits.Where(m => m.HousingUnitId == data.HousingUnitId).FirstOrDefault().HousingUnitName;
+
+            if (data.HousingUnitId!=null)
+            {
+                dataDao.HousingUnitName = db.HousingUnits.Where(m => m.HousingUnitId == data.HousingUnitId).FirstOrDefault().HousingUnitName; 
+            }
             return dataDao;
         }
 
@@ -238,7 +242,7 @@ namespace Housing.Data.Domain
             {
                 fromDB = db.HousingDatas.Where(m => m.HousingDataAltId.Equals(dataDao.HousingDataAltId)).FirstOrDefault();
                 logger.Info("map housingdatadao id");
-                logger.Log(LogLevel.Info, "fromDB{0}", fromDB.HousingDataAltId.ToString());
+                logger.Log(LogLevel.Info, "fromDB{0}", fromDB?.HousingDataAltId?.ToString());
             }
             //if db object exist then use existing object and map properties sent from dao-ignore housingDataAltId
             if (fromDB != null)
@@ -250,7 +254,7 @@ namespace Housing.Data.Domain
                     {
                         hd.Associate = db.Associates.Where(m => m.Email.Equals(dataDao.AssociateEmail)).FirstOrDefault();
                         logger.Info("map housingdatadao associate email");
-                        logger.Log(LogLevel.Info, "hd{0}", hd.Associate.Email.ToString());
+                        logger.Log(LogLevel.Info, "hd{0}", hd?.Associate?.Email?.ToString());
                     }
                     if (hd!=null && hd.Associate!=null && hd.Associate.AssociateId>0)
                     {
@@ -260,25 +264,25 @@ namespace Housing.Data.Domain
                     {
                         hd.HousingUnit = db.HousingUnits.Where(m => m.HousingUnitName.Equals(dataDao.HousingUnitName)).FirstOrDefault();
                         logger.Info("map housingdatadao housing unit name");
-                        logger.Log(LogLevel.Info, "hd{0}", hd.HousingUnit.HousingUnitName.ToString());
+                        logger.Log(LogLevel.Info, "hd{0}", hd?.HousingUnit?.HousingUnitName?.ToString());
                     }
                     if (hd!=null && hd.HousingUnit!=null && hd.HousingUnit.HousingUnitId>0)
                     {
                         hd.HousingUnitId = hd.HousingUnit.HousingUnitId;
                         logger.Info("map housingdatadao unit id");
-                        logger.Log(LogLevel.Info, "hd{0}", hd.HousingUnit.HousingUnitId.ToString());
+                        logger.Log(LogLevel.Info, "hd{0}", hd?.HousingUnit?.HousingUnitId.ToString());
                     }
                     if (!(dataDao.MoveInDate==DateTime.MinValue))
                     {
                         hd.MoveInDate = dataDao.MoveInDate;
                         logger.Info("map housingdatadao associate move in date");
-                        logger.Log(LogLevel.Info, "hd{0}", hd.MoveInDate.ToString());
+                        logger.Log(LogLevel.Info, "hd{0}", hd?.MoveInDate.ToString());
                     }
                     if (!(dataDao.MoveOutDate==DateTime.MinValue))
                     {
                         hd.MoveOutDate = dataDao.MoveOutDate;
                         logger.Info("map housingdatadao associate move out date");
-                        logger.Log(LogLevel.Info, "hd{0}", hd.MoveOutDate.ToString());
+                        logger.Log(LogLevel.Info, "hd{0}", hd?.MoveOutDate.ToString());
                     }
                 }
                 
@@ -290,11 +294,11 @@ namespace Housing.Data.Domain
                 hd.Active = true;
                 hd.Associate = db.Associates.Where(m => m.Email.Equals(dataDao.AssociateEmail)).FirstOrDefault();
                 logger.Info("map housingdatadao associate email");
-                logger.Log(LogLevel.Info, "hd{0}", hd.Associate.Email.ToString());
+                logger.Log(LogLevel.Info, "hd{0}", hd?.Associate?.Email?.ToString());
                 hd.AssociateId = hd.Associate.AssociateId;
                 hd.HousingUnit = db.HousingUnits.Where(m => m.HousingUnitName.Equals(dataDao.HousingUnitName)).FirstOrDefault();
                 logger.Info("map housingdatadao housing unit name");
-                logger.Log(LogLevel.Info, "hd{0}", hd.HousingUnit.HousingUnitName.ToString());
+                logger.Log(LogLevel.Info, "hd{0}", hd?.HousingUnit?.HousingUnitName?.ToString());
                 hd.HousingUnitId = hd.HousingUnit.HousingUnitId;
                 hd.HousingDataAltId = CRUD.AccessHelper.GetRandomHexNumber();  //gets random hex number of length 8
                 while (db.HousingDatas.Where(m => m.HousingDataAltId.Equals(hd.HousingDataAltId)).Count() > 0)
@@ -318,10 +322,10 @@ namespace Housing.Data.Domain
             AssociateDao assocDao = mapper.Map<AssociateDao>(assoc);
             assocDao.BatchName = assoc.Batch.Name;
             logger.Info("map associatedao batch name");
-            logger.Log(LogLevel.Info, "assocDao{0}", assocDao.BatchName.ToString());
+            logger.Log(LogLevel.Info, "assocDao{0}", assocDao?.BatchName?.ToString());
             assocDao.GenderName = assoc.Gender.Name;
             logger.Info("map associatedao housing unit name");
-            logger.Log(LogLevel.Info, "assocDao{0}", assocDao.GenderName.ToString());
+            logger.Log(LogLevel.Info, "assocDao{0}", assocDao?.GenderName?.ToString());
             return assocDao;
         }
 
@@ -345,7 +349,7 @@ namespace Housing.Data.Domain
             {
                 fromDB = db.Associates.Where(m => m.Email.Equals(assocDao.Email)).FirstOrDefault();
                 logger.Info("map associate email");
-                logger.Log(LogLevel.Info, "fromDB{0}", fromDB.Email.ToString());
+                logger.Log(LogLevel.Info, "fromDB{0}", fromDB?.Email?.ToString());
             }
             //if db object exist then use existing object and map properties sent from dao-ignore email
             if (fromDB != null)
@@ -357,7 +361,7 @@ namespace Housing.Data.Domain
                     {
                         assoc.Batch = db.Batches.Where(m => m.Name.Equals(assocDao.BatchName)).FirstOrDefault();
                         logger.Info("map associate batch");
-                        logger.Log(LogLevel.Info, "assoc{0}", assoc.Batch.Name.ToString());
+                        logger.Log(LogLevel.Info, "assoc{0}", assoc?.Batch?.Name?.ToString());
                     }
                     if (assoc.Batch != null && assoc.Batch.BatchId > 0)
                     {
@@ -367,7 +371,7 @@ namespace Housing.Data.Domain
                     {
                         assoc.Gender = db.Genders.Where(m => m.Name.Equals(assocDao.GenderName)).FirstOrDefault();
                         logger.Info("map associate gender");
-                        logger.Log(LogLevel.Info, "assoc{0}", assoc.Gender.ToString());
+                        logger.Log(LogLevel.Info, "assoc{0}", assoc?.Gender?.ToString());
                     }
                     if (assoc.Gender != null && assoc.Gender.GenderId > 0)
                     {
@@ -377,32 +381,32 @@ namespace Housing.Data.Domain
                     {
                         assoc.DateOfBirth = assocDao.DateOfBirth;
                         logger.Info("map associate dob");
-                        logger.Log(LogLevel.Info, "assoc{0}", assoc.DateOfBirth.ToString());
+                        logger.Log(LogLevel.Info, "assoc{0}", assoc?.DateOfBirth.ToString());
                     }
                     if (!string.IsNullOrWhiteSpace(assocDao.FirstName))
                     {
                         assoc.FirstName = assocDao.FirstName;
                         logger.Info("map associate first name");
-                        logger.Log(LogLevel.Info, "assoc{0}", assoc.FirstName.ToString());
+                        logger.Log(LogLevel.Info, "assoc{0}", assoc?.FirstName?.ToString());
                     }
                     assoc.HasCar = assocDao.HasCar;//no way to test if data is valid
                     logger.Info("map associate has car");
-                    logger.Log(LogLevel.Info, "assoc{0}", assoc.HasCar.ToString());
+                    logger.Log(LogLevel.Info, "assoc{0}", assoc?.HasCar.ToString());
                     assoc.HasKeys = assocDao.HasKeys;//no way to test if data is valid
                     logger.Info("map associate has keys");
-                    logger.Log(LogLevel.Info, "assoc{0}", assoc.HasKeys.ToString());
+                    logger.Log(LogLevel.Info, "assoc{0}", assoc?.HasKeys.ToString());
                     if (!string.IsNullOrEmpty(assocDao.LastName))
                     {
                         assoc.LastName = assocDao.LastName;
 
                         logger.Info("map associate last name");
-                        logger.Log(LogLevel.Info, "assoc{0}", assoc.LastName.ToString());
+                        logger.Log(LogLevel.Info, "assoc{0}", assoc?.LastName?.ToString());
                     }
                     if (!string.IsNullOrEmpty(assocDao.PhoneNumber))
                     {
                         assoc.PhoneNumber = assocDao.PhoneNumber;
                         logger.Info("map associate phone number");
-                        logger.Log(LogLevel.Info, "assoc{0}", assoc.PhoneNumber.ToString());
+                        logger.Log(LogLevel.Info, "assoc{0}", assoc?.PhoneNumber?.ToString());
                     }
                     assoc.NeedsHousing = assocDao.NeedsHousing;
                 }               
@@ -413,11 +417,11 @@ namespace Housing.Data.Domain
                 assoc.Active = true;
                 assoc.Batch = db.Batches.Where(m => m.Name.Equals(assocDao.BatchName)).FirstOrDefault();
                 logger.Info("map associate batch");
-                logger.Log(LogLevel.Info, "assoc{0}", assoc.Batch.Name.ToString());
+                logger.Log(LogLevel.Info, "assoc{0}", assoc?.Batch?.Name?.ToString());
                 assoc.BatchId = assoc.Batch.BatchId;
                 assoc.Gender = db.Genders.Where(m => m.Name.Equals(assocDao.GenderName)).FirstOrDefault();
                 logger.Info("map associate gender");
-                logger.Log(LogLevel.Info, "assoc{0}", assoc.Gender.Name.ToString());
+                logger.Log(LogLevel.Info, "assoc{0}", assoc?.Gender?.Name?.ToString());
                 assoc.GenderId = assoc.Gender.GenderId;
 
             }
@@ -434,7 +438,7 @@ namespace Housing.Data.Domain
             var mapper = BatchMapper.CreateMapper();
             BatchDao batchDao = mapper.Map<BatchDao>(batch);
             logger.Info("map batchdao name");
-            logger.Log(LogLevel.Info, "batchDao{0}", batchDao.Name.ToString());
+            logger.Log(LogLevel.Info, "batchDao{0}", batchDao?.Name?.ToString());
             return batchDao;
         }
 
@@ -458,7 +462,7 @@ namespace Housing.Data.Domain
             {
                 fromDB = db.Batches.Where(m => m.Name.Equals(batchDao.Name)).FirstOrDefault();
                 logger.Info("map batch name");
-                logger.Log(LogLevel.Info, "fromDB{0}", fromDB.Name.ToString());
+                logger.Log(LogLevel.Info, "fromDB{0}", fromDB?.Name?.ToString());
             }
             //if db object exist then use existing object and map properties sent from dao-ignore name
             if (fromDB != null)
@@ -469,25 +473,25 @@ namespace Housing.Data.Domain
                 {
                     batch.EndDate = batchDao.EndDate;
                     logger.Info("map batch end date");
-                    logger.Log(LogLevel.Info, "batch{0}", batch.EndDate.ToString());
+                    logger.Log(LogLevel.Info, "batch{0}", batch?.EndDate.ToString());
                 }
                 if (!string.IsNullOrWhiteSpace(batchDao.Instructor))
                 {
                     batch.Instructor = batchDao.Instructor;
                     logger.Info("map batch instructor");
-                    logger.Log(LogLevel.Info, "batch{0}", batch.Instructor.ToString());
+                    logger.Log(LogLevel.Info, "batch{0}", batch?.Instructor?.ToString());
                 }
                 if (!(batch.StartDate==DateTime.MinValue))
                 {
                     batch.StartDate = batchDao.StartDate;
                     logger.Info("map batch start date");
-                    logger.Log(LogLevel.Info, "batch{0}", batch.StartDate.ToString());
+                    logger.Log(LogLevel.Info, "batch{0}", batch?.StartDate.ToString());
                 }
                 if (!string.IsNullOrWhiteSpace(batchDao.Technology))
                 {
                     batch.Technology = batchDao.Technology;
                     logger.Info("map batch technology");
-                    logger.Log(LogLevel.Info, "batch{0}", batch.Technology.ToString());
+                    logger.Log(LogLevel.Info, "batch{0}", batch?.Technology?.ToString());
                 }
             }
             //if db object does not exist use automapper version of object and set active to true            
@@ -530,7 +534,7 @@ namespace Housing.Data.Domain
             {
                 fromDB = db.Genders.Where(m => m.Name.Equals(genDao.Name)).FirstOrDefault();
                 logger.Info("map gender name");
-                logger.Log(LogLevel.Info, "fromDB{0}", fromDB.Name.ToString());
+                logger.Log(LogLevel.Info, "fromDB{0}", fromDB?.Name?.ToString());
             }
             //if db object exist then use existing object and map properties sent from dao
             if (fromDB != null)
@@ -540,7 +544,7 @@ namespace Housing.Data.Domain
                 {
                     gen.Name = genDao.Name;
                     logger.Info("map gender name");
-                    logger.Log(LogLevel.Info, "gen{0}", gen.Name.ToString());
+                    logger.Log(LogLevel.Info, "gen{0}", gen?.Name?.ToString());
                 }
                                 
             }
