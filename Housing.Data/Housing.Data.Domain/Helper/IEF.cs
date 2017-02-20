@@ -17,6 +17,11 @@ namespace Housing.Data.Domain.Helper
         List<HousingData> GetHousingData();
         //List<HousingUnit> GetUnitsByComplex(string complexName);
         //List<HousingData> GetDataByUnit(string housingUnitName);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
         bool DeleteGender(GenderDao g);
         bool DeleteBatch(BatchDao b);
         bool DeleteAssociate(AssociateDao assoc);

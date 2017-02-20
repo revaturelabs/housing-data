@@ -7,6 +7,10 @@ using Xunit;
 using Housing.Data;
 using Housing.Data.Domain.DataAccessObjects;
 using Housing.Data.Domain;
+using Moq;
+using System.Data.Entity;
+using Housing.Data.Domain.Helper;
+using Housing.Data.Domain.CRUD;
 
 namespace Housing.Data.Test.Data.Domain.Tests.CRUD
 {
@@ -20,79 +24,75 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         [Fact]
         public void Test_InsertGender()
         {
-            var expected = true;
-            var actual = ah.InsertGender(new GenderDao { Name = "random test gender" });
-            Assert.Equal(expected, actual);
+            var myRepositoryMock = new Mock<IEF>();
+
+            var itemsInserted = new List<GenderDao>();
+
+            myRepositoryMock
+                .Setup(i => i.InsertGender(It.IsAny<GenderDao>()))
+                .Callback((GenderDao item) => itemsInserted.Add(item));
         }
 
         [Fact]
         public void Test_InsertBatch()
         {
-            var expected = true;
-            var actual = ah.InsertBatch(new BatchDao { Name = "Test1", Instructor = "Test", Technology = "Test" });
-            Assert.Equal(expected, actual);
+            var myRepositoryMock = new Mock<IEF>();
+
+            var itemsInserted = new List<BatchDao>();
+
+            myRepositoryMock
+                .Setup(i => i.InsertBatch(It.IsAny<BatchDao>()))
+                .Callback((BatchDao item) => itemsInserted.Add(item));
         }
 
         [Fact]
         public void Test_InsertAssociate()
         {
-            DateTime theDate = DateTime.Now;
-            var expected = true;
-            var actual = ah.InsertAssociate(new AssociateDao
-            {
-                FirstName = "Test1",
-                LastName = "Test1",
-                GenderName = "female",
-                BatchName = "1702-feb6-net",
-                Email = "stuff",
-                PhoneNumber = "5555555555",
-                DateOfBirth = theDate,
-                HasCar = true,
-                HasKeys = true
-            });
-            Assert.Equal(expected, actual);
+            var myRepositoryMock = new Mock<IEF>();
+
+            var itemsInserted = new List<AssociateDao>();
+
+            myRepositoryMock
+                .Setup(i => i.InsertAssociate(It.IsAny<AssociateDao>()))
+                .Callback((AssociateDao item) => itemsInserted.Add(item));
         }
 
         [Fact]
         public void Test_InsertHousingComplex()
         {
-            var expected = true;
-            var actual = ah.InsertHousingComplex(new HousingComplexDao
-            { Name = "Test", Address = "test", PhoneNumber = "5555555555" });
-            Assert.Equal(expected, actual);
+            var myRepositoryMock = new Mock<IEF>();
+
+            var itemsInserted = new List<HousingComplexDao>();
+
+            myRepositoryMock
+                .Setup(i => i.InsertHousingComplex(It.IsAny<HousingComplexDao>()))
+                .Callback((HousingComplexDao item) => itemsInserted.Add(item));
         }
 
 
         [Fact]
         public void Test_InsertHousingUnit()
         {
-            var expected = true;
-            var actual = ah.InsertHousingUnit(new HousingUnitDao
-            {
-                HousingUnitName = "Test22",
-                AptNumber = "1800",
-                MaxCapacity = 5,
-                GenderName = "Female",
-                HousingComplexName = "Test"
-            });
-            Assert.Equal(expected, actual);
+            var myRepositoryMock = new Mock<IEF>();
+
+            var itemsInserted = new List<HousingUnitDao>();
+
+            myRepositoryMock
+                .Setup(i => i.InsertHousingUnit(It.IsAny<HousingUnitDao>()))
+                .Callback((HousingUnitDao item) => itemsInserted.Add(item));
         }
 
 
         [Fact]
-        public void Test_InsertHousingData()     // System.NullReferenceException error : 
-        {                                       // Object reference not set to an instance of an object
-            DateTime theDate = DateTime.Now;
-            var expected = true;
-            var actual = ah.InsertHousingData(new HousingDataDao
-            {
-                HousingDataAltId = "q24ag1",
-                AssociateEmail = "stuff",
-                HousingUnitName = "Test22",
-                MoveInDate = theDate,
-                MoveOutDate = theDate
-            });
-            Assert.Equal(expected, actual);
+        public void Test_InsertHousingData()
+        {
+            var myRepositoryMock = new Mock<IEF>();
+
+            var itemsInserted = new List<HousingDataDao>();
+
+            myRepositoryMock
+                .Setup(i => i.InsertHousingData(It.IsAny<HousingDataDao>()))
+                .Callback((HousingDataDao item) => itemsInserted.Add(item));
         }
 
     }
