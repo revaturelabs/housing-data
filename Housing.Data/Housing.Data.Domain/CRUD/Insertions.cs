@@ -49,21 +49,19 @@ namespace Housing.Data.Domain.CRUD
                     logger.Debug("testing insert of gender in Data Access");
                     logger.Log(LogLevel.Debug, "update log from gender insert itm{0}", itm.Name);
                     //insert into db
-                    return ef.InsertGender(itm);
-
-                   
+                    return ef.InsertGender(itm);                   
                 }
                 else
                 {
                     logger.Error("Error occured in insert gender crud");
-                    logger.Log(LogLevel.Error, "Insertion of gender failed, gender{0} ", gender.Name);
+                    logger.Log(LogLevel.Error, "Insertion of gender failed, object was null");
                     return false;
                 }
             }
             catch (Exception e)
             {
                 logger.Error(e, "Error occured in Insert gender crud");
-                logger.Log(LogLevel.Error, "Inserting of gender failed, a{0} ");
+                logger.Log(LogLevel.Error, "Inserting of gender failed, exception occurred");
                 throw;
             }
         }
@@ -86,21 +84,19 @@ namespace Housing.Data.Domain.CRUD
                     logger.Debug("testing insert of batch in Data Access");
                     logger.Log(LogLevel.Debug, "update log from batch insert batch{0}", batch.Name);
                     //insert into db
-                    return ef.InsertBatch(itm);
-
-                 
+                    return ef.InsertBatch(itm);                 
                 }
                 else
                 {
                     logger.Error("Error occured in insert batch crud");
-                    logger.Log(LogLevel.Error, "Insertion of batch failed, batch{0} ", batch.Name);
+                    logger.Log(LogLevel.Error, "Insertion of batch failed, object was null");
                     return false;
                 }
             }
             catch (Exception e)
             {
                 logger.Error(e, "Error occured in Insert batch crud");
-                logger.Log(LogLevel.Error, "Insert of batch failed, batch{0} ");
+                logger.Log(LogLevel.Error, "Insert of batch failed, exception occurred");
                 throw;
             }
         }
@@ -123,22 +119,19 @@ namespace Housing.Data.Domain.CRUD
                     logger.Debug("testing insert of associate in Data Access");
                     logger.Log(LogLevel.Debug, "update log from associate insert itm{0}", itm.Email);
                     //insert into db
-                    return ef.InsertAssociate(itm);
-
-
-                    
+                    return ef.InsertAssociate(itm);                    
                 }
                 else
                 {
                     logger.Error("Error occured in insert associate crud");
-                    logger.Log(LogLevel.Error, "Insert of associate failed, assoc{0} ", assoc.Email);
+                    logger.Log(LogLevel.Error, "Insert of associate failed, object was null");
                     return false;
                 }
             }
             catch (Exception e)
             {
                 logger.Error(e, "Error occured in Insert associate crud");
-                logger.Log(LogLevel.Error, "Insert of associate failed, assoc{0} ");
+                logger.Log(LogLevel.Error, "Insert of associate failed, exception occurred");
                 throw;
             }
         }
@@ -162,21 +155,18 @@ namespace Housing.Data.Domain.CRUD
                     logger.Log(LogLevel.Debug, "update log from housing complex insert itm{0}", itm.Name);
                     //insert into db
                     return ef.InsertHousingComplex(itm);
-
-
-                    
                 }
                 else
                 {
                     logger.Error("Error occured in insert housing complex crud");
-                    logger.Log(LogLevel.Error, "Insert of complex failed, hc{0} ", hc.Name);
+                    logger.Log(LogLevel.Error, "Insert of complex failed, object was null");
                     return false;
                 }
             }
             catch (Exception e)
             {
                 logger.Error(e, "Error occured in insert housing complex crud");
-                logger.Log(LogLevel.Error, "Insert of housing complex failed, hc{0} ");
+                logger.Log(LogLevel.Error, "Insert of housing complex failed, exception occurred");
                 throw;
             }
         }
@@ -200,21 +190,18 @@ namespace Housing.Data.Domain.CRUD
                     logger.Log(LogLevel.Debug, "update log from housing unit insert itm{0}", itm.HousingUnitName);
                     //insert into db
                     return ef.InsertHousingUnit(itm);
-
-
-                  
                 }
                 else
                 {
                     logger.Error("Error occured in insert housing unit crud");
-                    logger.Log(LogLevel.Error, "Insert of housing unit failed, hu{0} ", hu.HousingUnitName);
+                    logger.Log(LogLevel.Error, "Insert of housing unit failed, object was null");
                     return false;
                 }
             }
             catch (Exception e)
             {
                 logger.Error(e, "Error occured in insert housing unit crud");
-                logger.Log(LogLevel.Error, "Insert of housing unit failed, hu{0} ");
+                logger.Log(LogLevel.Error, "Insert of housing unit failed, exception occurred");
                 throw;
             }
         }
@@ -251,32 +238,27 @@ namespace Housing.Data.Domain.CRUD
                         logger.Log(LogLevel.Debug, "update log from housing data by unit insert");
                         //insert into db
                         return ef.InsertHousingData(itm);
-
-
-                       
                     }
                     //return false if else
                     else
                         logger.Error("Error occured in insert housing data crud");
-                    logger.Log(LogLevel.Error, "Insert of housing data failed, hd{0} ", hd.HousingUnitName);
+                    logger.Log(LogLevel.Error, "Insert of housing data failed, gender did not match", hd.HousingUnitName);
                     return false;
                 }
                 else
                 {
                     logger.Error("Error occured in insert housing data crud");
-                    logger.Log(LogLevel.Error, "Insertion of housing data failed, hd{0} ", hd.HousingUnitName);
+                    logger.Log(LogLevel.Error, "Insertion of housing data failed, object was null");
                     return false;
                 }
             }
             catch (Exception e)
             {
                 logger.Error(e, "Error occured in insert housing data crud");
-                logger.Log(LogLevel.Error, "Insert of housing data failed, hd{0} ");
+                logger.Log(LogLevel.Error, "Insert of housing data failed, exception occurred");
                 throw;
             }
-
         }
-
         #endregion
     }
 }
