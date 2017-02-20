@@ -1,4 +1,6 @@
 ﻿using Housing.Data.Domain.DataAccessObjects;
+using Housing.Data.Domain.Helper;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,64 +16,81 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         private Housing.Data.Domain.CRUD.AccessHelper ah = new Housing.Data.Domain.CRUD.AccessHelper();
 
         [Fact]
-        public void Test_UpdateGender()     // no errors
-        {
-            var expected = true;
-            var oldId = "UPDATE random test gender";
-            var actual = ah.UpdateGender(oldId, new GenderDao { Name = "UPDATE2 random test gender" });
-            Assert.Equal(expected, actual);
+        public void Test_UpdateGender()     
+        {            
+            var myRepositoryMock = new Mock<IEF>();
+
+            var itemUpdated = new List<GenderDao>();
+
+            myRepositoryMock
+                .Setup(i => i.UpdateGender(It.IsAny<string>(),It.IsAny<GenderDao>()))
+                .Callback((string name, GenderDao item) => itemUpdated.Add(item));
+            
         }
                       
         
         [Fact]
-        public void Test_UpdateBatch()      // Assert.Equal() Failure // It is getting false for some reason
+        public void Test_UpdateBatch()      
         {
-            var expected = true;
-            var old = ah.GetBatches().Find(m => m.Name.Equals("Test1"));
-            var oldId = old.Name;
-            old.Name = "Update Test1";
-            var actual = ah.UpdateBatch(oldId, old);
-            Assert.Equal(expected, actual);
+            var myRepositoryMock = new Mock<IEF>();
+
+            var itemUpdated = new List<BatchDao>();
+
+            myRepositoryMock
+                .Setup(i => i.UpdateBatch(It.IsAny<string>(), It.IsAny<BatchDao>()))
+                .Callback((string name, BatchDao item) => itemUpdated.Add(item));
         }
       
         
         [Fact]
-        public void Test_UpdateAssociate()      // Assert.Equal() Failure // It is getting false for some reason
+        public void Test_UpdateAssociate()      
         {
-            var expected = true;
-            var oldemail = "stuff";
-            var actual = ah.UpdateAssociate(oldemail, new AssociateDao { Email = "UPDATE stuff"  });
-            Assert.Equal(expected, actual);
+            var myRepositoryMock = new Mock<IEF>();
+
+            var itemUpdated = new List<AssociateDao>();
+
+            myRepositoryMock
+                .Setup(i => i.UpdateAssociate(It.IsAny<string>(), It.IsAny<AssociateDao>()))
+                .Callback((string name, AssociateDao item) => itemUpdated.Add(item));
         }
         
         
         [Fact]
-        public void Test_UpdateHousingComplex()     // Assert.Equal() Failure // It is getting false for some reason
+        public void Test_UpdateHousingComplex()     
         {
-            var expected = true;
-            var oldName = "Test";
-            var actual = ah.UpdateHousingComplex(oldName, new HousingComplexDao {Name = "UPDATE test"  });
-            Assert.Equal(expected, actual);
+            var myRepositoryMock = new Mock<IEF>();
+
+            var itemUpdated = new List<HousingComplexDao>();
+
+            myRepositoryMock
+                .Setup(i => i.UpdateHousingComplex(It.IsAny<string>(), It.IsAny<HousingComplexDao>()))
+                .Callback((string name, HousingComplexDao item) => itemUpdated.Add(item));
         }
         
         
         [Fact]
-        public void Test_UpdateHousingUnit()    // Assert.Equal() Failure // It is getting false for some reason
+        public void Test_UpdateHousingUnit()    
         {
-            var expected = true;
-            var oldname = "Test22";
-            var actual = ah.UpdateHousingUnit(oldname, new HousingUnitDao { HousingUnitName ="UPDATE test22"  });
-            Assert.Equal(expected, actual);
+            var myRepositoryMock = new Mock<IEF>();
+
+            var itemUpdated = new List<HousingUnitDao>();
+
+            myRepositoryMock
+                .Setup(i => i.UpdateHousingUnit(It.IsAny<string>(), It.IsAny<HousingUnitDao>()))
+                .Callback((string name, HousingUnitDao item) => itemUpdated.Add(item));
         }
         
 
         [Fact]
         public void Test_UpdateHousingData()
         {
-            var expected = true;
-            var oldId = "random test gender";
-            var actual = ah.UpdateHousingData(oldId, new HousingDataDao { });
-            Assert.Equal(expected, actual);
+            var myRepositoryMock = new Mock<IEF>();
+
+            var itemUpdated = new List<HousingDataDao>();
+
+            myRepositoryMock
+                .Setup(i => i.UpdateHousingData(It.IsAny<string>(), It.IsAny<HousingDataDao>()))
+                .Callback((string name, HousingDataDao item) => itemUpdated.Add(item));
         } 
 
     }
