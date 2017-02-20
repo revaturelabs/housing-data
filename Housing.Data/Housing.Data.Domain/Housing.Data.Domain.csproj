@@ -76,6 +76,8 @@
     <Compile Include="DataAccessObjects\HousingComplexDao.cs" />
     <Compile Include="DataAccessObjects\HousingDataDao.cs" />
     <Compile Include="DataAccessObjects\HousingUnitDao.cs" />
+    <Compile Include="Helper\EF.cs" />
+    <Compile Include="Helper\IEF.cs" />
     <Compile Include="Gender.cs">
       <DependentUpon>HousingDB_DevEntities.tt</DependentUpon>
     </Compile>

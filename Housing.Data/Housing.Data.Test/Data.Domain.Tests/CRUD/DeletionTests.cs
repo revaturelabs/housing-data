@@ -1,4 +1,6 @@
 ﻿using Housing.Data.Domain.DataAccessObjects;
+using Housing.Data.Domain.Helper;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,52 +23,80 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         [Fact]
         public void Test_DeleteGender()
         {
-            var expected = true;
-            var actual = ah.DeleteGender(new GenderDao { Name = "random test gender" });
-            Assert.Equal(expected, actual);
+            var mock = new Mock<IEF>();
+
+            var itemToDelete = new List<GenderDao>();
+
+            mock
+                .Setup(i => i.DeleteGender(It.IsAny<GenderDao>()))
+                .Callback((GenderDao item) => itemToDelete.Remove(item));
+            Assert.NotNull(itemToDelete);            
         }
 
         [Fact]
         public void Test_DeleteBatch()
         {
-            var expected = true;
-            var actual = ah.DeleteBatch(new BatchDao { Name = "Test1" });
-            Assert.Equal(expected, actual);
+            var mock = new Mock<IEF>();
+
+            var itemToDelete = new List<BatchDao>();
+
+            mock
+                .Setup(i => i.DeleteBatch(It.IsAny<BatchDao>()))
+                .Callback((BatchDao item) => itemToDelete.Remove(item));
+            Assert.NotNull(itemToDelete);
         }
 
         [Fact]
         public void Test_DeleteAssociate()      
         {
-            var expected = true;
-            var actual = ah.DeleteAssociate(new AssociateDao { Email = "stuff" });
-            Assert.Equal(expected, actual);
+            var mock = new Mock<IEF>();
+
+            var itemToDelete = new List<AssociateDao>();
+
+            mock
+                .Setup(i => i.DeleteAssociate(It.IsAny<AssociateDao>()))
+                .Callback((AssociateDao item) => itemToDelete.Remove(item));
+            Assert.NotNull(itemToDelete);
         }
 
 
         [Fact]
         public void Test_DeleteHousingComplex()
         {
-            var expected = true;
-            var actual = ah.DeleteHousingComplex(new HousingComplexDao { Name = "Test" });
-            Assert.Equal(expected, actual);
+            var mock = new Mock<IEF>();
+
+            var itemToDelete = new List<HousingComplexDao>();
+
+            mock
+                .Setup(i => i.DeleteHousingComplex(It.IsAny<HousingComplexDao>()))
+                .Callback((HousingComplexDao item) => itemToDelete.Remove(item));
+            Assert.NotNull(itemToDelete);
         }
 
         [Fact]
         public void Test_DeleteHousingUnit()
         {
-            var expected = true;
-            var actual = ah.DeleteHousingUnit(new HousingUnitDao { HousingUnitName = "Test", AptNumber = "1800",
-                MaxCapacity = 5, GenderName = "Female", HousingComplexName = "Test" });
-            Assert.Equal(expected, actual);
+            var mock = new Mock<IEF>();
+
+            var itemToDelete = new List<HousingUnitDao>();
+
+            mock
+                .Setup(i => i.DeleteHousingUnit(It.IsAny<HousingUnitDao>()))
+                .Callback((HousingUnitDao item) => itemToDelete.Remove(item));
+            Assert.NotNull(itemToDelete);
         }
 
         [Fact]
         public void Test_DeleteHousingData()
         {
-            var expected = true;
-            var actual = ah.DeleteHousingData(new HousingDataDao { HousingDataAltId = "q24tqgag",
-                AssociateEmail = "stuff", HousingUnitName = "Test" });
-            Assert.Equal(expected, actual);
+            var mock = new Mock<IEF>();
+
+            var itemToDelete = new List<HousingDataDao>();
+
+            mock
+                .Setup(i => i.DeleteHousingData(It.IsAny<HousingDataDao>()))
+                .Callback((HousingDataDao item) => itemToDelete.Remove(item));
+            Assert.NotNull(itemToDelete);
         }
     }
 }
