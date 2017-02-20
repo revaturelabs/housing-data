@@ -30,7 +30,8 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
             mock
                 .Setup(i => i.DeleteGender(It.IsAny<GenderDao>()))
                 .Callback((GenderDao item) => itemToDelete.Remove(item));
-            Assert.NotNull(itemToDelete);            
+            Assert.NotNull(itemToDelete);
+            mock.Verify(m => m.DeleteGender(It.IsAny<GenderDao>()), Times.Once);
         }
 
         [Fact]
@@ -44,6 +45,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
                 .Setup(i => i.DeleteBatch(It.IsAny<BatchDao>()))
                 .Callback((BatchDao item) => itemToDelete.Remove(item));
             Assert.NotNull(itemToDelete);
+            mock.Verify(m => m.DeleteBatch(It.IsAny<BatchDao>()), Times.Once);
         }
 
         [Fact]
@@ -57,6 +59,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
                 .Setup(i => i.DeleteAssociate(It.IsAny<AssociateDao>()))
                 .Callback((AssociateDao item) => itemToDelete.Remove(item));
             Assert.NotNull(itemToDelete);
+            mock.Verify(m => m.DeleteAssociate(It.IsAny<AssociateDao>()), Times.Once);
         }
 
 
@@ -71,6 +74,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
                 .Setup(i => i.DeleteHousingComplex(It.IsAny<HousingComplexDao>()))
                 .Callback((HousingComplexDao item) => itemToDelete.Remove(item));
             Assert.NotNull(itemToDelete);
+            mock.Verify(m => m.DeleteHousingComplex(It.IsAny<HousingComplexDao>()), Times.Once);
         }
 
         [Fact]
@@ -84,6 +88,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
                 .Setup(i => i.DeleteHousingUnit(It.IsAny<HousingUnitDao>()))
                 .Callback((HousingUnitDao item) => itemToDelete.Remove(item));
             Assert.NotNull(itemToDelete);
+            mock.Verify(m => m.DeleteHousingUnit(It.IsAny<HousingUnitDao>()), Times.Once);
         }
 
         [Fact]
@@ -97,6 +102,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
                 .Setup(i => i.DeleteHousingData(It.IsAny<HousingDataDao>()))
                 .Callback((HousingDataDao item) => itemToDelete.Remove(item));
             Assert.NotNull(itemToDelete);
+            mock.Verify(m => m.DeleteHousingData(It.IsAny<HousingDataDao>()), Times.Once);
         }
     }
 }

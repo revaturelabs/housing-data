@@ -26,6 +26,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
                 .Setup(i => i.UpdateGender(It.IsAny<string>(),It.IsAny<GenderDao>()))
                 .Callback((string name, GenderDao item) => itemUpdated.Add(item));
             Assert.NotNull(itemUpdated);
+            mock.Verify(m => m.UpdateGender(It.IsAny<string>(), It.IsAny<GenderDao>()), Times.Once);
         }
                       
         
@@ -40,6 +41,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
                 .Setup(i => i.UpdateBatch(It.IsAny<string>(), It.IsAny<BatchDao>()))
                 .Callback((string name, BatchDao item) => itemUpdated.Add(item));
             Assert.NotNull(itemUpdated);
+            mock.Verify(m => m.UpdateBatch(It.IsAny<string>(), It.IsAny<BatchDao>()), Times.Once);
         }
       
         
@@ -54,6 +56,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
                 .Setup(i => i.UpdateAssociate(It.IsAny<string>(), It.IsAny<AssociateDao>()))
                 .Callback((string name, AssociateDao item) => itemUpdated.Add(item));
             Assert.NotNull(itemUpdated);
+            mock.Verify(m => m.UpdateAssociate(It.IsAny<string>(), It.IsAny<AssociateDao>()), Times.Once);
         }
         
         
@@ -68,6 +71,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
                 .Setup(i => i.UpdateHousingComplex(It.IsAny<string>(), It.IsAny<HousingComplexDao>()))
                 .Callback((string name, HousingComplexDao item) => itemUpdated.Add(item));
             Assert.NotNull(itemUpdated);
+            mock.Verify(m => m.UpdateHousingComplex(It.IsAny<string>(), It.IsAny<HousingComplexDao>()), Times.Once);
         }
         
         
@@ -82,6 +86,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
                 .Setup(i => i.UpdateHousingUnit(It.IsAny<string>(), It.IsAny<HousingUnitDao>()))
                 .Callback((string name, HousingUnitDao item) => itemUpdated.Add(item));
             Assert.NotNull(itemUpdated);
+            mock.Verify(m => m.UpdateHousingUnit(It.IsAny<string>(), It.IsAny<HousingUnitDao>()), Times.Once);
         }
         
 
@@ -96,6 +101,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
                 .Setup(i => i.UpdateHousingData(It.IsAny<string>(), It.IsAny<HousingDataDao>()))
                 .Callback((string name, HousingDataDao item) => itemUpdated.Add(item));
             Assert.NotNull(itemUpdated);
+            mock.Verify(m => m.UpdateHousingData(It.IsAny<string>(), It.IsAny<HousingDataDao>()), Times.Once);
         } 
 
     }
