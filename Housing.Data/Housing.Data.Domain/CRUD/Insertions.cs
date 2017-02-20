@@ -12,15 +12,14 @@ namespace Housing.Data.Domain.CRUD
     public partial class AccessHelper
     {
 
-        private  readonly HousingDB_DevEntities db;
+        private readonly HousingDB_DevEntities db;
         public static AccessMapper mapper;
         private IEF ef;
         /// <summary>
         /// ctor for AccessHelper creates reference for db and mapper
         /// </summary>
         public AccessHelper()
-        {
-            db = new HousingDB_DevEntities();
+        {            
             EF ef = new EF();
             mapper = new AccessMapper(db);
         }
@@ -50,9 +49,9 @@ namespace Housing.Data.Domain.CRUD
                     logger.Debug("testing insert of gender in Data Access");
                     logger.Log(LogLevel.Debug, "update log from gender insert itm{0}", itm.Name);
                     //insert into db
-                    db.Genders.Add(itm);
-                    //return success or failure
-                    return db.SaveChanges() > 0;
+                    return ef.InsertGender(itm);
+
+                   
                 }
                 else
                 {
@@ -87,9 +86,9 @@ namespace Housing.Data.Domain.CRUD
                     logger.Debug("testing insert of batch in Data Access");
                     logger.Log(LogLevel.Debug, "update log from batch insert batch{0}", batch.Name);
                     //insert into db
-                    db.Batches.Add(itm);
-                    //return success or failure
-                    return db.SaveChanges() > 0;
+                    return ef.InsertBatch(itm);
+
+                 
                 }
                 else
                 {
@@ -124,9 +123,10 @@ namespace Housing.Data.Domain.CRUD
                     logger.Debug("testing insert of associate in Data Access");
                     logger.Log(LogLevel.Debug, "update log from associate insert itm{0}", itm.Email);
                     //insert into db
-                    db.Associates.Add(itm);
-                    //return success or failure
-                    return db.SaveChanges() > 0;
+                    return ef.InsertAssociate(itm);
+
+
+                    
                 }
                 else
                 {
@@ -161,9 +161,10 @@ namespace Housing.Data.Domain.CRUD
                     logger.Debug("testing insert of housing complex in Data Access");
                     logger.Log(LogLevel.Debug, "update log from housing complex insert itm{0}", itm.Name);
                     //insert into db
-                    db.HousingComplexes.Add(itm);
-                    //return success or failure
-                    return db.SaveChanges() > 0;
+                    return ef.InsertHousingComplex(itm);
+
+
+                    
                 }
                 else
                 {
@@ -198,9 +199,10 @@ namespace Housing.Data.Domain.CRUD
                     logger.Debug("testing insert of housing unit in Data Access");
                     logger.Log(LogLevel.Debug, "update log from housing unit insert itm{0}", itm.HousingUnitName);
                     //insert into db
-                    db.HousingUnits.Add(itm);
-                    //return success or failure
-                    return db.SaveChanges() > 0;
+                    return ef.InsertHousingUnit(itm);
+
+
+                  
                 }
                 else
                 {
@@ -233,24 +235,25 @@ namespace Housing.Data.Domain.CRUD
                     //set Active bit to true 
                     itm.Active = true;
                     //get associate object from db
-                    var assoc = db.Associates.ToList().Where(m => m.Email.Equals(itm.Associate.Email)).FirstOrDefault();
+                    var assoc = ef.GetAssociates().FirstOrDefault(m => m.Email.Equals(itm.Associate.Email));
                     //get housingUnit object from db
-                    var activeAssocHouse = db.HousingUnits.Where(m => m.Active == true).ToList();
+                    var activeAssocHouse = ef.GetHousingUnits().Where(m => m.Active == true).ToList();
                     var assocHouse = activeAssocHouse.Where(m => m.HousingComplex.Name.Equals(itm.HousingUnit.HousingComplex.Name)).FirstOrDefault();
                     //check gender match between Associate, Unit
                     var genderMatch = assoc.Gender.Equals(assocHouse.Gender);
                     //check that Unit occupancy is not exceeded
                     //get number of assoc assigned to unit
-                    var dataReturnedByStoredProcedure = db.HousingData_By_Unit(assocHouse.HousingUnitId).Where(m => m.Active == true);
+                    var dataReturnedByStoredProcedure = ef.GetDataByUnit(assocHouse.HousingUnitId).Where(m => m.Active == true);
                     //continue insert if gender and capacity are OK
                     if (genderMatch && (dataReturnedByStoredProcedure.Count() < assocHouse.MaxCapacity))
                     {
                         logger.Debug("testing insert housing data by unit list in Data Access, itm{0} ", itm.HousingUnit.HousingUnitName);
                         logger.Log(LogLevel.Debug, "update log from housing data by unit insert");
                         //insert into db
-                        db.HousingDatas.Add(itm);
-                        //return success or failure
-                        return db.SaveChanges() > 0;
+                        return ef.InsertHousingData(itm);
+
+
+                       
                     }
                     //return false if else
                     else
