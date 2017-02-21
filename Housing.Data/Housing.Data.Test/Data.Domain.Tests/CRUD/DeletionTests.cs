@@ -18,12 +18,14 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         [Fact]
         public void Test_DeleteGender()
         {
+            AccessHelper a = new AccessHelper();
+            var x = a.GetGenders().Where(i => i.Name == gender.Name).FirstOrDefault();
             var mock = new Mock<IEF>();
 
-            mock
-                .Setup(i => i.DeleteGender(It.IsAny<Gender>())).Returns(true);
+            mock.Setup(i => i.DeleteGender(It.IsAny<Gender>())).Returns(true);
             AccessHelper ah = new AccessHelper(mock.Object);
-            var g = ah.DeleteGender(gender);
+            
+            var g = ah.DeleteGender(x);
             Assert.True(g);
             mock.Verify(m => m.DeleteGender(It.IsAny<Gender>()), Times.Once());
         }
@@ -33,8 +35,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         {
             var mock = new Mock<IEF>();
 
-            mock
-                .Setup(i => i.DeleteBatch(It.IsAny<Batch>())).Returns(true);
+            mock.Setup(i => i.DeleteBatch(It.IsAny<Batch>())).Returns(true);
             AccessHelper ah = new AccessHelper(mock.Object);
             var b = ah.DeleteBatch(batch);
             Assert.True(b);
@@ -46,8 +47,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         {
             var mock = new Mock<IEF>();
 
-            mock
-                .Setup(i => i.DeleteAssociate(It.IsAny<Associate>())).Returns(true);
+            mock.Setup(i => i.DeleteAssociate(It.IsAny<Associate>())).Returns(true);
             AccessHelper ah = new AccessHelper(mock.Object);
             var a = ah.DeleteAssociate(associate);
             Assert.True(a);
@@ -60,8 +60,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         {
             var mock = new Mock<IEF>();
 
-            mock
-                .Setup(i => i.DeleteHousingComplex(It.IsAny<HousingComplex>())).Returns(true);
+            mock.Setup(i => i.DeleteHousingComplex(It.IsAny<HousingComplex>())).Returns(true);
             AccessHelper ah = new AccessHelper(mock.Object);
             var h = ah.DeleteHousingComplex(hc);
             Assert.True(h);
@@ -73,8 +72,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         {
             var mock = new Mock<IEF>();
 
-            mock
-                .Setup(i => i.DeleteHousingUnit(It.IsAny<HousingUnit>())).Returns(true);
+            mock.Setup(i => i.DeleteHousingUnit(It.IsAny<HousingUnit>())).Returns(true);
             AccessHelper ah = new AccessHelper(mock.Object);
             var u = ah.DeleteHousingUnit(hu);
             Assert.True(u);
@@ -86,8 +84,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         {
             var mock = new Mock<IEF>();
 
-            mock
-                .Setup(i => i.DeleteHousingData(It.IsAny<HousingData>())).Returns(true);
+            mock.Setup(i => i.DeleteHousingData(It.IsAny<HousingData>())).Returns(true);
             AccessHelper ah = new AccessHelper(mock.Object);
             var d = ah.DeleteHousingData(hd);
             Assert.True(d);

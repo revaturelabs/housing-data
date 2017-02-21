@@ -20,7 +20,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
 
         public GenderDao gender = new GenderDao()
         {
-            Name = "Male"
+            Name = "male"
         };
 
         public BatchDao batch = new BatchDao()
@@ -34,8 +34,8 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
 
         public AssociateDao associate = new AssociateDao()
         {
-            FirstName = "First",
-            LastName = "Last",
+            FirstName = "Joe",
+            LastName = "Blow",
             GenderName = "Male",
             BatchName = "Dot net",
             PhoneNumber = "7321231233",
@@ -78,8 +78,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         {
             var mock = new Mock<IEF>();
 
-            mock
-                .Setup(i => i.InsertGender(It.IsAny<Gender>())).Returns(true);
+            mock.Setup(i => i.InsertGender(It.IsAny<Gender>())).Returns(true);
             AccessHelper ah = new AccessHelper(mock.Object);
             var g = ah.InsertGender(gender);
             Assert.True(g);
@@ -91,8 +90,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         {
             var mock = new Mock<IEF>();
 
-            mock
-                 .Setup(i => i.InsertBatch(It.IsAny<Batch>())).Returns(true);
+            mock.Setup(i => i.InsertBatch(It.IsAny<Batch>())).Returns(true);
             AccessHelper ah = new AccessHelper(mock.Object);
             var b = ah.InsertBatch(batch);
             Assert.True(b);
@@ -105,9 +103,10 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
 
             var mock = new Mock<IEF>();
 
-            mock
-                .Setup(i => i.InsertAssociate(It.IsAny<Associate>())).Returns(true);
+            mock.Setup(i => i.InsertAssociate(It.IsAny<Associate>())).Returns(true);
+
             AccessHelper ah = new AccessHelper(mock.Object);
+         
             var a = ah.InsertAssociate(associate);
             Assert.True(a);
             mock.Verify(m => m.InsertAssociate(It.IsAny<Associate>()), Times.Once());
@@ -118,8 +117,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         {
             var mock = new Mock<IEF>();
 
-            mock
-                .Setup(i => i.InsertHousingComplex(It.IsAny<HousingComplex>())).Returns(true);
+            mock.Setup(i => i.InsertHousingComplex(It.IsAny<HousingComplex>())).Returns(true);
             AccessHelper ah = new AccessHelper(mock.Object);
             var h = ah.InsertHousingComplex(hc);
             Assert.True(h);
@@ -131,8 +129,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         {
             var mock = new Mock<IEF>();
             
-            mock
-                .Setup(i => i.InsertHousingUnit(It.IsAny<HousingUnit>())).Returns(true);
+            mock.Setup(i => i.InsertHousingUnit(It.IsAny<HousingUnit>())).Returns(true);
             AccessHelper ah = new AccessHelper(mock.Object);
             var h = ah.InsertHousingUnit(hu);
             Assert.True(h);
@@ -144,8 +141,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         {
             var mock = new Mock<IEF>();
             
-            mock
-                .Setup(i => i.InsertHousingData(It.IsAny<HousingData>())).Returns(true);
+            mock.Setup(i => i.InsertHousingData(It.IsAny<HousingData>())).Returns(true);
             AccessHelper ah = new AccessHelper(mock.Object);
             var h = ah.InsertHousingData(hd);
             Assert.True(h);
