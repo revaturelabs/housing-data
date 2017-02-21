@@ -9,8 +9,15 @@ using System.Web.Http;
 
 namespace Housing.Data.Client.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class HomeController : ApiController
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         // GET: api/Home
         public List<string> Get()
         {
@@ -25,23 +32,37 @@ namespace Housing.Data.Client.Controllers
             index.Add("api/HousingData for all active HousingData entries");
             return index;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: api/Home/5
         public string Get(int id)
         {
             return "value";
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
         // POST: api/Home
         public void Post([FromBody]string value)
         {
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
         // PUT: api/Home/5
         public void Put(int id, [FromBody]string value)
         {
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
         // DELETE: api/Home/5
         public void Delete(int id)
         {

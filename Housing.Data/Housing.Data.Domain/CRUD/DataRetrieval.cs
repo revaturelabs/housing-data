@@ -26,15 +26,18 @@ namespace Housing.Data.Domain.CRUD
         {
             try
             {
-                var genders = ef.GetGenders().ToList();
+                var genders = ef.GetGenders();
                 var result = new List<GenderDao>();
                 foreach (var item in genders)
                 {
-                    if (item.Active)
+                    if (item != null)
                     {
-                        logger.Debug("testing get gender list in Data Access, item{0} ", item.Name);
-                        logger.Log(LogLevel.Debug, "update log from genders get");
-                        result.Add(mapper.MapToDao(item));
+                        if (item.Active)
+                        {
+                            logger.Debug("testing get gender list in Data Access, item{0} ", item.Name ?? "Item Name is null");
+                            logger.Log(LogLevel.Debug, "update log from genders get");
+                            result.Add(mapper.MapToDao(item));
+                        } 
                     }
                 }
                 return result;
@@ -42,7 +45,7 @@ namespace Housing.Data.Domain.CRUD
             catch (Exception e)
             {
                 logger.Error(e, "Error occured in get Batches crud");
-                logger.Log(LogLevel.Error, "Retrieval of Batches failed, a{0} ");
+                logger.Log(LogLevel.Error, "Retrieval of Batches failed, exception occurred");
                 throw;
             }
         }
@@ -59,11 +62,14 @@ namespace Housing.Data.Domain.CRUD
                 var result = new List<BatchDao>();
                 foreach (var item in batches)
                 {
-                    if (item.Active)
+                    if (item != null)
                     {
-                        logger.Debug("testing get Batch list in Data Access, item{0} ", item.Name);
-                        logger.Log(LogLevel.Debug, "update log from batches get");
-                        result.Add(mapper.MapToDao(item));
+                        if (item.Active)
+                        {
+                            logger.Debug("testing get Batch list in Data Access, item{0} ", item.Name ?? "Item name is null");
+                            logger.Log(LogLevel.Debug, "update log from batches get");
+                            result.Add(mapper.MapToDao(item));
+                        } 
                     }
                 }
                 logger.Info("Batches retrieved");
@@ -92,11 +98,14 @@ namespace Housing.Data.Domain.CRUD
                 var result = new List<AssociateDao>();
                 foreach (var item in associates)
                 {
-                    if (item.Active)
+                    if (item != null)
                     {
-                        logger.Debug("testing get associate list in Data Access, item{0} ", item.Email);
-                        logger.Log(LogLevel.Debug, "update log from associate get");
-                        result.Add(mapper.MapToDao(item));
+                        if (item.Active)
+                        {
+                            logger.Debug("testing get associate list in Data Access, item{0} ", item.Email ?? "Item email is null");
+                            logger.Log(LogLevel.Debug, "update log from associate get");
+                            result.Add(mapper.MapToDao(item));
+                        } 
                     }
                 }
                 logger.Info("Genders get suceeded");
@@ -124,11 +133,14 @@ namespace Housing.Data.Domain.CRUD
                 var result = new List<HousingComplexDao>();
                 foreach (var item in complexes)
                 {
-                    if (item.Active)
+                    if (item != null)
                     {
-                        logger.Debug("testing get complex list in Data Access, item{0} ", item.Name);
-                        logger.Log(LogLevel.Debug, "update log from housingcomplex get");
-                        result.Add(mapper.MapToDao(item));
+                        if (item.Active)
+                        {
+                            logger.Debug("testing get complex list in Data Access, item{0} ", item.Name ?? "Item name is null");
+                            logger.Log(LogLevel.Debug, "update log from housingcomplex get");
+                            result.Add(mapper.MapToDao(item));
+                        } 
                     }
                 }
                 logger.Info("Housing complex gotten");
@@ -155,11 +167,14 @@ namespace Housing.Data.Domain.CRUD
                 var result = new List<HousingUnitDao>();
                 foreach (var item in units)
                 {
-                    if (item.Active)
+                    if (item != null)
                     {
-                        logger.Debug("testing get housing unit list in Data Access, item{0} ", item.HousingUnitName);
-                        logger.Log(LogLevel.Debug, "update log from housing units get");
-                        result.Add(mapper.MapToDao(item));
+                        if (item.Active)
+                        {
+                            logger.Debug("testing get housing unit list in Data Access, item{0} ", item.HousingUnitName ?? "Item housing unit name is null");
+                            logger.Log(LogLevel.Debug, "update log from housing units get");
+                            result.Add(mapper.MapToDao(item));
+                        } 
                     }
                 }
                 logger.Info("Housing units gotten");
@@ -186,11 +201,14 @@ namespace Housing.Data.Domain.CRUD
                 var result = new List<HousingDataDao>();
                 foreach (var item in data)
                 {
-                    if (item.Active)
+                    if (item != null)
                     {
-                        logger.Debug("testing get housing data list in Data Access, item{0} ", item?.HousingDataAltId ?? null);
-                        logger.Log(LogLevel.Debug, "update log from housing data get");
-                        result.Add(mapper.MapToDao(item));
+                        if (item.Active)
+                        {
+                            logger.Debug("testing get housing data list in Data Access, item{0} ", item.HousingDataAltId ?? "Item housing data alt Id is null");
+                            logger.Log(LogLevel.Debug, "update log from housing data get");
+                            result.Add(mapper.MapToDao(item));
+                        } 
                     }
                 }
                 logger.Info("housing data list gotten");
@@ -220,13 +238,16 @@ namespace Housing.Data.Domain.CRUD
                     var units = activeAssocHouse.Where(m => m.HousingComplex.Name.Equals(complexName));
                     foreach (var item in units)
                     {
-                        if (item.Active)
+                        if (item != null)
                         {
-                            logger.Debug("testing get housing unit by complex list in Data Access, item{0} ", item.AptNumber, "item{1} ",item.HousingUnitName);
-                            logger.Log(LogLevel.Debug, "update log from housing data get");
-                            result.Add(new HousingUnitDao(item.AptNumber, item.HousingUnitName, item.MaxCapacity,
-                                 mapper.genders.Find(g => g.GenderId == item.GenderId).Name,
-                                 mapper.housingUnits.Find(m => m.HousingComplex.Name.Equals(complexName)).HousingComplex.Name));
+                            if (item.Active)
+                            {
+                                logger.Debug("testing get housing unit by complex list in Data Access, item{0} ", item.AptNumber, "item{1} ", item.HousingUnitName);
+                                logger.Log(LogLevel.Debug, "update log from housing data get");
+                                result.Add(new HousingUnitDao(item.AptNumber, item.HousingUnitName, item.MaxCapacity,
+                                     mapper.genders.Find(g => g.GenderId == item.GenderId).Name,
+                                     mapper.housingUnits.Find(m => m.HousingComplex.Name.Equals(complexName)).HousingComplex.Name));
+                            } 
                         }
                     }                    
                 }
@@ -253,14 +274,20 @@ namespace Housing.Data.Domain.CRUD
                 var result = new List<HousingDataDao>();
                 if (housingUnitName != null)
                 {
-                    var data = ef.GetHousingData().ToList().Where(x => x.HousingUnit.HousingUnitName.Equals(housingUnitName));
+                    var data = ef.GetHousingData().Where(x => x.HousingUnit.HousingUnitName.Equals(housingUnitName));
                     foreach (var item in data)
                     {
-                        if (item.Active)
+                        if (item != null)
                         {
-                            logger.Debug("testing get housing data by unit list in Data Access, item{0} ", item.HousingUnit.HousingUnitName);
-                            logger.Log(LogLevel.Debug, "update log from housing data by unit get");
-                            result.Add(new HousingDataDao(item.Associate.Email, item.HousingUnit.HousingUnitName, item.MoveInDate, item.MoveOutDate, item.HousingDataAltId));
+                            if (item.Active)
+                            {
+                                logger.Debug("testing get housing data by unit list in Data Access, item{0} ", item.HousingUnit?.HousingUnitName);
+                                logger.Log(LogLevel.Debug, "update log from housing data by unit get");
+                                if (item.Associate != null && item.HousingUnit != null && item.MoveInDate != DateTime.MinValue && item.MoveOutDate != DateTime.MinValue && item.HousingDataAltId != null)
+                                {
+                                    result.Add(new HousingDataDao(item.Associate.Email, item.HousingUnit.HousingUnitName, item.MoveInDate, item.MoveOutDate, item.HousingDataAltId)); 
+                                }
+                            } 
                         }
                     }                    
                 }
