@@ -33,6 +33,8 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         [Fact]
         public void Test_DeleteBatch()
         {
+            AccessHelper a = new AccessHelper();
+            var x = a.GetBatches().Where(i => i.Name == batch.Name).FirstOrDefault();
             var mock = new Mock<IEF>();
 
             mock.Setup(i => i.DeleteBatch(It.IsAny<Batch>())).Returns(true);
@@ -45,6 +47,8 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         [Fact]
         public void Test_DeleteAssociate()
         {
+            AccessHelper h = new AccessHelper();
+            var x = h.GetAssociates().Where(i => i.Email == associate.Email).FirstOrDefault();
             var mock = new Mock<IEF>();
 
             mock.Setup(i => i.DeleteAssociate(It.IsAny<Associate>())).Returns(true);
@@ -58,6 +62,8 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         [Fact]
         public void Test_DeleteHousingComplex()
         {
+            AccessHelper a = new AccessHelper();
+            var x = a.GetHousingComplexes().Where(i => i.Name == hc.Name).FirstOrDefault();
             var mock = new Mock<IEF>();
 
             mock.Setup(i => i.DeleteHousingComplex(It.IsAny<HousingComplex>())).Returns(true);
@@ -70,6 +76,8 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         [Fact]
         public void Test_DeleteHousingUnit()
         {
+            AccessHelper a = new AccessHelper();
+            var x = a.GetHousingUnits().Where(i => i.HousingUnitName == hu.HousingUnitName).FirstOrDefault();
             var mock = new Mock<IEF>();
 
             mock.Setup(i => i.DeleteHousingUnit(It.IsAny<HousingUnit>())).Returns(true);
@@ -82,6 +90,8 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         [Fact]
         public void Test_DeleteHousingData()
         {
+            AccessHelper a = new AccessHelper();
+            var x = a.GetHousingData().Where(i => i.HousingDataAltId == hd.HousingDataAltId).FirstOrDefault();
             var mock = new Mock<IEF>();
 
             mock.Setup(i => i.DeleteHousingData(It.IsAny<HousingData>())).Returns(true);
