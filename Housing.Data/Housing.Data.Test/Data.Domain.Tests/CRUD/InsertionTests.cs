@@ -8,74 +8,68 @@ using Housing.Data;
 using Housing.Data.Domain.DataAccessObjects;
 using Housing.Data.Domain;
 using Moq;
-using System.Data.Entity;
 using Housing.Data.Domain.Helper;
 using Housing.Data.Domain.CRUD;
 
 namespace Housing.Data.Test.Data.Domain.Tests.CRUD
 {
-    public class InsertionTests
+    public partial class UnitTests
     {
         private Housing.Data.Domain.AccessMapper map = new Housing.Data.Domain.AccessMapper();
         private Housing.Data.Domain.CRUD.AccessHelper ah = new Housing.Data.Domain.CRUD.AccessHelper();
+
         public GenderDao gender = new GenderDao()
-        {            
-            Name = "Test"            
+        {
+            Name = "Male"
         };
 
-        Batch batch = new Batch()
+        public BatchDao batch = new BatchDao()
         {
-            BatchId = 1,
             Name = "Dot net",
             Instructor = "Fred",
             Technology = "C#",
             StartDate = DateTime.Parse("03/03/2017"),
-            EndDate = DateTime.Parse("06/15/2017"),
-            Active = true
+            EndDate = DateTime.Parse("06/15/2017")
         };
 
-        Associate associate = new Associate()
+        public AssociateDao associate = new AssociateDao()
         {
             FirstName = "First",
             LastName = "Last",
-            GenderId = 1,
-            BatchId = 1,
+            GenderName = "Male",
+            BatchName = "Dot net",
             PhoneNumber = "7321231233",
-            Email = "come@me.net",
+            DateOfBirth = DateTime.Parse("01/10/1990"),
+            Email = "test@test.com",
             HasCar = true,
-            HasKeys = true
+            HasKeys = true,
+            NeedsHousing = true
         };
 
-        HousingComplex hc = new HousingComplex()
+        public HousingComplexDao hc = new HousingComplexDao()
         {
-            HousingComplexId = 1,
             Name = "The Townes",
             PhoneNumber = "555-555-5555",
-            Address = "506 Pride Ave",
-            Active = true
+            Address = "506 Pride Ave"
         };
 
-        HousingUnit hu = new HousingUnit()
+        public HousingUnitDao hu = new HousingUnitDao()
         {
-            HousingUnitId = 1,
             HousingUnitName = "test",
-            HousingComplexId = 1,
+            HousingComplexName = "The Townes",
             AptNumber = "600",
-            GenderId = 1,
+            GenderName = "Male",
             MaxCapacity = 6,
-            LeaseEndDate = DateTime.Parse("06/30/2017"),
-            Active = true
+            LeaseEndDate = DateTime.Parse("06/30/2017")
         };
 
-        HousingData hd = new HousingData()
+        public HousingDataDao hd = new HousingDataDao()
         {
-            HousingDataId = 1,
             HousingDataAltId = "The Townes test",
-            HousingUnitId = 1,
-            AssociateId = 1,
+            HousingUnitName = "test",
+            AssociateEmail = "test@test.com",
             MoveInDate = DateTime.Parse("02/28/2017"),
-            MoveOutDate = DateTime.Parse("06/30/2017"),
-            Active = true
+            MoveOutDate = DateTime.Parse("06/30/2017")
         };
 
 
@@ -83,7 +77,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         public void Test_InsertGender()
         {
             var mock = new Mock<IEF>();
-            
+
             mock
                 .Setup(i => i.InsertGender(It.IsAny<Gender>())).Returns(true);
             AccessHelper ah = new AccessHelper(mock.Object);
@@ -97,27 +91,25 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         {
             var mock = new Mock<IEF>();
 
-            var itemsInserted = new List<Batch>();
-
             mock
-                .Setup(i => i.InsertBatch(It.IsAny<Batch>()))
-                .Callback((Batch item) => itemsInserted.Add(item));
-            Assert.NotNull(itemsInserted);
+                 .Setup(i => i.InsertBatch(It.IsAny<Batch>())).Returns(true);
+            AccessHelper ah = new AccessHelper(mock.Object);
+            var b = ah.InsertBatch(batch);
+            Assert.True(b);
             mock.Verify(m => m.InsertBatch(It.IsAny<Batch>()), Times.Once());
         }
 
         [Fact]
         public void Test_InsertAssociate()
         {
-            
+
             var mock = new Mock<IEF>();
 
-            var itemsInserted = new List<Associate>();
-            itemsInserted.Add(associate);
             mock
-                .Setup(i => i.InsertAssociate(It.IsAny<Associate>()))
-                .Callback((Associate item) => itemsInserted.Add(item));
-            Assert.NotNull(itemsInserted);
+                .Setup(i => i.InsertAssociate(It.IsAny<Associate>())).Returns(true);
+            AccessHelper ah = new AccessHelper(mock.Object);
+            var a = ah.InsertAssociate(associate);
+            Assert.True(a);
             mock.Verify(m => m.InsertAssociate(It.IsAny<Associate>()), Times.Once());
         }
 
@@ -126,12 +118,11 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         {
             var mock = new Mock<IEF>();
 
-            var itemsInserted = new List<HousingComplex>();
-
             mock
-                .Setup(i => i.InsertHousingComplex(It.IsAny<HousingComplex>()))
-                .Callback((HousingComplex item) => itemsInserted.Add(item));
-            Assert.NotNull(itemsInserted);
+                .Setup(i => i.InsertHousingComplex(It.IsAny<HousingComplex>())).Returns(true);
+            AccessHelper ah = new AccessHelper(mock.Object);
+            var h = ah.InsertHousingComplex(hc);
+            Assert.True(h);
             mock.Verify(m => m.InsertHousingComplex(It.IsAny<HousingComplex>()), Times.Once());
         }
 
@@ -139,13 +130,12 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         public void Test_InsertHousingUnit()
         {
             var mock = new Mock<IEF>();
-
-            var itemsInserted = new List<HousingUnit>();
-
+            
             mock
-                .Setup(i => i.InsertHousingUnit(It.IsAny<HousingUnit>()))
-                .Callback((HousingUnit item) => itemsInserted.Add(item));
-            Assert.NotNull(itemsInserted);
+                .Setup(i => i.InsertHousingUnit(It.IsAny<HousingUnit>())).Returns(true);
+            AccessHelper ah = new AccessHelper(mock.Object);
+            var h = ah.InsertHousingUnit(hu);
+            Assert.True(h);
             mock.Verify(m => m.InsertHousingUnit(It.IsAny<HousingUnit>()), Times.Once());
         }
 
@@ -153,13 +143,12 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         public void Test_InsertHousingData()
         {
             var mock = new Mock<IEF>();
-
-            var itemsInserted = new List<HousingData>();
-
+            
             mock
-                .Setup(i => i.InsertHousingData(It.IsAny<HousingData>()))
-                .Callback((HousingData item) => itemsInserted.Add(item));
-            Assert.NotNull(itemsInserted);
+                .Setup(i => i.InsertHousingData(It.IsAny<HousingData>())).Returns(true);
+            AccessHelper ah = new AccessHelper(mock.Object);
+            var h = ah.InsertHousingData(hd);
+            Assert.True(h);
             mock.Verify(m => m.InsertHousingData(It.IsAny<HousingData>()), Times.Once());
         }
     }

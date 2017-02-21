@@ -13,7 +13,7 @@ using Housing.Data.Domain;
 namespace Housing.Data.Test.Data.Domain.Tests.CRUD
 {
 
-    public class DataRetrievalTests
+    public partial class UnitTests
     {
         
         [Fact]
