@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,24 +24,29 @@ namespace Housing.Data.Domain.DataAccessObjects
 
         //ctor for new dao
         public HousingDataDao(string assocEmail, string unitName, DateTime moveIn, DateTime moveOut)
-        {           
+        {
             AssociateEmail = assocEmail;
             HousingUnitName = unitName;
             MoveInDate = moveIn;
             MoveOutDate = moveOut;
             HousingDataAltId = CRUD.AccessHelper.GetRandomHexNumber();  //gets random hex number of length 8
-            while(ah.GetHousingData().Where(m => m.HousingDataAltId.Equals(HousingDataAltId)).Count() > 0)
+            while (ah.GetHousingData().Where(m => m.HousingDataAltId.Equals(HousingDataAltId)).Count() > 0)
             {
                 HousingDataAltId = CRUD.AccessHelper.GetRandomHexNumber();  //repeat random number generation until unique
 
             }
         }
 
-        // public int HousingDataId { get; set; }
+        [Required]
         public string AssociateEmail { get; set; }
+
+        [Required]
         public string HousingUnitName { get; set; }
-        public System.DateTime MoveInDate { get; set; }
-        public System.DateTime MoveOutDate { get; set; }
+
+        public DateTime MoveInDate { get; set; }
+
+        public DateTime MoveOutDate { get; set; }
+
         public string HousingDataAltId { get; set; }
     }
 }

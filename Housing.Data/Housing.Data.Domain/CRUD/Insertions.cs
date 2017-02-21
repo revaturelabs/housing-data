@@ -12,22 +12,24 @@ namespace Housing.Data.Domain.CRUD
     public partial class AccessHelper
     {
 
-        private readonly HousingDB_DevEntities db;
-        public static AccessMapper mapper;
-        private IEF ef;
+        private static readonly HousingDB_DevEntities db = new HousingDB_DevEntities();
+        public static AccessMapper mapper=new AccessMapper(db);
+        private static IEF ef;
         /// <summary>
         /// ctor for AccessHelper creates reference for db and mapper
         /// </summary>
+        static AccessHelper()
+        {           
+                       
+        }
         public AccessHelper()
         {
-            db = new HousingDB_DevEntities();
-            ef = new EF();
-            mapper = new AccessMapper(db);
+            ef = new EF(db); 
         }
+
         public AccessHelper(IEF ief)
-        {
-            mapper = new AccessMapper(db = new HousingDB_DevEntities());
-            this.ef = ief;
+        {            
+            ef = ief;
         }
 
 
