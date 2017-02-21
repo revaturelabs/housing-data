@@ -30,7 +30,6 @@ namespace Housing.Data.Domain.CRUD
                     logger.Debug("testing delete of gender in Data Access");
                     logger.Log(LogLevel.Debug, "update log from gender delete g{0}", g.Name);
                     return ef.DeleteGender(toDelete);
-                    
                 }
                 else
                 {
@@ -95,9 +94,6 @@ namespace Housing.Data.Domain.CRUD
                     logger.Debug("testing delete of associate in Data Access");
                     logger.Log(LogLevel.Debug, "update log from associate delete t{0}", t.Email);
                     return ef.DeleteAssociate(toDelete);
-
-
-                   
                 }
                 else
                 {
@@ -130,9 +126,6 @@ namespace Housing.Data.Domain.CRUD
                     logger.Debug("testing delete of housing complex in Data Access");
                     logger.Log(LogLevel.Debug, "update log from housing complex delete h{0}", h.Name);
                     return ef.DeleteHousingComplex(toDelete);
-
-
-                    
                 }
                 else
                 {
@@ -165,9 +158,6 @@ namespace Housing.Data.Domain.CRUD
                     logger.Debug("testing delete of housing unit in Data Access");
                     logger.Log(LogLevel.Debug, "update log from housing unit delete u{0}", u.HousingUnitName);
                     return ef.DeleteHousingUnit(toDelete);
-
-
-                   
                 }
                 else
                 {
@@ -202,9 +192,6 @@ namespace Housing.Data.Domain.CRUD
                     logger.Debug("testing delete of housing data in Data Access");
                     logger.Log(LogLevel.Debug, "update log from housing data delete d{0}", d.HousingUnit.HousingUnitName);
                     return ef.DeleteHousingData(toDelete);
-
-
-                  
                 }
                 else
                 {
