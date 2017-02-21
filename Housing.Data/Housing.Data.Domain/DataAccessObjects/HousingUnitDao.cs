@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,13 +20,23 @@ namespace Housing.Data.Domain.DataAccessObjects
             GenderName = genderName;
             HousingComplexName = complexName;
         }
-       // public int HousingUnitId { get; set; }
+
+        [Required]
         public string HousingUnitName { get; set; }
+
+        [Required]
         public string AptNumber { get; set; }
+
+        [Required]
         public int MaxCapacity { get; set; }
+
+        [Required]
         public string GenderName { get; set; }
+
+        [Required]
         public string HousingComplexName { get; set; }
-        public System.DateTime LeaseEndDate { get; set; }
+
+        public DateTime LeaseEndDate { get; set; }
 
     }
 }

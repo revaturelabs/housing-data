@@ -14,8 +14,8 @@ namespace Housing.Data.Domain.Helper
         /// </summary>
         private HousingDB_DevEntities db;
 
-        public EF() {
-            db = new HousingDB_DevEntities();
+        public EF(HousingDB_DevEntities context) {
+            db = context;
         }
 
         #region Deletes
