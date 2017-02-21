@@ -16,6 +16,9 @@ using Housing.Data.Client.Areas.HelpPage.Models;
 
 namespace Housing.Data.Client.Areas.HelpPage
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class HelpPageConfigurationExtensions
     {
         private const string ApiModelPrefix = "MS_HelpPageApiModel_";

@@ -12,8 +12,11 @@ namespace Housing.Data.Domain.Helper
         /// <summary>
         /// 
         /// </summary>
-        private static readonly HousingDB_DevEntities db;
+        private HousingDB_DevEntities db;
 
+        public EF() {
+            db = new HousingDB_DevEntities();
+        }
 
         #region Deletes
 
@@ -139,6 +142,8 @@ namespace Housing.Data.Domain.Helper
 
         #endregion
 
+        #region Updates
+
         public bool UpdateAssociate(Associate old, Associate assoc)
         {
             db.Entry(old).CurrentValues.SetValues(assoc);
@@ -174,5 +179,7 @@ namespace Housing.Data.Domain.Helper
             db.Entry(old).CurrentValues.SetValues(hu);            
             return db.SaveChanges() > 0;
         }
+
+        #endregion
     }
 }
