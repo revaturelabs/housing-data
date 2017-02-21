@@ -21,7 +21,7 @@ namespace Housing.Data.Domain.CRUD
         public AccessHelper()
         {
             db = new HousingDB_DevEntities();
-            EF ef = new EF();
+            ef = new EF();
             mapper = new AccessMapper(db);
         }
         public AccessHelper(IEF ief)
