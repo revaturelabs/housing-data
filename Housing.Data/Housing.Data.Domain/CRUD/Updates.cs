@@ -60,7 +60,7 @@ namespace Housing.Data.Domain.CRUD
                     batch.BatchId = old.BatchId;
                     logger.Debug("testing update Batch list in Data Access, batch{0} ", batch.Name);
                     logger.Log(LogLevel.Debug, "update log from batches update");
-                    return ef.DeleteBatch(batch);                   
+                    return ef.UpdateBatch(old, batch);                   
                 }
                 logger.Error("Error occured in insert batch crud");
                 logger.Log(LogLevel.Error, "Insertion of batch failed, object was null");

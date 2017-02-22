@@ -92,7 +92,7 @@ namespace Housing.Data.Client.Controllers
         [HttpPost]
         public HttpResponseMessage Post([FromBody]HousingUnitDao hu)
         {
-            if (hu != null)
+            if (hu != null && ModelState.IsValid)
             {
                 try
                 {
@@ -132,7 +132,7 @@ namespace Housing.Data.Client.Controllers
         [HttpPut]
         public HttpResponseMessage Put(string id, [FromBody]HousingUnitDao hu)
         {
-            if (hu != null && !string.IsNullOrWhiteSpace(id))
+            if (hu != null && !string.IsNullOrWhiteSpace(id) && ModelState.IsValid)
             {
                 try
                 {
