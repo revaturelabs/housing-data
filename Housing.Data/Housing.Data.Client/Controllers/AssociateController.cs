@@ -91,7 +91,7 @@ namespace Housing.Data.Client.Controllers
         [HttpPost]
         public HttpResponseMessage Post([FromBody]AssociateDao a)
         {
-            if (a != null)
+            if (a != null && ModelState.IsValid)
             {
                 try
                 {
@@ -130,7 +130,7 @@ namespace Housing.Data.Client.Controllers
         [HttpPut]
         public HttpResponseMessage Put(string id, [FromBody]AssociateDao assoc)
         {
-            if (assoc != null && !string.IsNullOrWhiteSpace(id))
+            if (assoc != null && !string.IsNullOrWhiteSpace(id) && ModelState.IsValid)
             {
                 try
                 {

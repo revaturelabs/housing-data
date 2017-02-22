@@ -70,6 +70,8 @@
     <Compile Include="CRUD\Deletions.cs" />
     <Compile Include="CRUD\Insertions.cs" />
     <Compile Include="CRUD\Updates.cs" />
+    <Compile Include="CustomAnnotations\DefaultDate.cs" />
+    <Compile Include="CustomAnnotations\MinimumAgeValidation.cs" />
     <Compile Include="DataAccessObjects\AssociateDao.cs" />
     <Compile Include="DataAccessObjects\BatchDao.cs" />
     <Compile Include="DataAccessObjects\GenderDao.cs" />

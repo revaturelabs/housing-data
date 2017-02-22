@@ -92,7 +92,7 @@ namespace Housing.Data.Client.Controllers
         [HttpPost]
         public HttpResponseMessage Post([FromBody]GenderDao value)
         {
-            if (value != null)
+            if (value != null && ModelState.IsValid)
             {
                 try
                 {
@@ -133,7 +133,7 @@ namespace Housing.Data.Client.Controllers
         [HttpPut]
         public HttpResponseMessage Put(string id, [FromBody]GenderDao value)
         {
-            if (value != null)
+            if (value != null && ModelState.IsValid)
             {
                 try
                 {

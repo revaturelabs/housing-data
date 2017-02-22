@@ -25,7 +25,7 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
 
         public BatchDao batch = new BatchDao()
         {
-            Name = "Dot net",
+            Name = "1702-feb6-java",
             Instructor = "Fred",
             Technology = "C#",
             StartDate = DateTime.Parse("03/03/2017"),
@@ -36,8 +36,8 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         {
             FirstName = "Joe",
             LastName = "Blow",
-            GenderName = "Male",
-            BatchName = "Dot net",
+            GenderName = "male",
+            BatchName = "1702-feb6-java",
             PhoneNumber = "7321231233",
             DateOfBirth = DateTime.Parse("01/10/1990"),
             Email = "test@test.com",
@@ -56,18 +56,18 @@ namespace Housing.Data.Test.Data.Domain.Tests.CRUD
         public HousingUnitDao hu = new HousingUnitDao()
         {
             HousingUnitName = "test",
-            HousingComplexName = "The Townes",
+            HousingComplexName = "Castle Thonaj",
             AptNumber = "600",
-            GenderName = "Male",
+            GenderName = "male",
             MaxCapacity = 6,
             LeaseEndDate = DateTime.Parse("06/30/2017")
         };
 
         public HousingDataDao hd = new HousingDataDao()
         {
-            HousingDataAltId = "The Townes test",
-            HousingUnitName = "test",
-            AssociateEmail = "test@test.com",
+            HousingDataAltId = null,
+            HousingUnitName = "Castle Thonaj 555",
+            AssociateEmail = "test3@email.com",
             MoveInDate = DateTime.Parse("02/28/2017"),
             MoveOutDate = DateTime.Parse("06/30/2017")
         };

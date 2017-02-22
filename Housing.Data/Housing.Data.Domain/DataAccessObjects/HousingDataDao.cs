@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Housing.Data.Domain.CustomAnnotations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -38,13 +39,17 @@ namespace Housing.Data.Domain.DataAccessObjects
         }
 
         [Required]
+        [EmailAddress]
         public string AssociateEmail { get; set; }
 
         [Required]
+        [StringLength(100, ErrorMessage = "Length must be between 2 and 100.", MinimumLength = 2)]
         public string HousingUnitName { get; set; }
 
+        [DefaultDate]
         public DateTime MoveInDate { get; set; }
-
+        
+        [DefaultDate]
         public DateTime MoveOutDate { get; set; }
 
         public string HousingDataAltId { get; set; }
