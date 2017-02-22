@@ -27,7 +27,7 @@ namespace Housing.Data.Domain.DataAccessObjects
         public string BatchName { get; set; }
 
         [Required]
-        [StringLength(20, ErrorMessage = "Length must be between 2 and 100.", MinimumLength = 7)]
+        [Phone]
         public string PhoneNumber { get; set; }
 
         [Required]
